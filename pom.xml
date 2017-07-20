@@ -53,6 +53,12 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 			<version>1.5.4.RELEASE</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>1.5.4.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
@@ -153,11 +159,7 @@
 						<artifactId>bootstrap</artifactId>
 						<version>3.3.7-1</version>
 					</dependency>
-					<dependency>
-						<groupId>org.webjars</groupId>
-						<artifactId>three.js</artifactId>
-						<version>r77</version>
-					</dependency>
+
 				</dependencies>
 			</plugin>
 		</plugins>

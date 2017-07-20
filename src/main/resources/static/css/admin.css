@@ -1,0 +1,134 @@
+	body {
+			font-family: 'Zilla Slab', serif;
+			background-color: rgb(238, 238, 238);
+			margin: 0px;
+			font-size: 15px;
+		
+		}
+	  .linkespalte {
+		   width: 20%;
+		   height: 100%;
+		   vertical-align:top;
+		   margin-right: 5vh;
+		}
+	  .mittespalte {
+		   width: 40%;
+		   vertical-align:top;
+		   height:100%;
+		}
+		.rechtespalte {
+		   width: 40%;
+		   vertical-align:top;
+		   height:100%;	
+		}
+		.breitespalte {
+		   width: 80%;
+		   vertical-align:top;
+		   height:100%;
+		}
+	  .backendTable {
+		width: 90%;
+		border-width:2px;
+		height: 90%;
+		
+	  }
+	  
+	  input {
+		display: block;
+		margin-top: 1vh;
+		margin-bottom: 3vh;
+		}
+	  td {
+	  padding-left: 2vh;
+	  }
+	  .main {
+		height:100vh;
+	  }
+	  ul { 
+		list-style: none;
+		padding-left: 0;
+		font-size: 18px;
+	  }
+	  li {
+	  margin-bottom:2vh;
+	  }
+	 
+	 .unterliste{
+		padding-left: 20px;
+		font-size: 16px;
+	  }
+	  
+	  .untermenue {
+		margin-bottom:0vh;
+	  }
+	  
+	  
+	  button {
+		margin-top: 2vh;
+	  }
+	  textarea {
+	  display: block;
+	  resize:none;
+	  margin-top: 2vh;
+	  margin-bottom: 5vh;
+	  }
+	  a {
+		text-decoration:none;
+		color:black;
+	  }
+	  .informular{
+	  display: block;
+	  }
+	  
+	  hr{
+	  margin: 2vh 2vh 2vh 0vh;
+	  }
+	  .batchtitle{
+	  display: block;
+	  font-size: 18px;
+	  font-weight: bold;
+	  }
+	  img {    
+	  max-width:90%;
+	  }
+	  label{
+	  border-bottom:1px dashed #000000;
+	  }
+	  button {
+		  -webkit-border-radius: 7;
+		  -moz-border-radius: 7;
+		  border-radius: 4px;
+		  color: #000000;
+		  font-family: 'Zilla Slab', serif;
+		  font-size: 12px;
+		  background: #bababa;
+		  padding: 1vh 2vh 1vh 2vh;
+		  text-decoration: none;
+		}
+
+	 button:hover {
+		  background: #9ebba2;
+		  background-image: -webkit-linear-gradient(top, #9ebba2, #9ebba2);
+		  background-image: -moz-linear-gradient(top, #9ebba2, #9ebba2);
+		  background-image: -ms-linear-gradient(top, #9ebba2, #9ebba2);
+		  background-image: -o-linear-gradient(top, #9ebba2, #9ebba2);
+		  background-image: linear-gradient(to bottom, #9ebba2, #9ebba2);
+		  text-decoration: none;
+		}
+	.headline{
+		font-weight:bold;
+		height: 18px;
+	}
+	.thintable td, th {
+    border: 1px solid black;
+	}
+	.thintable a{
+		color:#C94646;
+	}
+	.thintable{
+		border-collapse: collapse;
+		padding-right:5vh;
+	}
+	.mailing td tr{
+		padding: 5vh 0 5vh 0;
+	}

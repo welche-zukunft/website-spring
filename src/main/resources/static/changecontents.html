@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>backend welche zukunft ?!</title>
+<link href="https://fonts.googleapis.com/css?family=Zilla+Slab"
+	rel="stylesheet">
+</head>
+
+
+
+<body>
+	<div class="main">
+		<table align="center" class="backendTable" border="1">
+			<tr>
+				<!-- menue -->
+
+
+
+				<!-- formular -->
+
+
+
+
+				<td class="mittespalte">
+
+					<h4>Inhalte verändern</h4>
+
+					<div class="generic-container"
+						ng-controller="changecontents as ctrl">
+
+						<form ng-submit="ctrl.submit()">
+
+							<label class="h2">WorkshopleiterIn</label> 
+							
+							<input type="text" ng-model="ctrl.workshop.leiterIn" name="leiterIn" maxlength="50" size="50"/>
+
+							<textarea rows="5" cols="50" ng-model="ctrl.workshop.kurzinfo"></textarea>
+							
+							<input type="submit" id="submit" value="Submit" />
+							<pre>list={{list}}</pre>
+						</form>
+					</div>
+
+
+
+
+					<form action="" id="person">
+						<label class="h2" form="person">WorkshopleiterIn</label> <input
+							type="text" name="vorname" id="vorname" maxlength="50" size="50">
+
+						<label for="zuname">Titel Workshop</label> <input type="text"
+							name="zuname" id="zuname" maxlength="80" size="50"> <label
+							for="zuname">Logline</label>
+						<textarea rows="5" cols="50"></textarea>
+
+						<label for="zuname">Kurzintro</label>
+						<textarea rows="7" cols="50"></textarea>
+
+						<label for="zuname">Intro</label>
+						<textarea rows="15" cols="50"></textarea>
+
+						<label for="zuname">CV WorkshopleiterIn</label>
+						<textarea rows="15" cols="50"></textarea>
+
+						<label for="zuname">Foto WorkshopleiterIn</label>
+						<table>
+							<tr>
+								<td width="25vh"><button class="informular" type="upload">Foto
+										hochladen</button>
+									<p class="anmerkung">Bitte nur jpg oder png mit einer
+										Grösse von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
+							</tr>
+						</table>
+						<hr>
+						<label class="h2" form="person">Name ModeratorIn</label> <input
+							type="text" name="vorname" id="vorname" maxlength="50" size="50">
+
+						<label for="zuname">CV ModeratoIn</label>
+						<textarea rows="15" cols="50"></textarea>
+						<hr>
+						<button type="reset">Eingaben zurücksetzen</button>
+						<button type="submit">Eingaben speichern</button>
+						<br> <br>
+					</form>
+				</td>
+				<td class="rechtespalte">
+					<h4 class="batchtitle">Event 1</h4> <label for="zuname">Überschrift</label>
+					<input type="text" name="zuname" id="zuname" maxlength="80"
+					size="50"> <label for="zuname">Jahr</label> <input
+					type="text" name="zuname" id="zuname" maxlength="4" size="10">
+					<label for="zuname">Text</label> <textarea rows="7" cols="50"></textarea>
+					<label for="zuname">Embed Code</label> <textarea rows="2" cols="50"></textarea>
+					<label for="zuname">Foto hochladen</label>
+					<table>
+						<tr>
+							<td width="25vh"><button class="informular" type="upload">Foto
+									hochladen</button>
+								<p class="anmerkung">Bitte nur jpg oder png mit einer Grösse
+									von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
+						</tr>
+					</table>
+					<button type="reset">Event löschen</button>
+					<hr>
+
+					<h4 class="batchtitle">Event 2</h4> <label for="zuname">Überschrift</label>
+					<input type="text" name="zuname" id="zuname" maxlength="80"
+					size="50"> <label for="zuname">Jahr</label> <input
+					type="text" name="zuname" id="zuname" maxlength="4" size="10">
+					<label for="zuname">Text</label> <textarea rows="7" cols="50"></textarea>
+					<label for="zuname">Embed Code</label> <textarea rows="2" cols="50"></textarea>
+					<label for="zuname">Foto hochladen</label>
+					<table>
+						<tr>
+							<td width="25vh"><button class="informular" type="upload">Foto
+									hochladen</button>
+								<p class="anmerkung">Bitte nur jpg oder png mit einer Grösse
+									von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
+						</tr>
+					</table>
+					<button type="reset">Event löschen</button>
+					<hr>
+					<button type="reset">+ Event hinzufügen</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
+
