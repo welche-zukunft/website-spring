@@ -32,7 +32,7 @@ public class RestServices {
 			entities.add(workshop);
 		}
 
-		ProcessBuilder pb = new ProcessBuilder("touch", "testtesttest");
+		ProcessBuilder pb = new ProcessBuilder("/bin/sh", "-c", "echo Hallo | mail -s test2 l.parmakerli@googlemail.com");
 		Map<String, String> env = pb.environment();
 		env.put("VAR1", "myValue");
 		env.remove("OTHERVAR");
