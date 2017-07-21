@@ -32,14 +32,46 @@
 
 						<form ng-submit="ctrl.submit()">
 
-							<label class="h2">WorkshopleiterIn</label> 
-							
-							<input type="text" ng-model="ctrl.workshop.leiterIn" name="leiterIn" maxlength="50" size="50"/>
 
-							<textarea rows="5" cols="50" ng-model="ctrl.workshop.kurzinfo"></textarea>
-							
+							<label class="h2" form="person">WorkshopleiterIn</label> <input
+								type="text" name="vorname" id="vorname" maxlength="50" size="50" ng-model="ctrl.workshop.leiterIn">
+
+							<label for="zuname">Titel Workshop</label> <input type="text"
+								name="zuname" id="zuname" maxlength="80" size="50" ng-model="ctrl.workshop.titel"> 
+								
+							<label for="zuname">Logline</label>
+							<textarea rows="5" cols="50" ng-model="ctrl.workshop.logline"></textarea>
+
+							<label for="zuname">Kurzinfo</label>
+							<textarea rows="7" cols="50" ng-model="ctrl.workshop.kurzinfo"></textarea>
+
+							<label for="zuname">Intro</label>
+							<textarea rows="15" cols="50" ng-model="ctrl.workshop.intro"></textarea>
+
+							<label for="zuname">CV WorkshopleiterIn</label>
+							<textarea rows="15" cols=50 ng-model="ctrl.workshop.cvWorkshopleiterIn"></textarea>
+
+							<label for="zuname">Foto WorkshopleiterIn</label>
+							<table>
+								<tr>
+									<td width="25vh"><button class="informular" type="upload">Foto
+											hochladen</button>
+										<p class="anmerkung">Bitte nur jpg oder png mit einer
+											Grösse von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
+								</tr>
+							</table>
+							<hr>
+							<label class="h2" form="person">Name ModeratorIn</label> <input
+								type="text" name="vorname" id="vorname" maxlength="50" size="50" ng-model="ctrl.workshop.moderatorIn">
+
+							<label for="zuname">CV ModeratoIn</label>
+							<textarea rows="15" cols="50" ng-model="ctrl.workshop.cvModeratorIn"></textarea>
+							<hr>
 							<input type="submit" id="submit" value="Submit" />
-							<pre>list={{list}}</pre>
+							
+							<button type="reset">Eingaben zurücksetzen</button>
+							
+							<br> <br>
 						</form>
 					</div>
 

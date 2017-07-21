@@ -4,14 +4,25 @@ angular.module('main').controller('changecontents', ['ChangeContentService', fun
 	console.log("change contents");
 
 	
-	self.workshop={id:null,leiterIn:'',address:'',email:'', kurzinfo:''};
+	self.workshop={
+			id:1,
+			leiterIn:'',
+			titel:'',
+			logline:'', 
+			kurzinfo:'', 
+			intro:'', 
+			cvWorkshopleiterIn:'', 
+			moderatorIn:'', 
+			cvModeratorIn:''
+	};
+	
     self.workshops=[];
  
     self.submit = submit;
 
     
     function submit() {
-        if(self.workshop.id===null){
+        if(self.workshop.id===1){
             console.log('Saving workshop', self.workshop);
             changeContent(self.workshop);
         }else{
