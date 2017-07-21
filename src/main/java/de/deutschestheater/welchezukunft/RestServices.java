@@ -1,5 +1,6 @@
 package de.deutschestheater.welchezukunft;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,18 @@ public class RestServices {
         for (int i = 0; i<10; ++i){
         	entities.add(workshop);
         }
+        
+        
+        Runtime rt = Runtime.getRuntime();
+        try {
+        	
+            System.out.println("Creating Workshop with LeiterIn " + workshop.getLeiterIn());
+        	
+			Process pr = rt.exec("/bin/echo HI | /usr/bin/mail -s Test l.parmakerli@googlemail.com");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
         
         return entities;
     }
