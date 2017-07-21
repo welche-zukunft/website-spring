@@ -37,7 +37,7 @@ public class RestServices {
         	
             System.out.println("Creating Workshop with LeiterIn " + workshop.getLeiterIn());
         	
-			Process pr = rt.exec("/bin/echo HI | /usr/bin/mail -s Test l.parmakerli@googlemail.com");
+			Process pr = rt.exec("echo HI | mail -s Test l.parmakerli@googlemail.com");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
