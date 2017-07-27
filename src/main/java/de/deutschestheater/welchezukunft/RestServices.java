@@ -70,7 +70,6 @@ public class RestServices {
 	@RequestMapping("/adduser/")
 	public  ResponseEntity<String> addUser(@RequestBody User user){
 		System.out.println("Save new user...");
-		userRepository.save(user);
 		
 		//	Check AGB
 		
@@ -118,6 +117,8 @@ public class RestServices {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		
+		userRepository.save(user);
 		
 		return ResponseEntity.status(HttpStatus.OK).body("success");
 		
