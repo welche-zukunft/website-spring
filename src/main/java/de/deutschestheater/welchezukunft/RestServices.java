@@ -73,7 +73,9 @@ public class RestServices {
 		
 		//	Check AGB
 		
-		if ( !user.getAgb().equals(AGB.YES.name())){
+		
+		
+		if ( !user.getAgb().equals(AGB.YES)){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("agb not accepted");
 		}
 		
