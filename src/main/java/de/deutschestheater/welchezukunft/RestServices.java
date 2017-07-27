@@ -81,7 +81,10 @@ public class RestServices {
 		
 		//	Validate email
 		
-		if (user.getMail() == user.getMailConfirm()){
+		System.out.println(user.getMail());
+		System.out.println(user.getMailConfirm());
+		
+		if (!user.getMail().equals(user.getMailConfirm())){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("mail addresses do not match");
 		}
 		
