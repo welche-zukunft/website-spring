@@ -1,14 +1,20 @@
 package de.deutschestheater.welchezukunft;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import enumutils.AGB;
+import enumutils.Status;
+
 @Entity
 public class User {
+	
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private Integer workshopId;
@@ -17,9 +23,36 @@ public class User {
 	
 	private String mail;
 	
+	private String mailConfirm;
+
 	private String vorname;
 	
 	private String nachname;
+	
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	
+	@Enumerated(EnumType.STRING)
+	private AGB agb;
+
+	
+	
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public AGB getAgb() {
+		return agb;
+	}
+
+	public void setAgb(AGB agb) {
+		this.agb = agb;
+	}
 
 	public Long getId() {
 		return id;
@@ -68,5 +101,32 @@ public class User {
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
+	
+	public String getMailConfirm() {
+		return mailConfirm;
+	}
+
+	public void setMailConfirm(String mailConfirm) {
+		this.mailConfirm = mailConfirm;
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this.id == ((User)obj).id) {
+	        return true;
+	    } else {
+	    	return false;
+	    }
+	}
+
+	@Override
+	public int hashCode() {
+	    int hash = 3;
+	    hash = 53 * hash + (this.nachname != null ? this.nachname.hashCode() : 0);
+	    return hash;
+	}
+	
+	
 
 }

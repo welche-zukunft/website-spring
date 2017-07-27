@@ -7,12 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import enumutils.AGB;
+import enumutils.Status;
 
 @RestController
 public class RestServices {
@@ -63,9 +68,37 @@ public class RestServices {
 	
 	
 	@RequestMapping("/adduser/")
-	public String addUser(@RequestBody User user){
+	public  ResponseEntity<String> addUser(@RequestBody User user){
 		System.out.println("Save new user...");
 		userRepository.save(user);
+		
+		//	Check AGB
+		
+		if ( !user.getAgb().equals(AGB.YES.name())){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("agb not accepted");
+		}
+		
+		//	Validate email
+		
+		if (user.getMail() == user.getMailConfirm()){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("mail addresses do not match");
+		}
+		
+		boolean valid = EmailValidator.getInstance().isValid(user.getMail());
+		
+		if (!valid){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not a valid mail address");
+		}
+		
+		
+		//	Create an ID
+		
+		user.setId( (long) (user.getNachname().hashCode() + user.getVorname().hashCode() + user.getMail().hashCode()));
+		
+		
+		//	Set status to pending
+		
+		user.setStatus(Status.ANGEMELDET);	
 		
 		ProcessBuilder pb = new ProcessBuilder("/bin/sh", "-c", "echo Hallo | mail -s test " + user.getMail());
 		Map<String, String> env = pb.environment();
@@ -86,10 +119,10 @@ public class RestServices {
 			e1.printStackTrace();
 		}
 		
-		return "success";
+		return ResponseEntity.status(HttpStatus.OK).body("success");
 		
 	}
 	
-
+	
 
 }
