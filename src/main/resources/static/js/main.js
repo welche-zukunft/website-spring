@@ -45,7 +45,7 @@ angular.module('main', [ 'ngRoute' ])
 
 .factory('ChangeContentService', ['$http', '$q', function($http, $q){
  
-    var REST_SERVICE_URI = 'http://localhost:8080/admin';
+    var REST_SERVICE_URI = 'http://welchezukunft.org:8080/admin';
  
     var factory = {
     	changeContent : changeContent,
