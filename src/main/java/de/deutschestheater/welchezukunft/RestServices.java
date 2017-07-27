@@ -84,7 +84,7 @@ public class RestServices {
 	
 	@RequestMapping("/adduser/")
 	public String addUser(@RequestBody User user){
-		
+		System.out.println("Save new user...");
 		userRepository.save(user);
 		
 		return "success";
