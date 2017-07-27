@@ -73,8 +73,6 @@ public class RestServices {
 		
 		//	Check AGB
 		
-		
-		
 		if ( !user.getAgb().equals(AGB.YES)){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("agb not accepted");
 		}
@@ -94,11 +92,9 @@ public class RestServices {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not a valid mail address");
 		}
 		
-		
 		//	Create an ID
 		
-		user.setId( (long) (user.getNachname().hashCode() + user.getVorname().hashCode() + user.getMail().hashCode()));
-		
+		user.setId( (long) (user.getMail().toLowerCase().hashCode()));
 		
 		//	Set status to pending
 		
@@ -130,5 +126,20 @@ public class RestServices {
 	}
 	
 	
+	
+	@RequestMapping("/confirmregistration/")
+	public  ResponseEntity<String> confirmRegistration(@RequestBody String mail){
+		System.out.println("Save new user...");
+		
+		User user = userRepository.findOne((long)mail.hashCode());
+		
+		if (user == null){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user did not apply for registration");
+		}
+		
+		user.setStatus(Status.BESTÄTIGT);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("success");
+	}
 
 }
