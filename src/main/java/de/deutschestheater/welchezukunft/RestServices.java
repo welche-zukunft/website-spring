@@ -139,6 +139,8 @@ public class RestServices {
 		
 		user.setStatus(Status.BESTÄTIGT);
 		
+		userRepository.save(user);
+		
 		return ResponseEntity.status(HttpStatus.OK).body("success");
 	}
 
