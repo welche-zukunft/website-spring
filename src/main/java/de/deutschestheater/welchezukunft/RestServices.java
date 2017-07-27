@@ -129,7 +129,7 @@ public class RestServices {
 	
 	@RequestMapping("/confirmregistration/")
 	public  ResponseEntity<String> confirmRegistration(@RequestBody String mail){
-		System.out.println("Save new user...");
+		System.out.println("User ID from Mail hash " + mail.hashCode() );
 		
 		User user = userRepository.findOne((long)mail.hashCode());
 		
