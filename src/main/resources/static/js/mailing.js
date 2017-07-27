@@ -1,5 +1,5 @@
-angular.module('hello').controller('mailing', function() {
-	console.log('mailing');
+angular.module('main').controller('mailing', function() {
+	console.log('mailing ');
 	var self = this;
-
+	
 });

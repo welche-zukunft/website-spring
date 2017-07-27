@@ -47,7 +47,7 @@ public class MainController {
 		mailSubscriberRepository.save(n);
 
 		send(email);
-
+		
 		return "Saved";
 	}
 

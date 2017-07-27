@@ -11,34 +11,33 @@
 
 
 <body>
-	<div class="main">
-		<table align="center" class="backendTable" border="1">
-			<tr>
-				<!-- menue -->
+
+	<div class="generic-container" ng-controller="changecontents as ctrl">
+
+		<div class="main">
+			<table align="center" class="backendTable" border="1">
+				<tr>
+					<!-- menue -->
 
 
 
-				<!-- formular -->
+					<!-- formular -->
+
+					<td class="mittespalte">
+
+						<h4>Inhalte verändern</h4>
 
 
-
-
-				<td class="mittespalte">
-
-					<h4>Inhalte verändern</h4>
-
-					<div class="generic-container"
-						ng-controller="changecontents as ctrl">
 
 						<form ng-submit="ctrl.submit()">
 
 
 							<label class="h2" form="person">WorkshopleiterIn</label> <input
-								type="text" name="vorname" id="vorname" maxlength="50" size="50" ng-model="ctrl.workshop.leiterIn">
+								type="text" name="vorname" id="vorname" maxlength="50" size="50"
+								ng-model="ctrl.workshop.leiterIn"> <label for="zuname">Titel
+								Workshop</label> <input type="text" name="zuname" id="zuname"
+								maxlength="80" size="50" ng-model="ctrl.workshop.titel">
 
-							<label for="zuname">Titel Workshop</label> <input type="text"
-								name="zuname" id="zuname" maxlength="80" size="50" ng-model="ctrl.workshop.titel"> 
-								
 							<label for="zuname">Logline</label>
 							<textarea rows="5" cols="50" ng-model="ctrl.workshop.logline"></textarea>
 
@@ -49,7 +48,8 @@
 							<textarea rows="15" cols="50" ng-model="ctrl.workshop.intro"></textarea>
 
 							<label for="zuname">CV WorkshopleiterIn</label>
-							<textarea rows="15" cols=50 ng-model="ctrl.workshop.cvWorkshopleiterIn"></textarea>
+							<textarea rows="15" cols=50
+								ng-model="ctrl.workshop.cvWorkshopleiterIn"></textarea>
 
 							<label for="zuname">Foto WorkshopleiterIn</label>
 							<table>
@@ -62,102 +62,92 @@
 							</table>
 							<hr>
 							<label class="h2" form="person">Name ModeratorIn</label> <input
-								type="text" name="vorname" id="vorname" maxlength="50" size="50" ng-model="ctrl.workshop.moderatorIn">
-
-							<label for="zuname">CV ModeratoIn</label>
-							<textarea rows="15" cols="50" ng-model="ctrl.workshop.cvModeratorIn"></textarea>
+								type="text" name="vorname" id="vorname" maxlength="50" size="50"
+								ng-model="ctrl.workshop.moderatorIn"> <label
+								for="zuname">CV ModeratoIn</label>
+							<textarea rows="15" cols="50"
+								ng-model="ctrl.workshop.cvModeratorIn"></textarea>
 							<hr>
 							<input type="submit" id="submit" value="Submit" />
-							
+
 							<button type="reset">Eingaben zurücksetzen</button>
-							
+
 							<br> <br>
 						</form>
-					</div>
+
+
+					</td>
+
+					<td class="rechtespalte">
 
 
 
+						<div ng-repeat="event in ctrl.events">
 
-					<form action="" id="person">
-						<label class="h2" form="person">WorkshopleiterIn</label> <input
-							type="text" name="vorname" id="vorname" maxlength="50" size="50">
+							<form>
 
-						<label for="zuname">Titel Workshop</label> <input type="text"
-							name="zuname" id="zuname" maxlength="80" size="50"> <label
-							for="zuname">Logline</label>
-						<textarea rows="5" cols="50"></textarea>
 
-						<label for="zuname">Kurzintro</label>
-						<textarea rows="7" cols="50"></textarea>
+								<h4 class="batchtitle">Event 1</h4>
+								<label for="zuname">Überschrift</label> <input type="text"
+									name="zuname" id="zuname" maxlength="80" size="50"> <label
+									for="zuname">Jahr</label> <input type="text" name="zuname"
+									id="zuname" maxlength="4" size="10"> <label
+									for="zuname">Text</label>
+								<textarea rows="7" cols="50"></textarea>
+								<label for="zuname">Embed Code</label>
+								<textarea rows="2" cols="50"></textarea>
+								<label for="zuname">Foto hochladen</label>
+								<table>
+									<tr>
+										<td width="25vh"><button class="informular" type="upload">Foto
+												hochladen</button>
+											<p class="anmerkung">Bitte nur jpg oder png mit einer
+												Grösse von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
+									</tr>
+								</table>
 
-						<label for="zuname">Intro</label>
-						<textarea rows="15" cols="50"></textarea>
+								<button ng-click="ctrl.submitEvent()">Save</button>
+								<hr>
+								<button ng-click="ctrl.removeEvent()">Event Löschen</button>
 
-						<label for="zuname">CV WorkshopleiterIn</label>
-						<textarea rows="15" cols="50"></textarea>
+							</form>
 
-						<label for="zuname">Foto WorkshopleiterIn</label>
-						<table>
-							<tr>
-								<td width="25vh"><button class="informular" type="upload">Foto
-										hochladen</button>
-									<p class="anmerkung">Bitte nur jpg oder png mit einer
-										Grösse von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
-							</tr>
-						</table>
-						<hr>
-						<label class="h2" form="person">Name ModeratorIn</label> <input
-							type="text" name="vorname" id="vorname" maxlength="50" size="50">
+						</div>
 
-						<label for="zuname">CV ModeratoIn</label>
-						<textarea rows="15" cols="50"></textarea>
-						<hr>
-						<button type="reset">Eingaben zurücksetzen</button>
-						<button type="submit">Eingaben speichern</button>
-						<br> <br>
-					</form>
-				</td>
-				<td class="rechtespalte">
-					<h4 class="batchtitle">Event 1</h4> <label for="zuname">Überschrift</label>
-					<input type="text" name="zuname" id="zuname" maxlength="80"
-					size="50"> <label for="zuname">Jahr</label> <input
-					type="text" name="zuname" id="zuname" maxlength="4" size="10">
-					<label for="zuname">Text</label> <textarea rows="7" cols="50"></textarea>
-					<label for="zuname">Embed Code</label> <textarea rows="2" cols="50"></textarea>
-					<label for="zuname">Foto hochladen</label>
-					<table>
-						<tr>
-							<td width="25vh"><button class="informular" type="upload">Foto
-									hochladen</button>
-								<p class="anmerkung">Bitte nur jpg oder png mit einer Grösse
-									von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
-						</tr>
-					</table>
-					<button type="reset">Event löschen</button>
-					<hr>
 
-					<h4 class="batchtitle">Event 2</h4> <label for="zuname">Überschrift</label>
-					<input type="text" name="zuname" id="zuname" maxlength="80"
-					size="50"> <label for="zuname">Jahr</label> <input
-					type="text" name="zuname" id="zuname" maxlength="4" size="10">
-					<label for="zuname">Text</label> <textarea rows="7" cols="50"></textarea>
-					<label for="zuname">Embed Code</label> <textarea rows="2" cols="50"></textarea>
-					<label for="zuname">Foto hochladen</label>
-					<table>
-						<tr>
-							<td width="25vh"><button class="informular" type="upload">Foto
-									hochladen</button>
-								<p class="anmerkung">Bitte nur jpg oder png mit einer Grösse
-									von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
-						</tr>
-					</table>
-					<button type="reset">Event löschen</button>
-					<hr>
-					<button type="reset">+ Event hinzufügen</button>
-				</td>
-			</tr>
-		</table>
-	</div>
+
+						<form>
+
+
+							<h4 class="batchtitle">Neues Event</h4>
+							<label for="zuname">Überschrift</label> <input type="text"
+								name="zuname" id="zuname" maxlength="80" size="50"> <label
+								for="zuname">Jahr</label> <input type="text" name="zuname"
+								id="zuname" maxlength="4" size="10"> <label for="zuname">Text</label>
+							<textarea rows="7" cols="50"></textarea>
+							<label for="zuname">Embed Code</label>
+							<textarea rows="2" cols="50"></textarea>
+							<label for="zuname">Foto hochladen</label>
+							<table>
+								<tr>
+									<td width="25vh"><button class="informular" type="upload">Foto
+											hochladen</button>
+										<p class="anmerkung">Bitte nur jpg oder png mit einer
+											Grösse von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
+								</tr>
+							</table>
+
+
+
+							<button ng-click="ctrl.addEvent()">Event hinzufügen</button>
+
+
+						</form>
+
+					</td>
+				</tr>
+			</table>
+		</div>
 </body>
 </html>
 

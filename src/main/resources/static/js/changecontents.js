@@ -1,11 +1,12 @@
-angular.module('main').controller('changecontents', ['ChangeContentService', function(ChangeContentService) {
+angular.module('main').controller('changecontents', ['ChangeContentService', '$routeParams', function(ChangeContentService, $routeParams) {
 	var self = this;
 	
-	console.log("change contents");
-
+	console.log("change contents " + $routeParams.param1);
 	
+	getWorkshop($routeParams.param1);
+		
 	self.workshop={
-			id:1,
+			id: 0,
 			leiterIn:'',
 			titel:'',
 			logline:'', 
@@ -16,21 +17,32 @@ angular.module('main').controller('changecontents', ['ChangeContentService', fun
 			cvModeratorIn:''
 	};
 	
-    self.workshops=[];
+    self.events=[1,2,3,4,5];
  
     self.submit = submit;
+    self.submitEvent = submitEvent;
+    self.addEvent = addEvent;
+    self.removeEvent = removeEvent;
+
 
     
     function submit() {
-        if(self.workshop.id===1){
             console.log('Saving workshop', self.workshop);
             changeContent(self.workshop);
-        }else{
-            // updateUser(self.user, self.user.id);
-            console.log('User updated with id ', self.workshop.id);
-        }
-        // reset();
+            console.log (self.events.length);
     }
+
+    
+    function submitEvent() {
+    	console.log("Hallo i bims 1 Event");
+    }
+    function removeEvent() {
+    	console.log("Hallo i bims k1 Event");
+    }
+    function addEvent() {
+    	console.log("Hallo i bims add Event");
+    }
+    
     
     function changeContent(workshop){
     	console.log('Change contnent...');
@@ -38,6 +50,34 @@ angular.module('main').controller('changecontents', ['ChangeContentService', fun
             .then(
             function(errResponse){
                 console.error('Error while changing content 2');
+            }
+        );
+    }
+    
+    function getWorkshop(id){
+    	console.log('get workshop...');
+        ChangeContentService.getWorkshop(id)
+            .then(
+            function(result){
+            	self.workshop = result;
+                console.log(result.leiterIn);
+            },
+            function(errResponse){
+                console.error('Error while getting Workshop');
+            }
+        );
+    }
+    
+    function getWorkshops(){
+    	console.log('get workshop...');
+        ChangeContentService.getWorkshops()
+            .then(
+            function(result){
+            	self.workshops = result;
+                console.log(result);
+            },
+            function(errResponse){
+                console.error('Error while getting Workshops');
             }
         );
     }

@@ -25,7 +25,7 @@ angular.module('main', [ 'ngRoute' ])
 		controller : 'workshops',
 		controllerAs: 'controller'
 	})
-	.when('/changecontents', {
+	.when('/changecontents/:param1', {
 		templateUrl : 'changecontents.html',
 		controller : 'changecontents',
 		controllerAs: 'controller'
@@ -34,7 +34,7 @@ angular.module('main', [ 'ngRoute' ])
 		templateUrl : 'mailing.html',
 		controller : 'mailing',
 		controllerAs: 'controller'
-	}).otherwise('/');
+	}).otherwise('/login');
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -45,10 +45,12 @@ angular.module('main', [ 'ngRoute' ])
 
 .factory('ChangeContentService', ['$http', '$q', function($http, $q){
  
-    var REST_SERVICE_URI = 'http://localhost:8080/admin/changecontents/';
+    var REST_SERVICE_URI = 'http://localhost:8080/admin';
  
     var factory = {
-    	changeContent : changeContent
+    	changeContent : changeContent,
+    	getWorkshop : getWorkshop,
+    	getWorkshops : getWorkshops
     };
  
     return factory;
@@ -56,7 +58,7 @@ angular.module('main', [ 'ngRoute' ])
  
     function changeContent(workshop) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI, workshop)
+        $http.post(REST_SERVICE_URI + "/changecontents/", workshop)
             .then(
             function (response) {
                 console.log('Success on changing content');
@@ -70,6 +72,41 @@ angular.module('main', [ 'ngRoute' ])
         );
         return deferred.promise;
     }
+    
+    function getWorkshop(id) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + "/getworkshop/" + id + "/")
+            .then(
+            function (response) {
+                console.log('Success on getting workshop');
+                deferred.resolve(response.data);
+                console.log('response data : ' + response.data.kurzinfo);
+            },
+            function(errResponse){
+                console.error('Error while getting workshop ');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
+    
+    function getWorkshops() {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + "/getworkshops/")
+            .then(
+            function (response) {
+                console.log('Success on getting workshops');
+                deferred.resolve(response.data);
+                console.log('response data : ' + response.data[1].titel);
+            },
+            function(errResponse){
+                console.error('Error while getting workshop ');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
  
 }])
 
@@ -77,70 +114,6 @@ angular.module('main', [ 'ngRoute' ])
 // DEFINE CONTROLLERS
 
 
-.controller('navigation',
-
-		function($rootScope, $http, $location, $route) {
-	
-			console.log("init...");
-			
-			var self = this;
-
-			self.tab = function(route) {
-				return $route.current && route === $route.current.controller;
-			};
-
-			var authenticate = function(credentials, callback) {
-
-				var headers = credentials ? {
-					authorization : "Basic "
-							+ btoa(credentials.username + ":"
-									+ credentials.password)
-				} : {};
-
-				$http.get('user', {
-					headers : headers
-				}).then(function(response) {
-					if (response.data.name) {
-						$rootScope.authenticated = true;
-					} else {
-						$rootScope.authenticated = false;
-					}
-					callback && callback($rootScope.authenticated);
-				}, function() {
-					$rootScope.authenticated = false;
-					callback && callback(false);
-				});
-
-			}
-			
-			authenticate();
-
-			self.credentials = {};
-			self.login = function() {
-				authenticate(self.credentials, function(authenticated) {
-					if (authenticated) {
-						console.log("Login succeeded")
-						$location.path("/admin");
-						self.error = false;
-						$rootScope.authenticated = true;
-					} else {
-						console.log("Login failed")
-						$location.path("/login");
-						self.error = true;
-						$rootScope.authenticated = false;
-					}
-				})
-			};
-
-			self.logout = function() {
-				$http.post('logout', {}).finally(function() {
-					$rootScope.authenticated = false;
-					$location.path("/");
-					$route.reload();
-				});
-			}
-
-})
 		
 	
 
@@ -154,12 +127,6 @@ angular.module('main', [ 'ngRoute' ])
 		console.log("workshops...");
 		var self = this;
 })
-
-.controller('anmeldungen', function($http) {
-		console.log("anmeldungen...")
-		var self = this;
-})
-
 
 
 

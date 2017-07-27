@@ -8,26 +8,24 @@ import javax.persistence.Id;
 @Entity
 public class Workshop {
 	
-
-	//@GeneratedValue
 	@Id
-	private Integer id;
+	private Long id;
 
-	private String leiterIn;
+	private String leiterIn = "";
 
-	private String titel;
+	private String titel = "";
 	
-	private String logline;
+	private String logline = "";
 	
-	private String kurzinfo;
+	private String kurzinfo = "";
 	
-	private String intro;
+	private String intro = "";
 	
-	private String cvWorkshopleiterIn;
+	private String cvWorkshopleiterIn = "";
 	
-	private String moderatorIn;
+	private String moderatorIn = "";
 	
-	private String cvModeratorIn;
+	private String cvModeratorIn = "";
 
 	
 	public String getTitel() {
@@ -62,11 +60,11 @@ public class Workshop {
 		this.cvWorkshopleiterIn = cvWorkshopleiterIn;
 	}
 
-	public Integer getId() {
-		return id;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

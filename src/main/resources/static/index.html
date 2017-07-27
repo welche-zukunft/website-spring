@@ -2,8 +2,19 @@
 <html>
 <head>
 <title>Hello AngularJS</title>
-<link href="css/angular-bootstrap.css" rel="stylesheet">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.js" charset="utf-8"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Zilla+Slab"
+	rel="stylesheet">
 <link href="css/admin.css" rel="stylesheet">
+
 
 
 <style type="text/css">
@@ -17,17 +28,28 @@
 
 
 	<div ng-controller="navigation as nav" class="container">
-		<ul class="nav nav-pills" role="tablist">
-			<li ng-class="{active:nav.tab('navigation')}"><a href="#/login">Anmelden</a></li>
+		<ul class="nav nav-tabs" role="tablist">
+			<li ng-show="!authenticated" ng-class="{active:nav.tab('navigation')}"><a href="#/login">Anmelden</a></li>
 			<li ng-show="authenticated"><a href="" ng-click="nav.logout()">Abmelden</a></li>
-			<li ng-class="{active:nav.tab('home')}"><a href="#/">Übersicht</a></li>
-			<li ng-class="{active:nav.tab('anmeldungen')}"><a
+			<li ng-show="authenticated" ng-class="{active:nav.tab('home')}"><a href="#/">Übersicht</a></li>
+			<li ng-show="authenticated" ng-class="{active:nav.tab('anmeldungen')}"><a
 				href="#/anmeldungen">Anmeldungen</a></li>
-			<li ng-class="{active:nav.tab('workshops')}"><a
+			<li ng-show="authenticated" ng-class="{active:nav.tab('workshops')}"><a
 				href="#/workshops">Workshops</a></li>
-			<li ng-class="{active:nav.tab('changecontents')}"><a
-				href="#/changecontents">Inhalte ändern</a></li>
-			<li ng-class="{active:nav.tab('mailing')}"><a href="#/mailing">Mailing</a></li>
+			<li ng-show="authenticated" class="dropdown" ng-class="{active:nav.tab('changecontents')}">
+				<a ng-click="nav.getWorkshops()" class="dropdown-toggle" data-toggle="dropdown" href="">Inhalte ändern
+				<span class="caret"></span></a>
+    			<ul class="dropdown-menu">    				
+      				<li ng-repeat="workshop in nav.workshops"><a href="#/changecontents/{{workshop.id}}">{{workshop.titel}}</a></li>
+      			</ul>
+			
+			
+			</li>
+				
+				
+			<li ng-show="authenticated" ng-class="{active:nav.tab('mailing')}"><a
+				href="#/mailing">Mailing</a></li>
+  		
 
 
 
@@ -41,6 +63,12 @@
 	<script src="js/declaration.js"></script>
 
 	<script src="js/main.js"></script>
+	<script src="js/navigation.js"></script>
+	<script src="js/mailing.js"></script>
+	
+	
+	<script src="js/anmeldungen.js"></script>
+	
 	<script src="js/changecontents.js"></script>
 
 

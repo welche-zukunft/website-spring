@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestServices {
 	
 	@Autowired
-	private Workshops workshops;
+	private WorkshopsManager workshops;
+	
+	@Autowired 
+	private UserRepository userRepository;
 
 	@RequestMapping("/user")
 	public Principal user(Principal user) {
@@ -57,7 +61,7 @@ public class RestServices {
 	
 	
 	@RequestMapping("/admin/getworkshop/{id}")
-	public Workshop getWorkshop( @PathVariable int id) {
+	public Workshop getWorkshop( @PathVariable Long id) {
 		
 		System.out.println("Send back workshop " + id);
 
@@ -65,6 +69,28 @@ public class RestServices {
 		
 		return result;
 	}
+	
+	
+	@RequestMapping("/admin/getworkshops/")
+	public List<Workshop> getWorkshops() {
+		
+		System.out.println("Send back workshops List");
+
+		List<Workshop> result = workshops.getWorkshops();	
+		
+		return result;
+	}
+	
+	
+	@RequestMapping("/adduser/")
+	public String addUser(@RequestBody User user){
+		
+		userRepository.save(user);
+		
+		return "success";
+		
+	}
+	
 
 
 }
