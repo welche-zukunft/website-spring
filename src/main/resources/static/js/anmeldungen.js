@@ -55,7 +55,7 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	
 	function changeUser(user){
 		console.log('change user...');
-		ChangeContentService.changeUser()
+		ChangeContentService.changeUser(user)
         .then(
         function(result){
         	self.users = result;
