@@ -22,15 +22,18 @@
 
 					<!-- formular -->
 					<td class="mittespalte">
-						<h4>Anmeldungen</h4> <label>Filter</label> <select name="top5"
+						<h4>Anmeldungen</h4> <label>Filter</label> 
+						
+						
+						<select name="top5"
 						size="1">
-							<option>alle</option>
-							<option>Workshop</option>
-							<option>Warteliste</option>
-							<option>olympisch</option>
-							<option>zurückgemeldet</option>
-							<option>nicht zurückgemeldet</option>
-					</select> <br> <br>
+							<option ng-selected="getUsers(); filter(ctrl.allUsers)">alle</option>
+							<option ng-selected="getUsers(); filter(ctrl.wsUsers)">Workshop</option>
+							<option ng-selected="getUsers(); filter(ctrl.wlUsers)">Warteliste</option>
+							<option ng-selected="getUsers(); filter(ctrl.olUsers)">olympisch</option>
+							<option ng-selected="getUsers(); filter(ctrl.ulUsers)">zurückgemeldet</option>
+							<option ng-selected="getUsers(); filter(ctrl.niUsers)">nicht zurückgemeldet</option>
+						</select> <br> <br>
 
 
 

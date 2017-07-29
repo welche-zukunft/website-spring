@@ -11,9 +11,20 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	self.sortReverse = false;
 	self.searchFish = '';
 	
+
 	self.users = [];
-	self.workshops = [];
+	self.allUsers = [];
+	self.wsUsers = [];
+	self.wlUsers = [];
+	self.olUsers = [];
+	self.zuUsers = [];
+	self.niUsers = [];
+	
+	
 	self.getUsers = getUsers;
+	self.users = self.allUsers;
+	
+	
 	self.setActiveUser = setActiveUser;
 	self.changeUser = changeUser;
 
@@ -44,8 +55,24 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
         ChangeContentService.getUsers()
             .then(
             function(result){
-            	self.users = result;
+            	self.allUsers = result;
                 console.log(result);
+                
+                
+                for (user in result){
+                	if (user.status == 'ANGEMELDET'){
+                		self.zuUsers.push(user);
+                	}
+                	if (user.status == 'BESTÄTIGT'){
+                		self.wlUsers.push(user);
+                	}
+                	if (user.modus == 'OLYMPISCH'){
+                		self.olUsers.push(user);
+                	}
+                }     
+                
+                return result;
+                
             },
             function(errResponse){
                 console.error('Error while getting users');
@@ -73,19 +100,13 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
         );
 	}
 	
-	function getWorkshops(){
-		console.log('Get Workshops');
-		ChangeContentService.getWorkshops()
-        .then(
-        function(result){
-        	self.workshops = result;
-            console.log(result);
-        },
-        function(errResponse){
-            console.error('Error while getting workshops');
-        }
-        );
+
+	
+	function filter(users){
+		self.users = users;
 	}
+	
+	
 
 	
 	
