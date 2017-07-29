@@ -6,6 +6,8 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	
 	console.log('anmeldungen ');
 	var self = this;
+	
+	self.setActiveUser = setActiveUser;
 
 	self.user={
 			id: -1,
