@@ -44,7 +44,9 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
     }
 	
 	function setActiveUser(user){
+		console.log("Set active User");
 		self.user = user;
+		console.log(self.user);
 	}
 
 	
