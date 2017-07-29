@@ -47,7 +47,7 @@
 
 							<tr ng-repeat="user in ctrl.users">
 								<td width="5vh"><a ng-click="ctrl.setActiveUser(user)" href="">show</a></td>								
-								<td>25.08.17</td>
+								<td>{{ctrl.user.datum}}</td>
 								<td><a ng-href="mailto:{{user.mail}}">{{user.vorname}} {{user.nachname}}</a></td>
 								<td>{{user.workshopId}}</td>
 								<td></td>

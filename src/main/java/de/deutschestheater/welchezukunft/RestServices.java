@@ -79,6 +79,9 @@ public class RestServices {
 		LocalDateTime now = LocalDateTime.now();
 		newUser.setDatum(java.sql.Timestamp.valueOf(now));
 		newUser.setId((long)1);
+		newUser.setVorname("George");
+		newUser.setNachname("Bush");
+
 		newUser.setInternText("Hallo i bims");
 		newUser.setSprache(Sprache.ENGLISCH);
 		newUser.setModus(Modus.OLYMPISCH);

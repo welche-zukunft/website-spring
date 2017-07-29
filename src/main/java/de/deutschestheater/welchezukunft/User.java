@@ -23,7 +23,7 @@ public class User {
 	@Id
 	private Long id;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/mm/yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
 	private Date datum;
 	
 	private Integer workshopId;
