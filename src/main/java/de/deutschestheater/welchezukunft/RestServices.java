@@ -69,8 +69,8 @@ public class RestServices {
 	
 	
 	@RequestMapping("/admin/getanmeldungen/")
-	public  List<User> getAnmeldungen(@RequestBody String mail){
-		System.out.println("User ID from Mail hash " + mail );
+	public  List<User> getAnmeldungen(){
+		System.out.println("get anmeldungen" );
 		
 		
 		List<User> users = new ArrayList<User>();
