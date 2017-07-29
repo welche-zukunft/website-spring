@@ -50,7 +50,8 @@ angular.module('main', [ 'ngRoute' ])
     var factory = {
     	changeContent : changeContent,
     	getWorkshop : getWorkshop,
-    	getWorkshops : getWorkshops
+    	getWorkshops : getWorkshops,
+    	getUsers : getUsers
     };
  
     return factory;
