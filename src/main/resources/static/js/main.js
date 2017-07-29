@@ -130,6 +130,8 @@ angular.module('main', [ 'ngRoute' ])
     }
     
     function changeUser(user) {
+    	console.log('in change User service');
+    	console.log(user);
         var deferred = $q.defer();
         $http.post(REST_SERVICE_URI + "/changeuser/", user)
             .then(
