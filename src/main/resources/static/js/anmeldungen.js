@@ -23,6 +23,7 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	self.users = [];
 	self.getUsers = getUsers;
 
+	getUsers();
 	
 	function getUsers(){
     	console.log('get users...');
