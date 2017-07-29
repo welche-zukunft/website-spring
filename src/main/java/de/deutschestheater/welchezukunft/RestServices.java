@@ -67,6 +67,23 @@ public class RestServices {
 	}
 	
 	
+	
+	@RequestMapping("/admin/getanmeldungen/")
+	public  List<User> getAnmeldungen(@RequestBody String mail){
+		System.out.println("User ID from Mail hash " + mail );
+		
+		
+		List<User> users = new ArrayList<User>();
+		for (User user : userRepository.findAll() ){
+			users.add(user);
+		}
+		
+		return users;
+	}
+	
+	
+	
+	
 	@RequestMapping("/adduser/")
 	public  ResponseEntity<String> addUser(@RequestBody User user){
 		System.out.println("Save new user...");
@@ -146,17 +163,5 @@ public class RestServices {
 	
 	
 	
-	@RequestMapping("/getanmeldungen/")
-	public  List<User> getAnmeldungen(@RequestBody String mail){
-		System.out.println("User ID from Mail hash " + mail );
-		
-		
-		List<User> users = new ArrayList<User>();
-		for (User user : userRepository.findAll() ){
-			users.add(user);
-		}
-		
-		return users;
-	}
 
 }
