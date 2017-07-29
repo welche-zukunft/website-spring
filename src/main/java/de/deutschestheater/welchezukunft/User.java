@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import enumutils.AGB;
 import enumutils.Modus;
 import enumutils.Sprache;
@@ -21,6 +23,7 @@ public class User {
 	@Id
 	private Long id;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/mm/yyyy")
 	private Date datum;
 	
 	private Integer workshopId;

@@ -3,6 +3,7 @@ package de.deutschestheater.welchezukunft;
 import java.io.File;
 import java.lang.ProcessBuilder.Redirect;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import enumutils.AGB;
+import enumutils.Modus;
+import enumutils.Sprache;
 import enumutils.Status;
 
 @RestController
@@ -70,6 +73,18 @@ public class RestServices {
 	
 	@RequestMapping("/admin/getanmeldungen/")
 	public  List<User> getAnmeldungen(){
+		
+		User newUser = new User();
+		
+		LocalDateTime now = LocalDateTime.now();
+		newUser.setDatum(java.sql.Timestamp.valueOf(now));
+		newUser.setId((long)1);
+		newUser.setInternText("Hallo i bims");
+		newUser.setSprache(Sprache.ENGLISCH);
+		newUser.setModus(Modus.OLYMPISCH);
+		
+		userRepository.save(newUser);
+		
 		System.out.println("get anmeldungen" );
 		
 		
