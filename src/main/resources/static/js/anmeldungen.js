@@ -9,14 +9,18 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 
 	self.user={
 			id: -1,
+			datum: 0,
 			workshopId: -1,
 			motivation:'',
 			mail:'', 
 			mailConfirm:'', 
 			vorname:'', 
 			nachname:'', 
+			internText: '',
 			status:'', 
-			agb:''
+			agb:'',
+			modus: '',
+			sprache: ''
 	};
 	
 	
@@ -38,6 +42,10 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
             }
         );
     }
+	
+	function setActiveUser(user){
+		self.user = user;
+	}
 
 	
 	

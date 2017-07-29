@@ -1,5 +1,7 @@
 package de.deutschestheater.welchezukunft;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -8,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import enumutils.AGB;
+import enumutils.Modus;
+import enumutils.Sprache;
 import enumutils.Status;
 
 @Entity
@@ -16,6 +20,8 @@ public class User {
 	
 	@Id
 	private Long id;
+	
+	private Date datum;
 	
 	private Integer workshopId;
 	
@@ -29,13 +35,20 @@ public class User {
 	
 	private String nachname;
 	
+	private String internText;
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
 	@Enumerated(EnumType.STRING)
 	private AGB agb;
-
 	
+	@Enumerated(EnumType.STRING)
+	private Modus modus;
+
+	@Enumerated(EnumType.STRING)
+	private Sprache sprache;
+			
 	
 
 	public Status getStatus() {
@@ -110,7 +123,38 @@ public class User {
 		this.mailConfirm = mailConfirm;
 	}
 	
+	public String getInternText() {
+		return internText;
+	}
+
+	public void setInternText(String internText) {
+		this.internText = internText;
+	}
+
+	public Modus getModus() {
+		return modus;
+	}
+
+	public void setModus(Modus modus) {
+		this.modus = modus;
+	}
+
+	public Sprache getSprache() {
+		return sprache;
+	}
+
+	public void setSprache(Sprache sprache) {
+		this.sprache = sprache;
+	}
 	
+	public Date getDatum() {
+		return datum;
+	}
+
+	public void setDatum(Date datum) {
+		this.datum = datum;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 	    if (this.id == ((User)obj).id) {
@@ -126,6 +170,8 @@ public class User {
 	    hash = 53 * hash + (this.nachname != null ? this.nachname.hashCode() : 0);
 	    return hash;
 	}
+	
+	
 	
 	
 

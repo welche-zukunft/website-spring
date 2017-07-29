@@ -46,10 +46,10 @@
 							</tr>
 
 							<tr ng-repeat="user in ctrl.users">
-								<td width="5vh"><a href="#">show</a></td>
+								<td width="5vh"><a ng-click="ctrl.setActiveUser(user)" href="">show</a></td>
 								<td>25.08.17</td>
 								<td><a ng-href="mailto:{{user.mail}}">{{user.vorname}} {{user.nachname}}</a></td>
-								<td>{{user.workshop_id}}</td>
+								<td>{{user.workshopId}}</td>
 								<td></td>
 								<td></td>
 								<td>
@@ -61,31 +61,48 @@
 
 					</td>
 					<td class="rechtespalte">
-						<h4 class="batchtitle">Henri Glaubner</h4> <label class="h2"
-						form="person">Datum</label> <input type="text" name="vorname"
-						id="vorname" maxlength="50" size="50" value="21.08.2017">
+					
+					<form>
+					
+					
+					
+						<h4 class="batchtitle">{{ctrl.user.vorname}} {{ctrl.user.nachname}}</h4> 
+						
+						<label>Datum</label> 
+						<input ng-model="ctrl.user.datum" type="text">
 
-						<label for="zuname">Email</label> <input type="text" name="zuname"
-						id="zuname" maxlength="80" size="50" value="muster@mustermail.de">
+						<label>Email</label> 
+						<input ng-model="ctrl.user.mail" type="text">
 
-						<label for="zuname">Szenario</label> <textarea rows="19" cols="50">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</textarea>
+						<label>Szenario</label> 
+						<textarea ng-model="ctrl.user.motivation" rows="19" cols="50"></textarea>
 
-						<label for="zuname">Workshop</label> <input type="text"
-						name="zuname" id="zuname" maxlength="80" size="50" value="12">
-						<label for="zuname">Warteliste</label> <input type="text"
-						name="zuname" id="zuname" maxlength="80" size="50" value="">
-						<label for="zuname">Olympisch</label> <input type="checkbox"
-						name="egal" value="egal"> <label for="zuname">Sprache</label>
-						<br> <select name="top3" size="1">
-							<option>deutsch</option>
-							<option>englisch</option>
-							<option>beide</option>
-					</select> <br> <br> <label for="zuname">interne Bemerkung</label>
-						<textarea rows="19" cols="50"></textarea>
+						<label>Workshop</label> 
+						<input ng-model="ctrl.user.workshopId" type="text" maxlength="80" size="50" value="12">
+						
+						<label>Warteliste</label> 
+						<input type="text">
+						
+						<label>Olympisch</label> 
+						<input type="checkbox" ng-model="ctrl.user.modus" ng-true-value="OLYMPISCH" ng-false-value="NORMAL"> 
+						
+						<label>Sprache</label>
+						<br> 
+						<select ng-model=ctrl.user.sprache size="1">
+							<option value="DEUTSCH">deutsch</option>
+							<option value="ENGLISCH">englisch</option>
+							<option value="BEIDE">beide</option>
+						</select> <br> <br> 
+						
+						
+						<label>interne Bemerkung</label>
+						<textarea ng-model="ctrl.user.internText" rows="19" cols="50"></textarea>
 
 						<button type="reset">ändern</button>
 						<button type="reset">änderungen verwerfen</button>
 						<button type="reset">speichern</button> <br> <br>
+						
+					</form>
 					</td>
 
 				</tr>
