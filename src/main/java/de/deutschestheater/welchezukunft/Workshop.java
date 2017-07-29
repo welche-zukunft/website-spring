@@ -1,5 +1,6 @@
 package de.deutschestheater.welchezukunft;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,6 +45,8 @@ public class Workshop {
 		this.logline = logline;
 	}
 
+	
+	@Column(length = 3000) 
 	public String getIntro() {
 		return intro;
 	}
