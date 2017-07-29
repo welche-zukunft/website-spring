@@ -18,6 +18,7 @@ public class Workshop {
 	
 	private String logline = "";
 	
+	@Column(length = 3000) 
 	private String kurzinfo = "";
 	
 	private String intro = "";
@@ -45,8 +46,6 @@ public class Workshop {
 		this.logline = logline;
 	}
 
-	
-	@Column(length = 3000) 
 	public String getIntro() {
 		return intro;
 	}
