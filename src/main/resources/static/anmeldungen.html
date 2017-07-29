@@ -48,11 +48,14 @@
 							<tr ng-repeat="user in ctrl.users">
 								<td width="5vh"><a href="#">show</a></td>
 								<td>25.08.17</td>
-								<td><a href="mailto:fritz.eierschale@example.org">{{user.vorname}}</a></td>
+								<td><a href="mailto:{{user.mail}}">{{user.vorname
+										user.nachname}}</a></td>
 								<td>1</td>
 								<td></td>
 								<td></td>
-								<td>&#10004;</td>
+								<td>
+									<div ng-if="user.status == 'ANGEMELDET'">&#10004;</div>
+								</td>
 							</tr>
 
 						</table>
