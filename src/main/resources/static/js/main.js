@@ -131,7 +131,7 @@ angular.module('main', [ 'ngRoute' ])
     
     function changeUser(user) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI + "/changeUser/", user)
+        $http.post(REST_SERVICE_URI + "/changeuser/", user)
             .then(
             function (response) {
                 console.log('Success on changing user');
