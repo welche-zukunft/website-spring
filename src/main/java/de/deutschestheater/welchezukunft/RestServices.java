@@ -143,5 +143,20 @@ public class RestServices {
 		
 		return ResponseEntity.status(HttpStatus.OK).body("success");
 	}
+	
+	
+	
+	@RequestMapping("/getanmeldungen/")
+	public  List<User> getAnmeldungen(@RequestBody String mail){
+		System.out.println("User ID from Mail hash " + mail );
+		
+		
+		List<User> users = new ArrayList<User>();
+		for (User user : userRepository.findAll() ){
+			users.add(user);
+		}
+		
+		return users;
+	}
 
 }

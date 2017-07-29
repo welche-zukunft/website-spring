@@ -107,6 +107,25 @@ angular.module('main', [ 'ngRoute' ])
         );
         return deferred.promise;
     }
+    
+    
+    
+    function getUsers() {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + "/getanmeldungen/")
+            .then(
+            function (response) {
+                console.log('Success on getting users');
+                deferred.resolve(response.data);
+                console.log('response data : ' + response.data[1].titel);
+            },
+            function(errResponse){
+                console.error('Error while getting users ');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
  
 }])
 
