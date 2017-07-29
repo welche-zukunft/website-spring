@@ -47,22 +47,27 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 
 
 	getUsers();
+	console.log("all users : ");
+	console.log(self.allUsers);
+	self.users = self.allUsers;
 	
 	function getUsers(){
     	console.log('get users...');
         ChangeContentService.getUsers()
             .then(
             function(result){
-            	self.users = result;
-                console.log(result);
+            	console.log(result);
                 
                 
                 for (user in result){
-                	if (user.status == 'ANGEMELDET'){
+                	if (user.status == 'ZURÜCKGEMELDET'){
                 		self.zuUsers.push(user);
                 	}
-                	if (user.status == 'BESTÄTIGT'){
+                	if (user.status == 'WARTELISTE'){
                 		self.wlUsers.push(user);
+                	}
+                	if (user.status == 'ZUGELASSEN'){
+                		self.wsUsers.push(user);
                 	}
                 	if (user.modus == 'OLYMPISCH'){
                 		self.olUsers.push(user);
@@ -101,6 +106,8 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 
 	
 	function filter(users){
+		console.log("filter users. Only show :");
+		console.log(users);
 		self.users = users;
 	}
 	
