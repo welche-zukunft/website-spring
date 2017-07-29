@@ -22,7 +22,6 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	
 	
 	self.getUsers = getUsers;
-	self.users = self.allUsers;
 	
 	
 	self.setActiveUser = setActiveUser;
@@ -48,14 +47,13 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 
 
 	getUsers();
-	getWorkshops();
 	
 	function getUsers(){
     	console.log('get users...');
         ChangeContentService.getUsers()
             .then(
             function(result){
-            	self.allUsers = result;
+            	self.users = result;
                 console.log(result);
                 
                 
