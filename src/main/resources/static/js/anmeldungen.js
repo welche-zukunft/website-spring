@@ -26,7 +26,8 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	
 	self.setActiveUser = setActiveUser;
 	self.changeUser = changeUser;
-
+	self.filter = filter;
+	
 	self.user={
 			id: '-',
 			datum: '-',
@@ -57,7 +58,7 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
             .then(
             function(result){
             	console.log(result);
-                
+                self.allUsers = result;
                 
                 for (user in result){
                 	if (user.status == 'ZURÜCKGEMELDET'){
