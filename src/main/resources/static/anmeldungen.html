@@ -6,102 +6,86 @@
 <title>backend welche zukunft ?!</title>
 <link href="https://fonts.googleapis.com/css?family=Zilla+Slab"
 	rel="stylesheet">
+<link href="backend_zukunft.css" rel="stylesheet">
 </head>
+
 
 
 <body>
 
-
 	<div class="generic-container" ng-controller="anmeldungen as ctrl">
-
-
 
 		<div class="main">
 			<table align="center" class="backendTable" border="1">
 				<tr>
-					<!-- menue -->
-
 
 
 					<!-- formular -->
 					<td class="mittespalte">
-						<h4>Anmeldungen</h4>
+						<h4>Anmeldungen</h4> <label>Filter</label> <select name="top5"
+						size="1">
+							<option>alle</option>
+							<option>Workshop</option>
+							<option>Warteliste</option>
+							<option>olympisch</option>
+							<option>zurückgemeldet</option>
+							<option>nicht zurückgemeldet</option>
+					</select> <br> <br>
+
+
+
 						<table width="95%" border="1" class="thintable">
 							<tr class="headline">
 								<td width="5vh"></td>
 								<td width="20vh">Datum</td>
-								<td width="45vh">Name</td>
-								<td width="20vh">Workshops</td>
-								<td width="10vh">registriert</td>
+								<td width="35vh">Name</td>
+								<td width="10vh">WS</td>
+								<td width="10vh">WL</td>
+								<td width="10vh">olympisch</td>
+								<td width="10vh">zurück gemeldet</td>
 							</tr>
 
-
-							<div ng-repeat="user in users">
-							
+							<div ng-repeat="user in ctrl.users">
 							<tr>
 								<td width="5vh"><a href="#">show</a></td>
 								<td>25.08.17</td>
-								<td><a href="mailto:fritz.eierschale@example.org">Annika
-										Meier</a></td>
-								<td>1 - 5 - 7</td>
-								<td>&#10004;-5</td>
+								<td><a href="mailto:fritz.eierschale@example.org">{{user.vorname}}</a></td>
+								<td>1</td>
+								<td></td>
+								<td></td>
+								<td>&#10004;</td>
 							</tr>
 
 							</div>
-
 						</table>
 
 					</td>
 					<td class="rechtespalte">
-						<h4 class="batchtitle">Henri Glaubner</h4>
-						<table width="95%" border="1" class="thintable">
-							<tr>
-								<td width="30vh">Datum</td>
-								<td width="70vh">24.08.17</td>
-							</tr>
-							<tr>
-								<td width="30vh">Email</td>
-								<td width="70vh"><a href="mailto:hglaubner@gmx.de">hglaubner@gmx.de</a>
-								</td>
-							</tr>
-							<tr>
-								<td width="30vh">Begründung</td>
-								<td width="70vh">Lorem ipsum dolor sit amet, consetetur
-									sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-									labore et dolore magna aliquyam erat, sed diam voluptua. At
-									vero eos et accusam et justo duo dolores et ea rebum. Stet
-									clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-									dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-									sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-									labore et dolore magna aliquyam erat, sed diam voluptua. At
-									vero eos et accusam et justo duo dolores et ea rebum. Stet
-									clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-									dolor sit amet.</td>
-							</tr>
-							<tr>
-								<td width="30vh">Workshop(s)</td>
-								<td width="70vh">4</td>
-							</tr>
-							<tr>
-								<td width="30vh">bestätigt</td>
-								<td width="70vh"></td>
-							</tr>
-						</table>
-						<button type="reset">Registrieren</button> <br> <br>
-						anderer Workshop: <br> <select name="top5" size="1">
-							<option></option>
-							<option>Ökonomie I</option>
-							<option>Ökonomie II</option>
-							<option>Ökonomie III</option>
-							<option>Nachhaltige Ökonomie</option>
-							<option>Staatsbankrott</option>
-							<option>Risikomanagement</option>
-							<option>Energieversorgung</option>
-							<option>Extremwetter</option>
-							<option>Geopolitik</option>
-							<option>Arbeit I</option>
-							<option>Arbeit II</option>
-					</select> <br> <br>
+						<h4 class="batchtitle">Henri Glaubner</h4> <label class="h2"
+						form="person">Datum</label> <input type="text" name="vorname"
+						id="vorname" maxlength="50" size="50" value="21.08.2017">
+
+						<label for="zuname">Email</label> <input type="text" name="zuname"
+						id="zuname" maxlength="80" size="50" value="muster@mustermail.de">
+
+						<label for="zuname">Szenario</label> <textarea rows="19" cols="50">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</textarea>
+
+						<label for="zuname">Workshop</label> <input type="text"
+						name="zuname" id="zuname" maxlength="80" size="50" value="12">
+						<label for="zuname">Warteliste</label> <input type="text"
+						name="zuname" id="zuname" maxlength="80" size="50" value="">
+						<label for="zuname">Olympisch</label> <input type="checkbox"
+						name="egal" value="egal"> <label for="zuname">Sprache</label>
+						<br> <select name="top3" size="1">
+							<option>deutsch</option>
+							<option>englisch</option>
+							<option>beide</option>
+					</select> <br> <br> <label for="zuname">interne Bemerkung</label>
+						<textarea rows="19" cols="50"></textarea>
+
+						<button type="reset">ändern</button>
+						<button type="reset">änderungen verwerfen</button>
+						<button type="reset">speichern</button> <br> <br>
 					</td>
 
 				</tr>

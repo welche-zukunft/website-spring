@@ -118,7 +118,7 @@ angular.module('main', [ 'ngRoute' ])
             function (response) {
                 console.log('Success on getting users');
                 deferred.resolve(response.data);
-                console.log('response data : ' + response.data[1].titel);
+                console.log('response data : ' + response.data[1].vorname);
             },
             function(errResponse){
                 console.error('Error while getting users ');
