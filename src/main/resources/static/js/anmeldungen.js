@@ -7,27 +7,29 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	console.log('anmeldungen ');
 	var self = this;
 	
+	self.users = [];
+	self.getUsers = getUsers;
 	self.setActiveUser = setActiveUser;
+	self.changeUser = changeUser;
 
 	self.user={
-			id: -1,
-			datum: 0,
-			workshopId: -1,
+			id: '-',
+			datum: '-',
+			workshopId: '-',
 			motivation:'',
-			mail:'', 
+			mail:'-', 
 			mailConfirm:'', 
-			vorname:'', 
-			nachname:'', 
-			internText: '',
-			status:'', 
-			agb:'',
-			modus: '',
-			sprache: ''
+			vorname:'-', 
+			nachname:'-', 
+			internText: '-',
+			status:'-', 
+			agb:'-',
+			modus: '-',
+			sprache: '-'
 	};
 	
 	
-	self.users = [];
-	self.getUsers = getUsers;
+
 
 	getUsers();
 	
@@ -49,6 +51,20 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 		console.log("Set active User");
 		self.user = user;
 		console.log(self.user);
+	}
+	
+	function changeUser(user){
+		console.log('change user...');
+		ChangeContentService.changeUser()
+        .then(
+        function(result){
+        	self.users = result;
+            console.log(result);
+        },
+        function(errResponse){
+            console.error('Error while changing user');
+        }
+    );
 	}
 
 	

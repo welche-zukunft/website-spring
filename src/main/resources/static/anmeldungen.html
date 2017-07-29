@@ -98,9 +98,9 @@
 						<label>interne Bemerkung</label>
 						<textarea ng-model="ctrl.user.internText" rows="19" cols="50"></textarea>
 
-						<button type="reset">ändern</button>
-						<button type="reset">änderungen verwerfen</button>
-						<button type="reset">speichern</button> <br> <br>
+						<button>ändern</button>
+						<button>änderungen verwerfen</button>
+						<button ng-click="ctrl.changeUser(ctrl.user)">speichern</button> <br> <br>
 						
 					</form>
 					</td>

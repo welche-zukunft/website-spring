@@ -100,7 +100,24 @@ public class RestServices {
 	}
 	
 	
+	@RequestMapping("/admin/changeuser/")
+	public ResponseEntity<String> changeUser(@RequestBody User user){
+		System.out.println("change user..." );
+
+		// ToDo: Add data validation 
+		
+		userRepository.save(user);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("success");
+	}
 	
+	
+	
+	
+	
+	
+	
+	// Called from outside
 	
 	@RequestMapping("/adduser/")
 	public  ResponseEntity<String> addUser(@RequestBody User user){

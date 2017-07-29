@@ -18,6 +18,7 @@ public class Workshop {
 	
 	private String logline = "";
 	
+	@Column(length = 3000) 
 	private String kurzinfo = "";
 	
 	private String intro = "";

@@ -51,7 +51,8 @@ angular.module('main', [ 'ngRoute' ])
     	changeContent : changeContent,
     	getWorkshop : getWorkshop,
     	getWorkshops : getWorkshops,
-    	getUsers : getUsers
+    	getUsers : getUsers,
+    	changeUser : changeUser
     };
  
     return factory;
@@ -122,6 +123,23 @@ angular.module('main', [ 'ngRoute' ])
             },
             function(errResponse){
                 console.error('Error while getting users ');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
+    function changeUser(user) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + "/changeUser/", user)
+            .then(
+            function (response) {
+                console.log('Success on changing user');
+                deferred.resolve(response.data);
+                console.log('response data : ' + response);
+            },
+            function(errResponse){
+                console.error('Error while changing user ');
                 deferred.reject(errResponse);
             }
         );

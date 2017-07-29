@@ -2,6 +2,7 @@ package de.deutschestheater.welchezukunft;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,6 +29,7 @@ public class User {
 	
 	private Integer workshopId;
 	
+	@Column(length = 3000) 
 	private String motivation;
 	
 	private String mail;
@@ -38,6 +40,7 @@ public class User {
 	
 	private String nachname;
 	
+	@Column(length = 3000) 
 	private String internText;
 
 	@Enumerated(EnumType.STRING)
