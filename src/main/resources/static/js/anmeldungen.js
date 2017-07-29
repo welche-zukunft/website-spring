@@ -7,7 +7,12 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	console.log('anmeldungen ');
 	var self = this;
 	
+	self.sortType = 'nachname';
+	self.sortReverse = false;
+	self.searchFish = '';
+	
 	self.users = [];
+	self.workshops = [];
 	self.getUsers = getUsers;
 	self.setActiveUser = setActiveUser;
 	self.changeUser = changeUser;
@@ -32,6 +37,7 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 
 
 	getUsers();
+	getWorkshops();
 	
 	function getUsers(){
     	console.log('get users...');
@@ -64,7 +70,21 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
         function(errResponse){
             console.error('Error while changing user');
         }
-    );
+        );
+	}
+	
+	function getWorkshops(){
+		console.log('Get Workshops');
+		ChangeContentService.getWorkshops()
+        .then(
+        function(result){
+        	self.workshops = result;
+            console.log(result);
+        },
+        function(errResponse){
+            console.error('Error while getting workshops');
+        }
+        );
 	}
 
 	

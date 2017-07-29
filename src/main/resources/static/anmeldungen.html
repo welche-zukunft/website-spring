@@ -35,27 +35,32 @@
 
 
 						<table width="95%" border="1" class="thintable">
-							<tr class="headline">
-								<td width="5vh"></td>
-								<td width="20vh">Datum</td>
-								<td width="35vh">Name</td>
-								<td width="10vh">WS</td>
-								<td width="10vh">WL</td>
-								<td width="10vh">olympisch</td>
-								<td width="10vh">zurück gemeldet</td>
-							</tr>
+						
+							<thead>
+								<tr class="headline">
+									<td width="5vh"></td>
+									<td width="20vh">Datum</td>
+									<td width="35vh"><a href="" ng-click="sortType = 'nachname'">Name</a></td>
+									<td width="10vh"><a href="" ng-click="sortType = 'vorname'">WS</a></td>
+									<td width="10vh">WL</td>
+									<td width="10vh">olympisch</td>
+									<td width="10vh">zurück gemeldet</td>
+								</tr>
+							</thead>
 
-							<tr ng-repeat="user in ctrl.users">
-								<td width="5vh"><a ng-click="ctrl.setActiveUser(user)" href="">show</a></td>								
-								<td>{{ctrl.user.datum}}</td>
-								<td><a ng-href="mailto:{{user.mail}}">{{user.vorname}} {{user.nachname}}</a></td>
-								<td>{{user.workshopId}}</td>
-								<td></td>
-								<td></td>
-								<td>
-									<div ng-if="user.status == 'BESTÄTIGT'">&#10004;</div>
-								</td>
-							</tr>
+							<tbody>
+								<tr ng-repeat="user in ctrl.users | orderBy:ctrl.sortType:ctrl.sortReverse ">
+									<td width="5vh"><a ng-click="ctrl.setActiveUser(user)" href="">show</a></td>								
+									<td>{{ctrl.user.datum}}</td>
+									<td><a ng-href="mailto:{{user.mail}}">{{user.vorname}} {{user.nachname}}</a></td>
+									<td>{{user.workshopId}}</td>
+									<td></td>
+									<td></td>
+									<td>
+										<div ng-if="user.status == 'BESTÄTIGT'">&#10004;</div>
+									</td>
+								</tr>
+							</tbody>
 
 						</table>
 
