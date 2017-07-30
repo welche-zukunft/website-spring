@@ -69,20 +69,6 @@ public class UserRestServices {
 			}
 		}
 
-		/*
-		 * User newUser = new User();
-		 * 
-		 * LocalDateTime now = LocalDateTime.now();
-		 * newUser.setDatum(java.sql.Timestamp.valueOf(now));
-		 * newUser.setId((long) 1); newUser.setVorname("George");
-		 * newUser.setNachname("Bush");
-		 * 
-		 * newUser.setInternText("..."); newUser.setSprache(Sprache.ENGLISCH); 4
-		 * newUser.setModus(Modus.OLYMPISCH);
-		 * 
-		 * userRepository.save(newUser);
-		 */
-
 		List<User> users = new ArrayList<User>();
 		for (User user : baseList) {
 

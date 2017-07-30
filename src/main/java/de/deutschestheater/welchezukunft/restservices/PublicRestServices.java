@@ -2,6 +2,7 @@ package de.deutschestheater.welchezukunft.restservices;
 
 import java.io.File;
 import java.lang.ProcessBuilder.Redirect;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -20,7 +21,6 @@ import enumutils.AGB;
 import enumutils.Modus;
 import enumutils.Status;
 
-
 @RestController
 public class PublicRestServices {
 
@@ -30,8 +30,6 @@ public class PublicRestServices {
 	@Autowired
 	private UserRepository userRepository;
 
-	
-	
 	@RequestMapping("/adduser/")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
 		System.out.println("Save new user...");
@@ -64,6 +62,8 @@ public class PublicRestServices {
 		// Set status to pending
 
 		user.setStatus(Status.ANGEMELDET);
+		
+		// Send Mail
 
 		ProcessBuilder pb = new ProcessBuilder("/bin/sh", "-c", "echo Hallo | mail -s test " + user.getMail());
 		Map<String, String> env = pb.environment();
@@ -83,7 +83,21 @@ public class PublicRestServices {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-
+		
+		
+		//  Check and set Modus
+		
+		if (user.getWorkshopId() == 14){
+			user.setModus(Modus.OLYMPISCH);
+			user.setWorkshopId(null);
+		}
+		
+		
+		//  Set Date
+				  
+		LocalDateTime now = LocalDateTime.now();
+		user.setDatum(java.sql.Timestamp.valueOf(now));
+				  		  
 		userRepository.save(user);
 
 		return ResponseEntity.status(HttpStatus.OK).body("success");
@@ -99,19 +113,19 @@ public class PublicRestServices {
 		if (user == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user did not apply for registration");
 		}
-		
-		if (user.getModus().equals(Modus.OLYMPISCH)){
+
+		if (user.getModus().equals(Modus.OLYMPISCH)) {
 			user.setStatus(Status.ZUZUTEILEN);
-		} else if (user.getModus().equals(Modus.NORMAL)){
-			
-			Workshop workshop = workshops.getWorkshop( user.getWorkshopId()) ;
-			
-			if ( workshop.getMax() == workshop.getBelegt()) {
+		} else if (user.getModus().equals(Modus.NORMAL)) {
+
+			Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
+
+			if (workshop.getMax() == workshop.getBelegt()) {
 				user.setStatus(Status.WARTELISTE);
-			} else if (  workshop.getMax() > workshop.getBelegt() ){
+			} else if (workshop.getMax() > workshop.getBelegt()) {
 				user.setStatus(Status.ZUGELASSEN);
 			}
-			
+
 		}
 
 		userRepository.save(user);

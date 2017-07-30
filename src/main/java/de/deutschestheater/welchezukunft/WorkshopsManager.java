@@ -35,7 +35,7 @@ public class WorkshopsManager {
 			
 			System.out.println("Init Workshops...");
 			
-			for (int i = 0; i < 13; i++){
+			for (int i = 1; i < 14; i++){
 				Workshop workshop = new Workshop();
 				workshop.setId((long)i);
 
