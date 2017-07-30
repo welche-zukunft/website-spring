@@ -72,6 +72,8 @@ public class RestServices {
 		
 		System.out.println("get anmeldungen");
 		
+		
+		/*
 		User newUser = new User();
 
 		LocalDateTime now = LocalDateTime.now();
@@ -84,7 +86,7 @@ public class RestServices {
 		newUser.setSprache(Sprache.ENGLISCH);
 		newUser.setModus(Modus.OLYMPISCH);
 
-		userRepository.save(newUser);
+		userRepository.save(newUser);*/
 		
 		
 		List<User> users = new ArrayList<User>();
