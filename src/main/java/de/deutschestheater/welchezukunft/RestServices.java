@@ -89,8 +89,7 @@ public class RestServices {
 		
 		List<User> users = new ArrayList<User>();
 		for (User user : userRepository.findAll()) {
-			users.add(user);
-
+			
 			switch (filter) {
 			case WORKSHOP:
 				if (user.getStatus().equals(Status.ZUGELASSEN)){

@@ -35,8 +35,6 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 			sprache: '-'
 	};
 	
-	
-
 
 	getUsers('ALL');
 
@@ -78,6 +76,12 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
         );
 	}
 	
+	self.selected = '';
+	
+	self.switchFilter = function() {
+	    filter = self.selected;
+	    getUsers(filter);
+	  }
 
 	
 }]);

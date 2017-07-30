@@ -25,14 +25,13 @@
 						<h4>Anmeldungen</h4> <label>Filter</label> 
 						
 						
-						<select name="top5"
-						size="1">
-							<option ng-click="ctrl.getUsers('ALL')">alle</option>
-							<option ng-click="ctrl.getUsers('WORKSHOP')">Workshop</option>
-							<option ng-click="ctrl.getUsers('WARTELISTE')">Warteliste</option>
-							<option ng-click="ctrl.getUsers('OLYMPISCH')">olympisch</option>
-							<option ng-click="ctrl.getUsers('ZURÜCKGEMELDET')">zurückgemeldet</option>
-							<option ng-click="ctrl.getUsers('NICHTZURÜCKGEMELDET')">nicht zurückgemeldet</option>
+						<select ng-model="ctrl.selected" ng-change="ctrl.switchFilter()">
+							<option value="ALL">alle</option>
+							<option value="WORKSHOP">Workshop</option>
+							<option value="WARTELISTE">Warteliste</option>
+							<option value="OLYMPISCH">olympisch</option>
+							<option value="ZURÜCKGEMELDEY">zurückgemeldet</option>
+							<option value="NICHTZURÜCKGEMELDET">nicht zurückgemeldet</option>
 						</select> <br> <br>
 
 
