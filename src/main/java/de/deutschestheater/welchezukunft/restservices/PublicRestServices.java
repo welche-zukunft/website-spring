@@ -126,6 +126,8 @@ public class PublicRestServices {
 				user.setStatus(Status.WARTELISTE);
 			} else if (workshop.getMax() > workshop.getBelegt()) {
 				user.setStatus(Status.ZUGELASSEN);
+				
+				workshop.setBelegt(workshop.getBelegt() + 1);
 			}
 
 		}

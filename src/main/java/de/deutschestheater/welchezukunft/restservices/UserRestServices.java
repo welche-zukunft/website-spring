@@ -42,7 +42,7 @@ public class UserRestServices {
 	
 
 	@RequestMapping(value = { "/admin/getusers/{filter}/", "/admin/getusers/{filter}/{workshopId}" })
-	public List<User> getUser(@PathVariable FILTER filter, @PathVariable Optional<Integer> workshopId) {
+	public List<User> getUser(@PathVariable FILTER filter, @PathVariable Optional<Long> workshopId) {
 
 		System.out.println("get anmeldungen");
 		System.out.println(filter);
