@@ -27,7 +27,7 @@ public class User {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
 	private Date datum;
 	
-	private Integer workshopId;
+	private Long workshopId;
 	
 	@Column(length = 3000) 
 	private String motivation;
@@ -55,7 +55,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Sprache sprache;
 			
-	
+
 
 	public Status getStatus() {
 		return status;
@@ -81,11 +81,11 @@ public class User {
 		this.id = id;
 	}
 
-	public Integer getWorkshopId() {
+	public Long getWorkshopId() {
 		return workshopId;
 	}
 
-	public void setWorkshopId(Integer workshopId) {
+	public void setWorkshopId(Long workshopId) {
 		this.workshopId = workshopId;
 	}
 

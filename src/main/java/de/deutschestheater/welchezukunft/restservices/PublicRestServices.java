@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.deutschestheater.welchezukunft.User;
 import de.deutschestheater.welchezukunft.UserRepository;
+import de.deutschestheater.welchezukunft.Workshop;
 import de.deutschestheater.welchezukunft.WorkshopsManager;
 import enumutils.AGB;
+import enumutils.Modus;
 import enumutils.Status;
 
 
@@ -97,8 +99,20 @@ public class PublicRestServices {
 		if (user == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user did not apply for registration");
 		}
-
-		user.setStatus(Status.ZUZUTEILEN);  // ToDO
+		
+		if (user.getModus().equals(Modus.OLYMPISCH)){
+			user.setStatus(Status.ZUZUTEILEN);
+		} else if (user.getModus().equals(Modus.NORMAL)){
+			
+			Workshop workshop = workshops.getWorkshop( user.getWorkshopId()) ;
+			
+			if ( workshop.getMax() == workshop.getBelegt()) {
+				user.setStatus(Status.WARTELISTE);
+			} else if (  workshop.getMax() > workshop.getBelegt() ){
+				user.setStatus(Status.ZUGELASSEN);
+			}
+			
+		}
 
 		userRepository.save(user);
 
