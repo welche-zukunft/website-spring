@@ -51,6 +51,8 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	console.log("all users : ");
 	console.log(self.allUsers);
 	self.users = self.allUsers;
+	console.log("users : ")
+	console.log(self.users);
 	
 	function getUsers(){
     	console.log('get users...');
