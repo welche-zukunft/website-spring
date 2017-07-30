@@ -18,7 +18,6 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	
 	self.setActiveUser = setActiveUser;
 	self.changeUser = changeUser;
-	self.filter = filter;
 	
 	self.user={
 			id: '-',
@@ -39,7 +38,7 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	
 
 
-	getUsers();
+	getUsers('ALL');
 
 	
 	function getUsers(filter){
