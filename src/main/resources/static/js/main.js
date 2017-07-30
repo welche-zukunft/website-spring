@@ -112,9 +112,9 @@ angular.module('main', [ 'ngRoute' ])
     
     
     
-    function getUsers() {
+    function getUsers(filter) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI + "/getanmeldungen/")
+        $http.post(REST_SERVICE_URI + "/getanmeldungen/" + filter)
             .then(
             function (response) {
                 console.log('Success on getting users');

@@ -27,12 +27,12 @@
 						
 						<select name="top5"
 						size="1">
-							<option ng-click="ctrl.filter(ctrl.allUsers)">alle</option>
-							<option ng-click="ctrl.filter(ctrl.wsUsers)">Workshop</option>
-							<option ng-click="ctrl.filter(ctrl.wlUsers)">Warteliste</option>
-							<option ng-click="ctrl.filter(ctrl.olUsers)">olympisch</option>
-							<option ng-click="ctrl.filter(ctrl.ulUsers)">zurückgemeldet</option>
-							<option ng-click="ctrl.filter(ctrl.niUsers)">nicht zurückgemeldet</option>
+							<option ng-click="ctrl.getUsers('ALL')">alle</option>
+							<option ng-click="ctrl.getUsers('WORKSHOP')">Workshop</option>
+							<option ng-click="ctrl.getUsers('WARTELISTE')">Warteliste</option>
+							<option ng-click="ctrl.getUsers('OLYMPISCH')">olympisch</option>
+							<option ng-click="ctrl.getUsers('ZURÜCKGEMELDET')">zurückgemeldet</option>
+							<option ng-click="ctrl.getUsers('NICHTZURÜCKGEMELDET')">nicht zurückgemeldet</option>
 						</select> <br> <br>
 
 

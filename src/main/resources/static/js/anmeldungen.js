@@ -13,16 +13,8 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	
 
 	self.users = [];
-	self.allUsers = [];
-	self.wsUsers = [];
-	self.wlUsers = [];
-	self.olUsers = [];
-	self.zuUsers = [];
-	self.niUsers = [];
-	
-	
+
 	self.getUsers = getUsers;
-	
 	
 	self.setActiveUser = setActiveUser;
 	self.changeUser = changeUser;
@@ -48,35 +40,16 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 
 
 	getUsers();
-	console.log("all users : ");
-	console.log(self.allUsers);
-	self.users = self.allUsers;
-	console.log("users : ")
-	console.log(self.users);
+
 	
-	function getUsers(){
+	function getUsers(filter){
     	console.log('get users...');
-        ChangeContentService.getUsers()
+        ChangeContentService.getUsers(filter)
             .then(
             function(result){
             	console.log(result);
-                self.allUsers = result;
-                
-                for (user in result){
-                	if (user.status == 'ZURÜCKGEMELDET'){
-                		self.zuUsers.push(user);
-                	}
-                	if (user.status == 'WARTELISTE'){
-                		self.wlUsers.push(user);
-                	}
-                	if (user.status == 'ZUGELASSEN'){
-                		self.wsUsers.push(user);
-                	}
-                	if (user.modus == 'OLYMPISCH'){
-                		self.olUsers.push(user);
-                	}
-                }     
-                
+                self.users = result;
+               
                 return result;
                 
             },
@@ -107,15 +80,5 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	}
 	
 
-	
-	function filter(users){
-		console.log("filter users. Only show :");
-		console.log(users);
-		self.users = users;
-	}
-	
-	
-
-	
 	
 }]);
