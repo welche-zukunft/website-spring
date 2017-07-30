@@ -90,6 +90,8 @@ public class PublicRestServices {
 		if (user.getWorkshopId() == 14){
 			user.setModus(Modus.OLYMPISCH);
 			user.setWorkshopId(null);
+		} else {
+			user.setModus(Modus.NORMAL);
 		}
 		
 		
