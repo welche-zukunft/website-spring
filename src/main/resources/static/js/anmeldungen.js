@@ -46,7 +46,6 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
             function(result){
             	console.log(result);
                 self.users = result;
-               
                 return result;
                 
             },
@@ -67,7 +66,6 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 		ChangeContentService.changeUser(user)
         .then(
         function(result){
-        	self.users = result;
             console.log(result);
         },
         function(errResponse){
