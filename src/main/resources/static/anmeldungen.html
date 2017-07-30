@@ -6,14 +6,12 @@
 <title>backend welche zukunft ?!</title>
 <link href="https://fonts.googleapis.com/css?family=Zilla+Slab"
 	rel="stylesheet">
-<link href="backend_zukunft.css" rel="stylesheet">
 </head>
 
 
 
 <body>
 
-	<div class="generic-container" ng-controller="anmeldungen as ctrl">
 
 		<div class="main">
 			<table align="center" class="backendTable" border="1">
@@ -29,9 +27,9 @@
 							<option value="ALL">alle</option>
 							<option value="WORKSHOP">Workshop</option>
 							<option value="WARTELISTE">Warteliste</option>
-							<option value="OLYMPISCH">olympisch</option>
-							<option value="ZURÜCKGEMELDEY">zurückgemeldet</option>
-							<option value="NICHTZURÜCKGEMELDET">nicht zurückgemeldet</option>
+							<option value="ZUZUTEILEN">Zuzuteilen</option>
+							<option value="ZURÜCKGEMELDET">Zurückgemeldet</option>
+							<option value="NICHTZURÜCKGEMELDET">Nicht Zurückgemeldet</option>
 						</select> <br> <br>
 
 
@@ -51,15 +49,24 @@
 							</thead>
 
 							<tbody>
-								<tr ng-repeat="user in ctrl.users | orderBy:ctrl.sortType:ctrl.sortReverse ">
+								<tr 
+									ng-repeat="user in ctrl.users | orderBy:ctrl.sortType:ctrl.sortReverse" 
+									ng-if="user.status != 'ANGEMELDET'"
+								>
 									<td width="5vh"><a ng-click="ctrl.setActiveUser(user)" href="">show</a></td>								
 									<td>{{ctrl.user.datum}}</td>
 									<td><a ng-href="mailto:{{user.mail}}">{{user.vorname}} {{user.nachname}}</a></td>
-									<td>{{user.workshopId}}</td>
-									<td></td>
-									<td></td>
 									<td>
-										<div ng-if="user.status == 'BESTÄTIGT'">&#10004;</div>
+										<div ng-if="user.status == 'ZUGELASSEN' || user.status == 'ZURÜCKGEMELDET'">{{user.workshopId}}</div>
+									</td>
+									<td>
+										<div ng-if="user.status == 'WARTELISTE'">{{user.workshopId}}</div>
+									</td>
+									<td>
+										<div ng-if="user.modus == 'OLYMPISCH'">&#10004;</div>
+									</td>
+									<td>
+										<div ng-if="user.status == 'ZURÜCKGEMELDET'">&#10004;</div>
 									</td>
 								</tr>
 							</tbody>
@@ -76,19 +83,20 @@
 						<h4 class="batchtitle">{{ctrl.user.vorname}} {{ctrl.user.nachname}}</h4> 
 						
 						<label>Datum</label> 
-						<input ng-model="ctrl.user.datum" type="text">
+						<input ng-model="ctrl.user.datum" type="text" readonly>
 
 						<label>Email</label> 
-						<input ng-model="ctrl.user.mail" type="text">
+						<input ng-model="ctrl.user.mail" type="text" readonly>
 
 						<label>Szenario</label> 
-						<textarea ng-model="ctrl.user.motivation" rows="19" cols="50"></textarea>
+						<textarea ng-model="ctrl.user.motivation" rows="19" cols="50" readonly></textarea>
 
 						<label>Workshop</label> 
 						<input ng-model="ctrl.user.workshopId" type="text" maxlength="80" size="50" value="12">
 						
-						<label>Warteliste</label> 
-						<input type="text">
+						<label>Status</label> 
+						<input ng-model=ctrl.user.status type="text" maxlength="80" size="50" value="12" readonly>
+						
 						
 						<label>Olympisch</label> 
 						<input type="checkbox" ng-model="ctrl.user.modus" ng-true-value="'OLYMPISCH'" ng-false-value="'NORMAL'"> 
@@ -105,7 +113,7 @@
 						<label>interne Bemerkung</label>
 						<textarea ng-model="ctrl.user.internText" rows="19" cols="50"></textarea>
 
-						<button>ändern</button>
+						<button ng-click="ctrl.deleteUser(ctrl.user)">löschen</button>
 						<button>änderungen verwerfen</button>
 						<button ng-click="ctrl.changeUser(ctrl.user)">speichern</button> <br> <br>
 						
@@ -117,7 +125,6 @@
 			</table>
 		</div>
 
-	</div>
 </body>
 </html>
 

@@ -1,3 +1,6 @@
 package enumutils;
 
-public enum Status { ANGEMELDET, BESTÄTIGT, WARTELISTE, ZUGELASSEN, ZURÜCKGEMELDET }
+
+// ToDo ändere Bestätigt in OLYMPISCH
+
+public enum Status { ANGEMELDET, ZUZUTEILEN, WARTELISTE, ZUGELASSEN, ZURÜCKGEMELDET }

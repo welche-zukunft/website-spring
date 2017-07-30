@@ -14,7 +14,11 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
 			intro:'', 
 			cvWorkshopleiterIn:'', 
 			moderatorIn:'', 
-			cvModeratorIn:''
+			cvModeratorIn:'',
+			max : 10,
+			blockiert : 0,
+			warteliste : 0,
+			belegt : 0
 	};
 	
     self.events=[1,2,3,4,5];
@@ -28,8 +32,7 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
     
     function submit() {
             console.log('Saving workshop', self.workshop);
-            changeContent(self.workshop);
-            console.log (self.events.length);
+            changeWorkshop(self.workshop);
     }
 
     
@@ -44,9 +47,9 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
     }
     
     
-    function changeContent(workshop){
+    function changeWorkshop(workshop){
     	console.log('Change contnent...');
-        ChangeContentService.changeContent(workshop)
+        ChangeContentService.changeWorkshop(workshop)
             .then(
             function(errResponse){
                 console.error('Error while changing content 2');

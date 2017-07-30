@@ -28,6 +28,14 @@ public class Workshop {
 	private String moderatorIn = "";
 	
 	private String cvModeratorIn = "";
+	
+	private Integer max = 10;
+
+	private Integer blockiert = 0;
+	
+	private Integer warteliste = 0;
+	
+	private Integer belegt = 0;
 
 	
 	public String getTitel() {
@@ -101,6 +109,38 @@ public class Workshop {
 	public void setCvModeratorIn(String cvModeratorin) {
 		this.cvModeratorIn = cvModeratorin;
 	}
+	
+	public Integer getMax() {
+		return max;
+	}
+
+	public void setMax(Integer max) {
+		this.max = max;
+	}
+
+	public Integer getBlockiert() {
+		return blockiert;
+	}
+
+	public void setBlockiert(Integer blockiert) {
+		this.blockiert = blockiert;
+	}
+	
+	public Integer getWarteliste() {
+		return warteliste;
+	}
+
+	public void setWarteliste(Integer warteliste) {
+		this.warteliste = warteliste;
+	}
+
+	public Integer getBelegt() {
+		return belegt;
+	}
+
+	public void setBelegt(Integer belegt) {
+		this.belegt = belegt;
+	}
 
 
 	@Override
@@ -133,5 +173,8 @@ public class Workshop {
 				+ " / cvModeratorIn " + this.cvModeratorIn;
 
 	}
+
+	
+	
 
 }

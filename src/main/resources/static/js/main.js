@@ -17,17 +17,17 @@ angular.module('main', [ 'ngRoute' ])
 	})
 	.when('/anmeldungen', {
 		templateUrl : 'anmeldungen.html',
-		controller : 'anmeldungen',
+		controller : 'anmeldungen as ctrl',
 		controllerAs: 'controller'
 	})
 	.when('/workshops', {
 		templateUrl : 'workshops.html',
-		controller : 'workshops',
+		controller : 'workshops as ctrl',
 		controllerAs: 'controller'
 	})
 	.when('/changecontents/:param1', {
 		templateUrl : 'changecontents.html',
-		controller : 'changecontents',
+		controller : 'changecontents as ctrl',
 		controllerAs: 'controller'
 	})
 	.when('/mailing', {
@@ -48,19 +48,20 @@ angular.module('main', [ 'ngRoute' ])
     var REST_SERVICE_URI = 'http://welchezukunft.org:8080/admin';
  
     var factory = {
-    	changeContent : changeContent,
+    	changeWorkshop : changeWorkshop,
     	getWorkshop : getWorkshop,
     	getWorkshops : getWorkshops,
     	getUsers : getUsers,
-    	changeUser : changeUser
+    	changeUser : changeUser,
+    	deleteUser : deleteUser
     };
  
     return factory;
  
  
-    function changeContent(workshop) {
+    function changeWorkshop(workshop) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI + "/changecontents/", workshop)
+        $http.post(REST_SERVICE_URI + "/changeworkshop/", workshop)
             .then(
             function (response) {
                 console.log('Success on changing content');
@@ -112,9 +113,15 @@ angular.module('main', [ 'ngRoute' ])
     
     
     
-    function getUsers(filter) {
+    function getUsers(filter, workshopId) {
+    	
+    	if(typeof workshopId === "undefined") {
+    		workshopId = "";
+    	}
+    	
+    	
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI + "/getanmeldungen/" + filter)
+        $http.post(REST_SERVICE_URI + "/getusers/" + filter + "/" + workshopId )
             .then(
             function (response) {
                 console.log('Success on getting users');
@@ -147,6 +154,25 @@ angular.module('main', [ 'ngRoute' ])
         );
         return deferred.promise;
     }
+    
+    function deleteUser(user) {
+    	console.log('in delete User service');
+    	console.log(user);
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + "/deleteuser/", user)
+            .then(
+            function (response) {
+                console.log('Success on delete user');
+                deferred.resolve(response.data);
+                console.log('response data : ' + response);
+            },
+            function(errResponse){
+                console.error('Error while delete user ');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
  
 }])
 
@@ -160,11 +186,6 @@ angular.module('main', [ 'ngRoute' ])
 
 .controller('home', function($http) {
 		console.log("Home...");
-		var self = this;
-})
-
-.controller('workshops', function($http) {
-		console.log("workshops...");
 		var self = this;
 })
 

@@ -32,11 +32,11 @@
 			<li ng-show="!authenticated" ng-class="{active:nav.tab('navigation')}"><a href="#/login">Anmelden</a></li>
 			<li ng-show="authenticated"><a href="" ng-click="nav.logout()">Abmelden</a></li>
 			<li ng-show="authenticated" ng-class="{active:nav.tab('home')}"><a href="#/">Übersicht</a></li>
-			<li ng-show="authenticated" ng-class="{active:nav.tab('anmeldungen')}"><a
+			<li ng-show="authenticated" ng-class="{active:nav.tab('anmeldungen as ctrl')}"><a
 				href="#/anmeldungen">Anmeldungen</a></li>
-			<li ng-show="authenticated" ng-class="{active:nav.tab('workshops')}"><a
+			<li ng-show="authenticated" ng-class="{active:nav.tab('workshops as ctrl')}"><a
 				href="#/workshops">Workshops</a></li>
-			<li ng-show="authenticated" class="dropdown" ng-class="{active:nav.tab('changecontents')}">
+			<li ng-show="authenticated" class="dropdown" ng-class="{active:nav.tab('changecontents as ctrl')}">
 				<a ng-click="nav.getWorkshops()" class="dropdown-toggle" data-toggle="dropdown" href="">Inhalte ändern
 				<span class="caret"></span></a>
     			<ul class="dropdown-menu">    				
@@ -65,6 +65,7 @@
 	<script src="js/main.js"></script>
 	<script src="js/navigation.js"></script>
 	<script src="js/mailing.js"></script>
+	<script src="js/workshops.js"></script>
 	
 	
 	<script src="js/anmeldungen.js"></script>

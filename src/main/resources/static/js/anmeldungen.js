@@ -18,6 +18,8 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 	
 	self.setActiveUser = setActiveUser;
 	self.changeUser = changeUser;
+	self.deleteUser = deleteUser;
+
 	
 	self.user={
 			id: '-',
@@ -73,6 +75,53 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
         }
         );
 	}
+	
+	
+	function deleteUser(user){
+		console.log('delete user...');
+		ChangeContentService.deleteUser(user)
+        .then(
+        function(result){
+            console.log(result);
+            getUsers('ALL');
+            self.user={
+        			id: '-',
+        			datum: '-',
+        			workshopId: '-',
+        			motivation:'',
+        			mail:'-', 
+        			mailConfirm:'', 
+        			vorname:'-', 
+        			nachname:'-', 
+        			internText: '-',
+        			status:'-', 
+        			agb:'-',
+        			modus: '-',
+        			sprache: '-'
+        	};
+        },
+        function(errResponse){
+            console.error('Error while deleting user');
+            getUsers('ALL');
+            self.user={
+        			id: '-',
+        			datum: '-',
+        			workshopId: '-',
+        			motivation:'',
+        			mail:'-', 
+        			mailConfirm:'', 
+        			vorname:'-', 
+        			nachname:'-', 
+        			internText: '-',
+        			status:'-', 
+        			agb:'-',
+        			modus: '-',
+        			sprache: '-'
+        	};
+        }
+        );
+	}
+	
 	
 	self.selected = '';
 	

@@ -23,7 +23,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
     
-
+    /*
     @Bean
     public FilterRegistrationBean requestDumperFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -31,6 +31,6 @@ public class Application {
         registration.setFilter(requestDumperFilter);
         registration.addUrlPatterns("/*");
         return registration;
-    }
+    }*/
     
 }
