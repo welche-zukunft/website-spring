@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,7 +26,7 @@ import de.deutschestheater.welchezukunft.storage.StorageService;
 
 
 
-@Controller
+@RestController
 public class FileUploadController {
 
     private final StorageService storageService;
@@ -57,7 +58,7 @@ public class FileUploadController {
     }*/
 
     @PostMapping("/admin/mailattachment/")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file,
     		@RequestParam("geheimnis") String geheimnis, RedirectAttributes redirectAttributes) {
     	
     	System.out.println(file);
@@ -68,7 +69,7 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        return "redirect:/";
+        return "success";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

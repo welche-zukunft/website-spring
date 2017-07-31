@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import enumutils.AGB;
 import enumutils.Modus;
 import enumutils.Sprache;
+import enumutils.Stand;
 import enumutils.Status;
 
 @Entity
@@ -54,6 +55,9 @@ public class User {
 
 	@Enumerated(EnumType.STRING)
 	private Sprache sprache;
+	
+	@Enumerated(EnumType.STRING)
+	private Stand stand = Stand.TODO;
 			
 
 
@@ -159,6 +163,14 @@ public class User {
 
 	public void setDatum(Date datum) {
 		this.datum = datum;
+	}
+	
+	public Stand getStand() {
+		return stand;
+	}
+
+	public void setStand(Stand bearbeitet) {
+		this.stand = bearbeitet;
 	}
 
 	@Override

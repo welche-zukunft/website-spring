@@ -14,8 +14,6 @@
 	  <table align="center" class="backendTable" border="1">
 	  <tr>
 		<!-- menue -->
-
-		
 		
 		<!-- formular -->
 		<td class="mittespalte">	
@@ -25,35 +23,62 @@
 				<td width="20vh">
 				Datum
 				</td>
-				<td width="45vh">
+				<td width="35vh">
 				Name
 				</td>
 				<td width="20vh">
 				Workshops
 				</td>
+				<td width="10vh">
+				ok?
+				</td>				
+		</tr>
+		<tr ng-repeat='user in ctrl.users | orderBy:ctrl.sortType:ctrl.sortReverse'>	
+				<td>
+				{{user.datum}}
+				</td>
+				<td>
+				<a href="mailto:fritz.eierschale@example.org">{{user.vorname}} {{user.nachname}}</a>
+				</td>
+				<td>
+				{{user.workshopId}}
+				</td>
+				<td>
+				<a ng-click="ctrl.setBearbeitet(user)" href="">ok</a>
+				</td>
+		</tr>
+
+		</table>
+		<h4>Neueste Abmeldungen</h4>
+		<table width="95%" border="1" class="thintable">
+		<tr class="headline">
+				<td width="20vh">
+				Datum
+				</td>
+				<td width="35vh">
+				Name
+				</td>
+				<td width="20vh">
+				Workshops
+				</td>
+				<td width="10vh">
+				ok?
+				</td>
 		</tr>
 		<tr>	
 				<td>
-				25.08.17
+				26.08.17
 				</td>
 				<td>
-				<a href="mailto:fritz.eierschale@example.org">Annika Meier</a>
+				<a href="mailto:fritz.eierschale@example.org">Harald Habkeinelustmehr</a>
 				</td>
 				<td>
-				1 - 5 - 7
-				</td>
-		</tr>
-		<tr>	
-				<td>
-				24.08.17
+				1
 				</td>
 				<td>
-				<a href="mailto:fritz.eierschale@example.org">Enrico Silberstädt</a>
+				<a href="#">ok</a>
 				</td>
-				<td>
-				12
-				</td>
-		</tr>
+			</tr>
 		</table>
 		</td>
 		<td class="rechtespalte">

@@ -7,6 +7,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet">
   </head>
   
+
   
 
   <body>
@@ -82,14 +83,19 @@
 		
 		<button ng-click="ctrl.sendMail(ctrl.mail)">Senden</button>
 		
-		<form method="POST" enctype="multipart/form-data" action="/admin/mailattachment/">
+		<form method="POST" enctype="multipart/form-data" id="anhang">
 			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" />				
-				<input type="submit" value="Upload" />
-				</td></tr>
-				<input type="hidden" name="geheimnis" ng-value='"GEHEIMNIS"'/>
+				<input name="file" ng-value="ctrl.fileToUpload" value="{{ctrl.fileToUpload}}" file-model="ctrl.fileToUpload" set-file-data="ctrl.fileToUpload = value;" type="file" id="my_file" />
 			</table>
+						
 		</form>
+		
+		
+		<button ng-click="ctrl.uploadAttachment()">
+		
+		
+		
+		
 		
 		</td>
 
@@ -98,4 +104,8 @@
 	</table>
 	</div>
   </body>
+  
+  
+  
+  
 </html>

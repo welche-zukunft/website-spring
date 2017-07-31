@@ -9,7 +9,7 @@ angular.module('main', [ 'ngRoute' ])
 	$routeProvider.when('/', {
 		templateUrl : 'home.html',
 		controller : 'home',
-		controllerAs: 'controller'
+		controllerAs: 'ctrl'
 	}).when('/login', {
 		templateUrl : 'login.html',
 		controller : 'navigation',
@@ -45,7 +45,7 @@ angular.module('main', [ 'ngRoute' ])
 
 .factory('ChangeContentService', ['$http', '$q', function($http, $q){
  
-    var REST_SERVICE_URI = 'http://welchezukunft.org:8080/admin';
+    var REST_SERVICE_URI = 'http://localhost:8080/admin';
  
     var factory = {
     	changeWorkshop : changeWorkshop,
@@ -54,7 +54,8 @@ angular.module('main', [ 'ngRoute' ])
     	getUsers : getUsers,
     	changeUser : changeUser,
     	deleteUser : deleteUser,
-    	sendMail : sendMail
+    	sendMail : sendMail,
+    	getNewUsers : getNewUsers
     };
  
     return factory;
@@ -191,6 +192,30 @@ angular.module('main', [ 'ngRoute' ])
         );
         return deferred.promise;
     }
+    
+    
+function getNewUsers() {
+    	
+    	if(typeof workshopId === "undefined") {
+    		workshopId = "";
+    	}
+    	
+    	
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + "/getnewusers/" )
+            .then(
+            function (response) {
+                console.log('Success on getting users');
+                deferred.resolve(response.data);
+                console.log('response data : ' + response.data);
+            },
+            function(errResponse){
+                console.error('Error while getting users ');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
 
  
 }])
@@ -201,13 +226,6 @@ angular.module('main', [ 'ngRoute' ])
 
 		
 	
-
-
-.controller('home', function($http) {
-		console.log("Home...");
-		var self = this;
-})
-
 
 
 

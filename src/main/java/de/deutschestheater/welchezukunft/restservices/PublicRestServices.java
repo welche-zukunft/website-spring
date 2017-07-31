@@ -150,7 +150,7 @@ public class PublicRestServices {
 
 			Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
 
-			if (workshop.getMax() == workshop.getBelegt()) {
+			if (workshop.getMax()-workshop.getBlockiert() == workshop.getBelegt()) {
 				user.setStatus(Status.WARTELISTE);
 			} else if (workshop.getMax() > workshop.getBelegt()) {
 				user.setStatus(Status.ZUGELASSEN);

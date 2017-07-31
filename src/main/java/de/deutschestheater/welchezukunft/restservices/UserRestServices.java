@@ -26,6 +26,7 @@ import enumutils.AGB;
 import enumutils.FILTER;
 import enumutils.Modus;
 import enumutils.Sprache;
+import enumutils.Stand;
 import enumutils.Status;
 
 @RestController
@@ -141,6 +142,22 @@ public class UserRestServices {
 		userRepository.delete(user);
 
 		return ResponseEntity.status(HttpStatus.OK).body("success");
+	}
+	
+	
+	@RequestMapping("/admin/getnewusers/")
+	public List<User> getnewusers() {
+		System.out.println("get new users...");
+
+		List<User> newUsers = new ArrayList<User>();
+		
+		for (User user : userRepository.findAll()) {
+			if (user.getStand() == Stand.TODO) {
+				newUsers.add(user);
+			}
+		}
+
+		return newUsers;
 	}
 	
 	
