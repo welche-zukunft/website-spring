@@ -68,9 +68,9 @@ public class MailService {
 			helper.setSubject("Lorem ipsum");
 			helper.setText("Lorem ipsum dolor sit amet [...]");
 			
-			FileSystemResource file = new FileSystemResource(new File(""));
+			FileSystemResource file = new FileSystemResource(new File("/root/uploads/Anhang.txt"));
 			
-			helper.addAttachment("AnhangTest.txt", file);
+			helper.addAttachment("Anhang.txt", file);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		} finally {
