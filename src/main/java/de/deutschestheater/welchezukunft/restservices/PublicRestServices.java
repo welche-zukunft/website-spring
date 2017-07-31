@@ -33,6 +33,34 @@ public class PublicRestServices {
 	@RequestMapping("/adduser/")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
 		System.out.println("Save new user...");
+		
+		
+		// clean remove if user is already in repository
+		
+		User oldUser = userRepository.findOne(user.getId());
+		Workshop oldWorkshop;
+		
+		if (oldUser != null) {
+			userRepository.delete(oldUser);
+			
+			switch (user.getStatus()) {
+			case ZUGELASSEN : 	
+				oldWorkshop = workshops.getWorkshop(oldUser.getWorkshopId());
+				oldWorkshop.setBelegt(oldWorkshop.getBelegt() - 1);
+				workshops.setWorkshop(oldWorkshop);
+				userRepository.delete(oldUser);
+				break;
+			case ZURÜCKGEMELDET : 	
+				oldWorkshop = workshops.getWorkshop(oldUser.getWorkshopId());
+				oldWorkshop.setBelegt(oldWorkshop.getBelegt() - 1);
+				workshops.setWorkshop(oldWorkshop);
+				userRepository.delete(oldUser);
+				break;
+			default : 
+				break;
+			}
+		
+		}
 
 		// Check AGB
 
