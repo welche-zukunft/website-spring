@@ -33,7 +33,7 @@ angular.module('main', [ 'ngRoute' ])
 	.when('/mailing', {
 		templateUrl : 'mailing.html',
 		controller : 'mailing',
-		controllerAs: 'controller'
+		controllerAs: 'ctrl'
 	}).otherwise('/login');
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -45,7 +45,7 @@ angular.module('main', [ 'ngRoute' ])
 
 .factory('ChangeContentService', ['$http', '$q', function($http, $q){
  
-    var REST_SERVICE_URI = 'http://welchezukunft.org:8080/admin';
+    var REST_SERVICE_URI = 'http://localhost:8080/admin';
  
     var factory = {
     	changeWorkshop : changeWorkshop,
@@ -53,7 +53,8 @@ angular.module('main', [ 'ngRoute' ])
     	getWorkshops : getWorkshops,
     	getUsers : getUsers,
     	changeUser : changeUser,
-    	deleteUser : deleteUser
+    	deleteUser : deleteUser,
+    	sendMail : sendMail
     };
  
     return factory;
@@ -173,6 +174,24 @@ angular.module('main', [ 'ngRoute' ])
         );
         return deferred.promise;
     }
+    
+    function sendMail(mail) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + "/sendmail/", mail)
+            .then(
+            function (response) {
+                console.log('Success on getting workshop');
+                deferred.resolve(response.data);
+                console.log('response data : ' + response.data.kurzinfo);
+            },
+            function(errResponse){
+                console.error('Error while getting workshop ');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+
  
 }])
 

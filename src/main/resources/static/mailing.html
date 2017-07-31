@@ -53,9 +53,9 @@
 		<td width="30vh">
 		<label for="zuname">Einzelperson</label>
 		<br>
-			<select name="top5" size="1">
+			<select ng-model='ctrl.mail.ziel' name="top5" size="1">
 				<option></option>
-				<option>Annika Meier</option>
+				<option ng-value='"test@alexh.name"'">Annika Meier</option>
 				<option>Dagobert Mann</option>
 				<option>Hennriette Kübler</option>
 				<option>Maurice Holster</option>
@@ -70,23 +70,27 @@
 		</table>
 		<br>
 		<label for="zuname">Titel</label>  	
-		<input type="text" name="zuname" id="zuname" maxlength="80" size="80"> 
+		<input ng-model='ctrl.mail.titel' type="text" name="zuname" id="zuname" maxlength="80" size="80"> 
 		<label for="zuname">Inhalt</label>
-		<textarea rows="30" cols="90"></textarea>
+		<textarea ng-model='ctrl.mail.inhalt' rows="30" cols="90"></textarea>
 		<table width="95%" border="1" class="thintable">
 		<tr class="headline">
 		<td width="70vh">
 		<a href="infos.pdf">infos.pdf (239.7 kb)</a>
 		</td>
 		<td width="30vh">
-		<button type="reset">Anhang anfügen</button>
-		<button type="reset">Anhang löschen</button>
-		<br><br>
-		</td>
-		</tr>
-		</table>
-		<button type="reset">senden</button>
-		<button type="reset">löschen</button>
+		
+		<button ng-click="ctrl.sendMail(ctrl.mail)">Senden</button>
+		
+		<form method="POST" enctype="multipart/form-data" action="/admin/mailattachment/">
+			<table>
+				<tr><td>File to upload:</td><td><input type="file" name="file" />				
+				<input type="submit" value="Upload" />
+				</td></tr>
+				<input type="hidden" name="geheimnis" ng-value='"GEHEIMNIS"'/>
+			</table>
+		</form>
+		
 		</td>
 
 	  </tr>

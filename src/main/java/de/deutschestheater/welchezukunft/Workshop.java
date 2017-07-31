@@ -35,7 +35,7 @@ public class Workshop {
 	
 	private Integer warteliste = 0;
 	
-	private Integer belegt = 3;
+	private Integer belegt = 0;
 
 	
 	public String getTitel() {
