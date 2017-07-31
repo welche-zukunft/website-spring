@@ -1,4 +1,4 @@
-angular.module('main').controller('workshops', ['ChangeContentService', function(ChangeContentService) {
+angular.module('main').controller('workshops', ['ChangeContentService', '$scope', function(ChangeContentService, $scope) {
 	console.log('workshops ');
 	var self = this;
 	
@@ -7,6 +7,11 @@ angular.module('main').controller('workshops', ['ChangeContentService', function
 	getWorkshops();
 	
 	self.setActiveWorkshop = setActiveWorkshop;
+	
+	
+	self.teilnehmer = [];
+	self.wartende = [];
+	self.changeUser = changeUser;
 	
 	
 	
@@ -35,6 +40,9 @@ angular.module('main').controller('workshops', ['ChangeContentService', function
         	.then(
         	function(result){
         		self.teilnehmer = result;
+        		if(!$scope.$$phase) {
+            		$scope.$apply();
+        		}
         		console.log(result);
         	},
         	function(errResponse){
@@ -46,6 +54,9 @@ angular.module('main').controller('workshops', ['ChangeContentService', function
 			.then(
 			function(result){
 				self.wartende = result;
+				if(!$scope.$$phase) {
+            		$scope.$apply();
+        		}
 				console.log(result);
 			},
 			function(errResponse){
@@ -54,7 +65,25 @@ angular.module('main').controller('workshops', ['ChangeContentService', function
 		);
 
 
-
+	}
+	
+	
+	
+	function changeUser(user){
+		user.status = 'ZUGELASSEN';
+		
+		console.log('change user...');
+		ChangeContentService.changeUser(user)
+        .then(
+        function(result){
+            console.log(result);
+            setActiveWorkshop(self.workshop);
+        },
+        function(errResponse){
+            console.error('Error while changing user');
+            setActiveWorkshop(self.workshop);
+        }
+        );
 	}
 	
 }]);
