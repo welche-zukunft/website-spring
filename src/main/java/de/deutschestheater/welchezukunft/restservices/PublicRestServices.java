@@ -47,6 +47,8 @@ public class PublicRestServices {
 		if (!user.getMail().equals(user.getMailConfirm())) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("mail addresses do not match");
 		}
+		
+		System.out.println("mail validator..");
 
 		boolean valid = EmailValidator.getInstance().isValid(user.getMail());
 
@@ -55,14 +57,14 @@ public class PublicRestServices {
 		}
 
 		// Create an ID
+		
+		System.out.println("ID creation..");
+
 
 		user.setId((long) (user.getMail().toLowerCase().hashCode()));
 				
 		// clean remove if user is already in repository
-
-		users.deleteUserHandler(user.getId());
-
-		// Set status to pending
+		
 
 		user.setStatus(Status.ANGEMELDET);
 		
