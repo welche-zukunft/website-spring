@@ -75,8 +75,7 @@ public class PublicRestServices {
 		} else {
 			user.setModus(Modus.NORMAL);
 		}
-		
-				  		  
+						  		  
 		users.addUser(user);
 
 		return ResponseEntity.status(HttpStatus.OK).body("success");

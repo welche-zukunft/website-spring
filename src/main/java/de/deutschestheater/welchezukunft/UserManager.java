@@ -34,6 +34,9 @@ public class UserManager {
 	}
 
 	public void addUser(User user) {
+		
+		System.out.println("Add user...");
+
 
 		// Set Date
 
@@ -46,6 +49,8 @@ public class UserManager {
 	}
 
 	public void updateUser(User user) {
+		
+		System.out.println("Update user");
 		
 		userRepository.save(user);
 
@@ -109,6 +114,8 @@ public class UserManager {
 	}
 
 	public synchronized void updateWorkshops() {
+		
+		System.out.println("update Workshops...");
 
 		for (Workshop workshop : workshops.getWorkshops()) {
 			workshop.setBelegt(0);
