@@ -2,7 +2,6 @@ package de.deutschestheater.welchezukunft.restservices;
 
 import java.io.File;
 import java.lang.ProcessBuilder.Redirect;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.deutschestheater.welchezukunft.User;
-import de.deutschestheater.welchezukunft.UserRepository;
-import de.deutschestheater.welchezukunft.Workshop;
+import de.deutschestheater.welchezukunft.UserManager;
 import de.deutschestheater.welchezukunft.WorkshopsManager;
 import enumutils.AGB;
 import enumutils.Modus;
@@ -26,42 +24,15 @@ public class PublicRestServices {
 
 	@Autowired
 	private WorkshopsManager workshops;
-
+	
 	@Autowired
-	private UserRepository userRepository;
+	private UserManager users;
 
+	
 	@RequestMapping("/adduser/")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
 		System.out.println("Save new user...");
 		
-		
-		// clean remove if user is already in repository
-		
-		User oldUser = userRepository.findOne(user.getId());
-		Workshop oldWorkshop;
-		
-		if (oldUser != null) {
-			userRepository.delete(oldUser);
-			
-			switch (user.getStatus()) {
-			case ZUGELASSEN : 	
-				oldWorkshop = workshops.getWorkshop(oldUser.getWorkshopId());
-				oldWorkshop.setBelegt(oldWorkshop.getBelegt() - 1);
-				workshops.setWorkshop(oldWorkshop);
-				userRepository.delete(oldUser);
-				break;
-			case ZURÜCKGEMELDET : 	
-				oldWorkshop = workshops.getWorkshop(oldUser.getWorkshopId());
-				oldWorkshop.setBelegt(oldWorkshop.getBelegt() - 1);
-				workshops.setWorkshop(oldWorkshop);
-				userRepository.delete(oldUser);
-				break;
-			default : 
-				break;
-			}
-		
-		}
-
 		// Check AGB
 
 		if (!user.getAgb().equals(AGB.YES)) {
@@ -86,6 +57,10 @@ public class PublicRestServices {
 		// Create an ID
 
 		user.setId((long) (user.getMail().toLowerCase().hashCode()));
+				
+		// clean remove if user is already in repository
+
+		users.deleteUserHandler(user.getId());
 
 		// Set status to pending
 
@@ -112,7 +87,6 @@ public class PublicRestServices {
 			e1.printStackTrace();
 		}
 		
-		
 		//  Check and set Modus
 		
 		if (user.getWorkshopId() == 14){
@@ -122,23 +96,24 @@ public class PublicRestServices {
 			user.setModus(Modus.NORMAL);
 		}
 		
-		
-		//  Set Date
-				  
-		LocalDateTime now = LocalDateTime.now();
-		user.setDatum(java.sql.Timestamp.valueOf(now));
 				  		  
-		userRepository.save(user);
+		users.addUser(user);
 
 		return ResponseEntity.status(HttpStatus.OK).body("success");
 
 	}
+	
+	
+	
+	
+	
+
 
 	@RequestMapping("/confirmregistration/")
 	public ResponseEntity<String> confirmRegistration(@RequestBody String mail) {
 		System.out.println("User ID from Mail hash " + mail);
 
-		User user = userRepository.findOne((long) mail.hashCode());
+		User user = users.getUser(mail);
 
 		if (user == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user did not apply for registration");
@@ -147,22 +122,55 @@ public class PublicRestServices {
 		if (user.getModus().equals(Modus.OLYMPISCH)) {
 			user.setStatus(Status.ZUZUTEILEN);
 		} else if (user.getModus().equals(Modus.NORMAL)) {
-
-			Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
-
-			if (workshop.getMax()-workshop.getBlockiert() == workshop.getBelegt()) {
+			
+			
+			if (workshops.isFull(user.getWorkshopId())) {
 				user.setStatus(Status.WARTELISTE);
-			} else if (workshop.getMax() > workshop.getBelegt()) {
+			} else {
 				user.setStatus(Status.ZUGELASSEN);
-				
-				workshop.setBelegt(workshop.getBelegt() + 1);
 			}
 
 		}
 
-		userRepository.save(user);
+		users.updateUser(user);
 
 		return ResponseEntity.status(HttpStatus.OK).body("success");
 	}
+	
+	
+	@RequestMapping("/removeuser/")
+	public ResponseEntity<String> removeuser(@RequestBody String mail) {
+		System.out.println("Save new user...");
+		
+		// get User ID from mail
+		
+		Long id = (long) mail.hashCode();
+		
+		// clean remove 
+		
+		users.deleteUserHandler(id);    // ToDo  User not there Exception
+
+		return ResponseEntity.status(HttpStatus.OK).body("success");
+
+	} 
+	
+	
+	@RequestMapping("/freeslot/")
+	public ResponseEntity<String> freeslot(@RequestBody Long workshopId) {
+		System.out.println("Save new user...");
+				
+		if (workshops.isFull(workshopId)) {
+			return ResponseEntity.status(HttpStatus.OK).body("full");
+
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body("free");
+
+		}
+		
+	}
+	
+	
+	
+	
 
 }

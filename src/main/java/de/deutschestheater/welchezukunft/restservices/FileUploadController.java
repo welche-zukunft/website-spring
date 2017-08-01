@@ -1,6 +1,8 @@
 package de.deutschestheater.welchezukunft.restservices;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +22,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import de.deutschestheater.welchezukunft.AttachmentRepository;
 import de.deutschestheater.welchezukunft.storage.StorageFileNotFoundException;
 import de.deutschestheater.welchezukunft.storage.StorageService;
+import de.deutschestheater.welchezukunft.Attachment;
+
 
 
 
 
 @RestController
 public class FileUploadController {
+	
+	private AttachmentRepository fileRepository;
 
     private final StorageService storageService;
 
@@ -58,11 +65,12 @@ public class FileUploadController {
     }*/
 
     @PostMapping("/admin/mailattachment/")
-    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file,
-    		@RequestParam("geheimnis") String geheimnis, RedirectAttributes redirectAttributes) {
+    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
     	
     	System.out.println(file);
-    	System.out.println(geheimnis);
+    	
+    	Attachment attachment = new Attachment();
+    	attachment.setName(file.getOriginalFilename());
 
 
         storageService.store(file);
@@ -76,5 +84,21 @@ public class FileUploadController {
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
     }
+    
+    
+    
+    
+    @PostMapping("/admin/getfiles/")
+    public List<Attachment> getFiles() {
+    	
+    	List<Attachment> result = new ArrayList<Attachment>();
+    	
+    	for (Attachment file :fileRepository.findAll()) {
+    		result.add(file);
+    	}
+       
+        return result;
+    }
+    
 
 }

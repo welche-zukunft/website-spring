@@ -95,7 +95,12 @@
 		
 		
 		
-		
+		<select ng-model="filterCondition.operator">
+       		<option 
+           ng-repeat="file in self.files" 
+           value="{{file.name}}">
+           {{file.name}}
+       		</option>
 		
 		</td>
 

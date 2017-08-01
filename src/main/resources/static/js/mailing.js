@@ -1,4 +1,5 @@
 angular.module('main').controller('mailing', ['ChangeContentService', "$http", function(ChangeContentService, $http) {
+	
 	console.log('mailing ');
 	var self = this;
 	
@@ -12,8 +13,10 @@ angular.module('main').controller('mailing', ['ChangeContentService', "$http", f
 	
 	
 	self.sendMail = sendMail;
-	self.uploadAttachment = uploadAttachment;
+	self.files = [];
+	self.file = '';
 	
+	getFiles();
 	
 	
 	function sendMail(mail){
@@ -29,57 +32,23 @@ angular.module('main').controller('mailing', ['ChangeContentService', "$http", f
         );
 	}
 	
-	
-	function uploadAttachment(){
-		
-		console.log(self.fileToUpload)
-		
-		/*
-		var fd = new FormData();
-		fd.append('file', self.fileToUpload);
-		fd.append('geheimnis', 'Geheimnis');
-		$http.post(uploadUrl, fd, {
-		   transformRequest: angular.identity,
-		   headers: {'Content-Type': undefined}
-		})
-		.success(function(){
-		})
-		.error(function(){
-		});
-		*/
-
-		
-		
+	function getFiles(){
+		console.log('get files...');
+        ChangeContentService.getFiles()
+            .then(
+            function(result){
+            	self.files = result;
+                console.log(result);
+            },
+            function(errResponse){
+                console.error('Error while getting Files');
+            }
+            );
 	}
 	
-}])
 
+	
 
-.directive("fileModel",function() {
-	return {
-		restrict: 'EA',
-		scope: {
-			setFileData: "&"
-		},
-		link: function(scope, ele, attrs) {
-			
-			//console.log(ele);
-			//console.log(scope);
-			//console.log(attrs);
-			
-			ele.on('change', function() {
-				
-				scope.$apply(function() {
-						
-					console.log(ele[0]);
-					var val = ele[0].files[0];
-					scope.fileToUpload =  val;
-					console.log(scope.fileToUpload);
-				});
-			});
-		}
-	}
-});
-
-
+	
+}]);
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.deutschestheater.welchezukunft.User;
+import de.deutschestheater.welchezukunft.UserManager;
 import de.deutschestheater.welchezukunft.UserRepository;
 import de.deutschestheater.welchezukunft.Workshop;
 import de.deutschestheater.welchezukunft.WorkshopsManager;
@@ -35,11 +36,7 @@ public class UserRestServices {
 	@Autowired
 	private WorkshopsManager workshops;
 
-	@Autowired
-	private UserRepository userRepository;
-	
-	
-	
+	@Autowired UserManager users;
 	
 
 	@RequestMapping(value = { "/admin/getusers/{filter}/", "/admin/getusers/{filter}/{workshopId}" })
@@ -48,26 +45,18 @@ public class UserRestServices {
 		System.out.println("get anmeldungen");
 		System.out.println(filter);
 
-		List<User> baseList = new ArrayList<User>();
+		List<User> baseList;
 
 		if (workshopId.isPresent()) {
 			
 			System.out.println("Workshop ID : " + workshopId );
 			
-			for (User user : userRepository.findAll()) {
-				
-				System.out.println( "Param      : " + workshopId.get());
-				System.out.println( "User WS ID : " + user.getWorkshopId());
-				
-				if (user.getWorkshopId().equals(workshopId.get())) {
-					System.out.println("EQUAL!!");
-					baseList.add(user);
-				}
-			}
+			baseList =  users.getAll(workshopId.get());
+			
 		} else {
-			for (User user : userRepository.findAll()) {
-				baseList.add(user);
-			}
+			
+			baseList = users.getAll();
+			
 		}
 
 		List<User> users = new ArrayList<User>();
@@ -95,7 +84,6 @@ public class UserRestServices {
 			case NICHTZURÜCKGEMELDET:
 				if (user.getStatus().equals(Status.ZUGELASSEN)) {
 					users.add(user);
-
 				}
 				break;
 			case ZUZUTEILEN:
@@ -126,7 +114,7 @@ public class UserRestServices {
 
 		// ToDo: Add data validation
 
-		userRepository.save(user);
+		users.updateUser(user);
 
 		return ResponseEntity.status(HttpStatus.OK).body("success");
 	}
@@ -139,7 +127,7 @@ public class UserRestServices {
 
 		// ToDo: Add data validation
 
-		userRepository.delete(user);
+		users.deleteUserHandler(user);
 
 		return ResponseEntity.status(HttpStatus.OK).body("success");
 	}
@@ -151,7 +139,7 @@ public class UserRestServices {
 
 		List<User> newUsers = new ArrayList<User>();
 		
-		for (User user : userRepository.findAll()) {
+		for (User user : users.getAll()) {
 			if (user.getStand() == Stand.TODO) {
 				newUsers.add(user);
 			}
@@ -159,6 +147,8 @@ public class UserRestServices {
 
 		return newUsers;
 	}
+	
+	
 	
 	
 	

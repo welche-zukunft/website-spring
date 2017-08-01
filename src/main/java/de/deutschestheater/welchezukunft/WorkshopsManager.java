@@ -8,76 +8,81 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class WorkshopsManager {
-	
-	
+
 	@Autowired
 	private WorkshopRepository workshopRepository;
-	
-	
+
 	@Autowired
 	private EventRepository eventRepository;
 
-
-	public WorkshopsManager(){
+	public WorkshopsManager() {
 
 	}
-	
-	
-    public List<Workshop> getWorkshops(){
-    	
-    	List<Workshop> result = new ArrayList<Workshop>();
-    	
-    	for (Workshop workshop : workshopRepository.findAll()){
-    		result.add(workshop);
-    	}
-    			
-		if (result.isEmpty()){
-			
+
+	public List<Workshop> getWorkshops() {
+
+		List<Workshop> result = new ArrayList<Workshop>();
+
+		for (Workshop workshop : workshopRepository.findAll()) {
+			result.add(workshop);
+		}
+
+		if (result.isEmpty()) {
+
 			System.out.println("Init Workshops...");
-			
-			for (int i = 1; i < 14; i++){
+
+			for (int i = 1; i < 14; i++) {
 				Workshop workshop = new Workshop();
-				workshop.setId((long)i);
+				workshop.setId((long) i);
 
 				workshop.setTitel("Workshop " + workshop.getId());
-				
+
 				this.setWorkshop(workshop);
 				result.add(workshop);
-				
+
 			}
 		}
-				
+
 		return result;
 
 	}
-		
-	
-	public Workshop getWorkshop(Long id){
-		System.out.println("Get Workshop " + id);	
+
+	public Workshop getWorkshop(Long id) {
+		System.out.println("Get Workshop " + id);
 		return workshopRepository.findOne(id);
 	}
-	
-	public void setWorkshop(Workshop workshop){
+
+	public void setWorkshop(Workshop workshop) {
 		System.out.println("Set Workshop " + workshop.getId());
-		
+
 		workshopRepository.save(workshop);
-		
+
 	}
-	
-	
-	public List<Event> getEvents(Workshop workshop){
+
+	public List<Event> getEvents(Workshop workshop) {
 		List<Event> events = new ArrayList<Event>();
-		
-		for (Event event : eventRepository.findAll()){
-			if (event.getWorkshop().equals(workshop)){
+
+		for (Event event : eventRepository.findAll()) {
+			if (event.getWorkshop().equals(workshop)) {
 				events.add(event);
 			}
 		}
-		
+
 		return events;
-		
+
 	}
-    
-    
-	
+
+	public boolean isFull(long workshopId) {
+		Workshop workshop = workshopRepository.findOne(workshopId);
+
+		boolean res = workshop.getMax() <= (workshop.getBelegt() + workshop.getBlockiert());
+
+		return res;
+
+	}
+
+	public boolean isFull(Workshop workshop) {
+		return isFull(workshop.getId());
+	}
+
 }

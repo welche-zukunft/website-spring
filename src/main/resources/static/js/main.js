@@ -34,6 +34,11 @@ angular.module('main', [ 'ngRoute' ])
 		templateUrl : 'mailing.html',
 		controller : 'mailing',
 		controllerAs: 'ctrl'
+	})
+	.when('/uploads', {
+		templateUrl : 'uploads.html',
+		controller : 'uploads',
+		controllerAs: 'ctrl'
 	}).otherwise('/login');
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -55,7 +60,8 @@ angular.module('main', [ 'ngRoute' ])
     	changeUser : changeUser,
     	deleteUser : deleteUser,
     	sendMail : sendMail,
-    	getNewUsers : getNewUsers
+    	getNewUsers : getNewUsers,
+    	getFiles : getFiles
     };
  
     return factory;
@@ -194,7 +200,7 @@ angular.module('main', [ 'ngRoute' ])
     }
     
     
-function getNewUsers() {
+    function getNewUsers() {
     	
     	if(typeof workshopId === "undefined") {
     		workshopId = "";
@@ -216,6 +222,27 @@ function getNewUsers() {
         );
         return deferred.promise;
     }
+
+	
+
+	function getFiles() {
+	
+	
+    var deferred = $q.defer();
+    $http.post(REST_SERVICE_URI + "/getfiles/" )
+        .then(
+        function (response) {
+            console.log('Success on getting files');
+            deferred.resolve(response.data);
+            console.log('response data : ' + response.data);
+        },
+        function(errResponse){
+            console.error('Error while getting files ');
+            deferred.reject(errResponse);
+        }
+    );
+    return deferred.promise;
+}
 
  
 }])
