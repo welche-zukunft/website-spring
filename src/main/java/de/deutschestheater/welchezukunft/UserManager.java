@@ -52,6 +52,10 @@ public class UserManager {
 		
 		System.out.println("Update user");
 		
+		if (user.getStatus() == Status.ZUZUTEILEN && user.getWorkshopId() != 0) {
+			user.setStatus(Status.ZUGELASSEN);
+		}
+		
 		userRepository.save(user);
 
 		updateWorkshops();
