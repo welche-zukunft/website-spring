@@ -124,7 +124,7 @@ public class UserManager {
 		
 		for (User user : userRepository.findAll()) {
 
-			Workshop workshop = workshops.getWorkshop(user.getWorkshopId());1
+			Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
 
 			switch (user.getStatus()) {
 
