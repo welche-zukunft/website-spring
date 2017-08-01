@@ -70,15 +70,19 @@ public class UserManager {
 			// ToDo Error
 		} else {
 			
+			System.out.println("old user not null");
+			
 			// update belegte Plätze
 			
 			if (user.getStatus() == Status.ZUGELASSEN || user.getStatus() == Status.ZURÜCKGEMELDET) {
+				System.out.println("belegt+1");
 				Workshop newWorkshop = workshops.getWorkshop(user.getWorkshopId());
 				newWorkshop.setBelegt(newWorkshop.getBelegt()+1);
 			}
 			if (oldUser.getStatus() == Status.ZUGELASSEN || oldUser.getStatus() == Status.ZURÜCKGEMELDET) {
 				Workshop oldWorkshop = workshops.getWorkshop(oldUser.getWorkshopId());
 				oldWorkshop.setBelegt(oldWorkshop.getBelegt()-1);
+				System.out.println("belegt-1");
 			}
 		}
 
