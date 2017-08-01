@@ -31,7 +31,7 @@ public class PublicRestServices {
 	
 	@RequestMapping("/adduser/")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
-		System.out.println("Save new user...");
+		System.out.println("Save new user " + user.getId());
 		
 		// Check AGB
 
@@ -73,7 +73,7 @@ public class PublicRestServices {
 		
 		if (user.getWorkshopId() == 14){
 			user.setModus(Modus.OLYMPISCH);
-			user.setWorkshopId(null);
+			user.setWorkshopId((long)0);
 		} else {
 			user.setModus(Modus.NORMAL);
 		}

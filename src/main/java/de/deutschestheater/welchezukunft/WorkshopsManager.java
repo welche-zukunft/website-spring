@@ -19,7 +19,7 @@ public class WorkshopsManager {
 
 	}
 
-	public List<Workshop> getWorkshops() {
+	public synchronized List<Workshop> getWorkshops() {
 
 		List<Workshop> result = new ArrayList<Workshop>();
 
@@ -31,7 +31,7 @@ public class WorkshopsManager {
 
 			System.out.println("Init Workshops...");
 
-			for (int i = 1; i < 14; i++) {
+			for (int i = 0; i < 14; i++) {
 				Workshop workshop = new Workshop();
 				workshop.setId((long) i);
 
@@ -47,19 +47,18 @@ public class WorkshopsManager {
 
 	}
 
-	public Workshop getWorkshop(Long id) {
+	public synchronized Workshop getWorkshop(Long id) {
 		System.out.println("Get Workshop " + id);
 		return workshopRepository.findOne(id);
 	}
 
-	public void setWorkshop(Workshop workshop) {
+	public synchronized void setWorkshop(Workshop workshop) {
 		System.out.println("Set Workshop " + workshop.getId());
 
 		workshopRepository.save(workshop);
-
 	}
 
-	public List<Event> getEvents(Workshop workshop) {
+	public synchronized List<Event> getEvents(Workshop workshop) {
 		List<Event> events = new ArrayList<Event>();
 
 		for (Event event : eventRepository.findAll()) {
@@ -72,7 +71,7 @@ public class WorkshopsManager {
 
 	}
 
-	public boolean isFull(long workshopId) {
+	public synchronized boolean isFull(long workshopId) {
 		Workshop workshop = workshopRepository.findOne(workshopId);
 
 		boolean res = workshop.getMax() <= (workshop.getBelegt() + workshop.getBlockiert());
@@ -81,7 +80,7 @@ public class WorkshopsManager {
 
 	}
 
-	public boolean isFull(Workshop workshop) {
+	public synchronized boolean isFull(Workshop workshop) {
 		return isFull(workshop.getId());
 	}
 	

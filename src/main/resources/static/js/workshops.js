@@ -43,6 +43,7 @@ angular.module('main').controller('workshops', ['ChangeContentService', '$scope'
         		if(!$scope.$$phase) {
             		$scope.$apply();
         		}
+        		getWorkshops();
         		console.log(result);
         	},
         	function(errResponse){

@@ -18,7 +18,7 @@ public class UserManager {
 	@Autowired
 	private WorkshopsManager workshops;
 
-	public void deleteUserHandler(long id) {
+	public synchronized void deleteUserHandler(long id) {
 
 		User oldUser = userRepository.findOne(id);
 		Workshop oldWorkshop;
@@ -29,11 +29,11 @@ public class UserManager {
 
 	}
 
-	public void deleteUserHandler(User user) {
+	public synchronized void deleteUserHandler(User user) {
 		deleteUserHandler(user.getId());
 	}
 
-	public void addUser(User user) {
+	public synchronized void addUser(User user) {
 		
 		System.out.println("Add user...");
 
@@ -48,7 +48,7 @@ public class UserManager {
 		updateWorkshops();
 	}
 
-	public void updateUser(User user) {
+	public synchronized void updateUser(User user) {
 		
 		System.out.println("Update user");
 		
@@ -68,17 +68,17 @@ public class UserManager {
 				
 	}
 
-	public User getUser(long id) {
+	public synchronized User getUser(long id) {
 
 		return userRepository.findOne(id);
 	}
 
-	public User getUser(String mail) {
+	public synchronized User getUser(String mail) {
 
 		return getUser((long) mail.hashCode());
 	}
 
-	public List<User> getAll(long workshopId) {
+	public synchronized List<User> getAll(long workshopId) {
 
 		List<User> res = new ArrayList<User>();
 
@@ -96,12 +96,12 @@ public class UserManager {
 		return res;
 	}
 
-	public List<User> getAll(Workshop workshop) {
+	public synchronized List<User> getAll(Workshop workshop) {
 
 		return getAll(workshop.getId());
 	}
 
-	public List<User> getAll() {
+	public synchronized List<User> getAll() {
 		List<User> res = new ArrayList<User>();
 
 		for (User user : userRepository.findAll()) {
