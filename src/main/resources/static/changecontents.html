@@ -15,14 +15,7 @@
 
 		<div class="main">
 			<table align="center" class="backendTable" border="1">
-				<tr>
-					<!-- menue -->
 
-
-
-					<!-- formular -->
-
-					<td class="mittespalte">
 
 						<h4>Inhalte verändern</h4>
 
@@ -79,76 +72,7 @@
 						</form>
 
 
-					</td>
 
-					<td class="rechtespalte">
-
-
-
-						<div ng-repeat="event in ctrl.events">
-
-							<form>
-
-
-								<h4 class="batchtitle">Event 1</h4>
-								<label for="zuname">Überschrift</label> <input type="text"
-									name="zuname" id="zuname" maxlength="80" size="50"> <label
-									for="zuname">Jahr</label> <input type="text" name="zuname"
-									id="zuname" maxlength="4" size="10"> <label
-									for="zuname">Text</label>
-								<textarea rows="7" cols="50"></textarea>
-								<label for="zuname">Embed Code</label>
-								<textarea rows="2" cols="50"></textarea>
-								<label for="zuname">Foto hochladen</label>
-								<table>
-									<tr>
-										<td width="25vh"><button class="informular" type="upload">Foto
-												hochladen</button>
-											<p class="anmerkung">Bitte nur jpg oder png mit einer
-												Grösse von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
-									</tr>
-								</table>
-
-								<button ng-click="ctrl.submitEvent()">Save</button>
-								<hr>
-								<button ng-click="ctrl.removeEvent()">Event Löschen</button>
-
-							</form>
-
-						</div>
-
-
-
-						<form>
-
-
-							<h4 class="batchtitle">Neues Event</h4>
-							<label for="zuname">Überschrift</label> <input type="text"
-								name="zuname" id="zuname" maxlength="80" size="50"> <label
-								for="zuname">Jahr</label> <input type="text" name="zuname"
-								id="zuname" maxlength="4" size="10"> <label for="zuname">Text</label>
-							<textarea rows="7" cols="50"></textarea>
-							<label for="zuname">Embed Code</label>
-							<textarea rows="2" cols="50"></textarea>
-							<label for="zuname">Foto hochladen</label>
-							<table>
-								<tr>
-									<td width="25vh"><button class="informular" type="upload">Foto
-											hochladen</button>
-										<p class="anmerkung">Bitte nur jpg oder png mit einer
-											Grösse von 300x200px. Dateigrösse ca 180kb. Danke!</p></td>
-								</tr>
-							</table>
-
-
-
-							<button ng-click="ctrl.addEvent()">Event hinzufügen</button>
-
-
-						</form>
-
-					</td>
-				</tr>
 			</table>
 		</div>
 </body>
