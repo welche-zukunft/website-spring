@@ -116,7 +116,8 @@ public class UserManager {
 	public synchronized void updateWorkshops() {
 		
 		System.out.println("update Workshops...");
-
+		
+		System.out.println("Set Belegung Null");
 		for (Workshop workshop : workshops.getWorkshops()) {
 			workshop.setBelegt(0);
 			workshop.setWarteliste(0);
@@ -148,7 +149,11 @@ public class UserManager {
 			default:
 				break;
 			}
+			
+			System.out.print("BELEGT :::::::: :::::::::   " + workshop.getBelegt());
+
 		}
+		
 
 	}
 
