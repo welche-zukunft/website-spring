@@ -29,16 +29,6 @@ angular.module('main', [ 'ngRoute' ])
 		templateUrl : 'changecontents.html',
 		controller : 'changecontents as ctrl',
 		controllerAs: 'controller'
-	})
-	.when('/mailing', {
-		templateUrl : 'mailing.html',
-		controller : 'mailing',
-		controllerAs: 'ctrl'
-	})
-	.when('/uploads', {
-		templateUrl : 'uploads.html',
-		controller : 'uploads',
-		controllerAs: 'ctrl'
 	}).otherwise('/login');
 
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
