@@ -54,7 +54,7 @@
 									ng-if="user.status != 'ANGEMELDET'"
 								>
 									<td width="5vh"><a ng-click="ctrl.setActiveUser(user)" href="">show</a></td>								
-									<td>{{ctrl.user.datum}}</td>
+									<td>{{user.datum}}</td>
 									<td><a ng-href="mailto:{{user.mail}}">{{user.vorname}} {{user.nachname}}</a></td>
 									<td>
 										<div ng-if="user.status == 'ZUGELASSEN' || user.status == 'ZURÜCKGEMELDET'">{{user.workshopId}}</div>
