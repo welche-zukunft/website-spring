@@ -27,7 +27,7 @@ public class User {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
 	private Date datum;
-	
+		
 	private Long workshopId;
 	
 	@Column(length = 3000) 
@@ -48,6 +48,9 @@ public class User {
 	private Status status;
 	
 	@Enumerated(EnumType.STRING)
+	private Status prevStatus = Status.ANGEMELDET;
+
+	@Enumerated(EnumType.STRING)
 	private AGB agb;
 	
 	@Enumerated(EnumType.STRING)
@@ -66,6 +69,7 @@ public class User {
 	}
 
 	public void setStatus(Status status) {
+		this.prevStatus = this.status;
 		this.status = status;
 	}
 
@@ -171,6 +175,14 @@ public class User {
 
 	public void setStand(Stand bearbeitet) {
 		this.stand = bearbeitet;
+	}
+
+	public Status getPrevStatus() {
+		return prevStatus;
+	}
+
+	public void setPrevStatus(Status prevStatus) {
+		this.prevStatus = prevStatus;
 	}
 
 	@Override
