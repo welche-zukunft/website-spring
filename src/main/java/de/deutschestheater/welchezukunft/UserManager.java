@@ -1,11 +1,18 @@
 package de.deutschestheater.welchezukunft;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 import enumutils.Status;
 
@@ -17,6 +24,9 @@ public class UserManager {
 
 	@Autowired
 	private WorkshopsManager workshops;
+	
+	@Autowired
+	private JavaMailSender javaMailSender;
 
 	public synchronized void deleteUserHandler(long id) {
 
@@ -54,6 +64,8 @@ public class UserManager {
 		
 		if (user.getStatus() == Status.ZUZUTEILEN && user.getWorkshopId() != 0) {
 			user.setStatus(Status.ZUGELASSEN);
+			
+			send(user.getMail());
 		}
 		
 		userRepository.save(user);
@@ -163,5 +175,29 @@ public class UserManager {
 		
 
 	}
+	
+	
+	private void send(String mail) {
+		MimeMessage mim = javaMailSender.createMimeMessage();
+		
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mim, true);
+			helper.setTo(mail);
+			helper.setFrom("info@welchezukunft.org");
+			helper.setSubject("Lorem ipsum");
+			helper.setText("Lorem ipsum dolor sit amet [...]");
+			
+			FileSystemResource file = new FileSystemResource(new File("/root/uploads/Anhang.txt"));
+			
+			helper.addAttachment("Anhang.txt", file);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		} finally {
+		}
+		javaMailSender.send(mim);
+		// return helper;
+	}
+	
+	
 
 }
