@@ -24,6 +24,9 @@ public class WorkshopsManager {
 		List<Workshop> result = new ArrayList<Workshop>();
 
 		for (Workshop workshop : workshopRepository.findAll()) {
+			if (workshop.getId() == 0) {
+				break;
+			}
 			result.add(workshop);
 		}
 

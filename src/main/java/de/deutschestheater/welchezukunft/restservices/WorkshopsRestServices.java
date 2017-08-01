@@ -53,7 +53,7 @@ public class WorkshopsRestServices {
 		System.out.println("Send back workshops List");
 
 		List<Workshop> result = workshops.getWorkshops();
-
+		
 		return result;
 	}
 	
