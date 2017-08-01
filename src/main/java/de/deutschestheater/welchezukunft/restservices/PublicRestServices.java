@@ -66,26 +66,6 @@ public class PublicRestServices {
 
 		user.setStatus(Status.ANGEMELDET);
 		
-		// Send Mail
-
-		ProcessBuilder pb = new ProcessBuilder("/bin/sh", "-c", "echo Hallo | mail -s test " + user.getMail());
-		Map<String, String> env = pb.environment();
-		// env.put("VAR1", "myValue");
-		// env.remove("OTHERVAR");
-		// env.put("VAR2", env.get("VAR1") + "suffix");
-		pb.directory(new File("/root"));
-		// File log = new File("log");
-		pb.redirectErrorStream(true);
-		// pb.redirectOutput(Redirect.appendTo(log));
-		Process p;
-		try {
-			p = pb.start();
-			assert pb.redirectInput() == Redirect.PIPE;
-			// assert pb.redirectOutput().file() == log;
-			assert p.getInputStream().read() == -1;
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
 		
 		//  Check and set Modus
 		
@@ -123,14 +103,10 @@ public class PublicRestServices {
 			user.setStatus(Status.ZUZUTEILEN);
 		} else if (user.getModus().equals(Modus.NORMAL)) {
 			
-			
-			if (workshops.isFull(user.getWorkshopId())) {
-				user.setStatus(Status.WARTELISTE);
-			} else {
-				user.setStatus(Status.ZUGELASSEN);
-			}
-
+			user.setStatus(Status.ZUGELASSEN);
 		}
+
+		
 
 		users.updateUser(user);
 

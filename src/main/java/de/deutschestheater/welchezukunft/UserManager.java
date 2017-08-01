@@ -22,28 +22,11 @@ public class UserManager {
 
 		User oldUser = userRepository.findOne(id);
 		Workshop oldWorkshop;
+		
+		userRepository.delete(oldUser);
+		
+		updateWorkshops();
 
-		if (oldUser != null) {
-			userRepository.delete(oldUser);
-
-			switch (oldUser.getStatus()) {
-			case ZUGELASSEN:
-				oldWorkshop = workshops.getWorkshop(oldUser.getWorkshopId());
-				oldWorkshop.setBelegt(oldWorkshop.getBelegt() - 1);
-				workshops.setWorkshop(oldWorkshop);
-				break;
-			case ZURÜCKGEMELDET:
-				oldWorkshop = workshops.getWorkshop(oldUser.getWorkshopId());
-				oldWorkshop.setBelegt(oldWorkshop.getBelegt() - 1);
-				workshops.setWorkshop(oldWorkshop);
-				break;
-			default:
-				break;
-			}
-
-			userRepository.delete(oldUser);
-
-		}
 	}
 
 	public void deleteUserHandler(User user) {
@@ -58,35 +41,24 @@ public class UserManager {
 		user.setDatum(java.sql.Timestamp.valueOf(now));
 
 		userRepository.save(user);
+		
+		updateWorkshops();
 	}
-	
 
 	public void updateUser(User user) {
 		
-		
-		User oldUser = userRepository.findOne(user.getId());
-
-		if (oldUser == null) {
-			// ToDo Error
-		} else {
-			
-			System.out.println("old user not null");
-			
-			// update belegte Plätze
-			
-			if (user.getStatus() == Status.ZUGELASSEN || user.getStatus() == Status.ZURÜCKGEMELDET) {
-				System.out.println("belegt+1");
-				Workshop newWorkshop = workshops.getWorkshop(user.getWorkshopId());
-				newWorkshop.setBelegt(newWorkshop.getBelegt()+1);
-			}
-			if (user.getPrevStatus() == Status.ZUGELASSEN || user.getPrevStatus() == Status.ZURÜCKGEMELDET) {
-				Workshop oldWorkshop = workshops.getWorkshop(oldUser.getWorkshopId());
-				oldWorkshop.setBelegt(oldWorkshop.getBelegt()-1);
-				System.out.println("belegt-1");
-			}
-		}
-
 		userRepository.save(user);
+
+		updateWorkshops();
+		
+		Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
+			
+		if ( (workshop.getBelegt() + workshop.getBlockiert()) > workshop.getMax()) {
+				user.setStatus(Status.WARTELISTE);
+				
+				updateWorkshops();
+		}
+				
 	}
 
 	public User getUser(long id) {
@@ -136,6 +108,36 @@ public class UserManager {
 		return res;
 	}
 
-	// ToDo Status angemeldet rauslassen
+	public synchronized void updateWorkshops() {
+
+		for (Workshop workshop : workshops.getWorkshops()) {
+			workshop.setBelegt(0);
+			workshop.setWarteliste(0);
+		}
+		
+		for (User user : userRepository.findAll()) {
+
+			Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
+
+			switch (user.getStatus()) {
+
+			case ANGEMELDET:
+				break;
+			case ZUZUTEILEN:
+				break;
+			case WARTELISTE:
+				workshop.setWarteliste(workshop.getWarteliste() + 1);
+				break;
+			case ZUGELASSEN:
+				workshop.setBelegt(workshop.getBelegt() + 1);
+				break;
+			case ZURÜCKGEMELDET:
+				workshop.setBelegt(workshop.getBelegt() + 1);
+			default:
+				break;
+			}
+		}
+
+	}
 
 }

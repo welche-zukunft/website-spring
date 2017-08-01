@@ -30,6 +30,8 @@ public class User {
 		
 	private Long workshopId;
 	
+	private Long prevWorkshopId = (long)-1;
+	
 	@Column(length = 3000) 
 	private String motivation;
 	
@@ -183,6 +185,16 @@ public class User {
 
 	public void setPrevStatus(Status prevStatus) {
 		this.prevStatus = prevStatus;
+	}
+	
+	
+
+	public Long getPrevWorkshopId() {
+		return prevWorkshopId;
+	}
+
+	public void setPrevWorkshopId(Long prevWorkshopId) {
+		this.prevWorkshopId = prevWorkshopId;
 	}
 
 	@Override

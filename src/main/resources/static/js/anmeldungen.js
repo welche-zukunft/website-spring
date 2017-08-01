@@ -1,7 +1,7 @@
-angular.module('main').controller('anmeldungen', ['ChangeContentService', 
+angular.module('main').controller('anmeldungen', ['ChangeContentService', '$scope', 
 	
 	
-	function(ChangeContentService) {
+	function(ChangeContentService, $scope) {
 		
 	
 	console.log('anmeldungen ');
@@ -62,6 +62,7 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService',
 		self.user = user;
 		console.log(self.user);
 	}
+	
 	
 	function changeUser(user){
 		console.log('change user...');

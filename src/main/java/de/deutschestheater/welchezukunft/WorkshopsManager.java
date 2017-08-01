@@ -84,5 +84,8 @@ public class WorkshopsManager {
 	public boolean isFull(Workshop workshop) {
 		return isFull(workshop.getId());
 	}
+	
+	
+	
 
 }
