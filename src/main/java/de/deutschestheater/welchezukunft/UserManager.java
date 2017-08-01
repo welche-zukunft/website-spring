@@ -124,21 +124,26 @@ public class UserManager {
 		
 		for (User user : userRepository.findAll()) {
 
-			Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
+			Workshop workshop = workshops.getWorkshop(user.getWorkshopId());1
 
 			switch (user.getStatus()) {
 
 			case ANGEMELDET:
+				System.out.println("ANGEMELDET!");
 				break;
 			case ZUZUTEILEN:
+				System.out.println("ZUZUTEILEN!");
 				break;
 			case WARTELISTE:
+				System.out.println("WARTELISTE!");
 				workshop.setWarteliste(workshop.getWarteliste() + 1);
 				break;
 			case ZUGELASSEN:
+				System.out.println("ZUGELASSEN!");
 				workshop.setBelegt(workshop.getBelegt() + 1);
 				break;
 			case ZURÜCKGEMELDET:
+				System.out.println("ZURÜCKGEMELDET!");
 				workshop.setBelegt(workshop.getBelegt() + 1);
 			default:
 				break;
