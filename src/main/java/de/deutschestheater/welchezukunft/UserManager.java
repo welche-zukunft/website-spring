@@ -61,6 +61,8 @@ public class UserManager {
 		if ( (workshop.getBelegt() + workshop.getBlockiert()) > workshop.getMax()) {
 				user.setStatus(Status.WARTELISTE);
 				
+				userRepository.save(user);
+
 				updateWorkshops();
 		}
 				
