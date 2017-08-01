@@ -151,6 +151,7 @@ public class UserManager {
 			}
 			
 			System.out.print("BELEGT :::::::: :::::::::   " + workshop.getBelegt());
+			workshops.setWorkshop(workshop);
 
 		}
 		
