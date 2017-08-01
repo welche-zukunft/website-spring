@@ -155,8 +155,8 @@ public class PublicRestServices {
 	} 
 	
 	
-	@RequestMapping("/freeslot/")
-	public ResponseEntity<String> freeslot(@RequestBody Long workshopId) {
+	@RequestMapping("/isfull/")
+	public ResponseEntity<String> isfull(@RequestBody Long workshopId) {
 		System.out.println("Save new user...");
 				
 		if (workshops.isFull(workshopId)) {
