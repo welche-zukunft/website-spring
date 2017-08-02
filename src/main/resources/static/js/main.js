@@ -48,9 +48,9 @@ angular.module('main', [ 'ngRoute' ])
 
 // DEFINE SERVICES
 
-.factory('ChangeContentService', ['$http', '$q', function($http, $q){
+.factory('ChangeContentService', ['$http', '$q', '$location', function($http, $q, $location){
  
-    var REST_SERVICE_URI = 'https://welchezukunft.org/admin';
+    var REST_SERVICE_URI = '//' + $location.$$host + ':' + $location.$$port + '/admin';
  
     var factory = {
     	changeWorkshop : changeWorkshop,
