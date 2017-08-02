@@ -117,7 +117,7 @@ public class PublicRestServices {
 	
 	@RequestMapping("/removeuser/")
 	public ResponseEntity<String> removeuser(@RequestBody String mail) {
-		System.out.println("Save new user...");
+		System.out.println("remove user...");
 		
 		// get User ID from mail
 		
@@ -134,7 +134,7 @@ public class PublicRestServices {
 	
 	@RequestMapping("/isfull/")
 	public ResponseEntity<String> isfull(@RequestBody Long workshopId) {
-		System.out.println("Save new user...");
+		System.out.println("is full?...");
 				
 		if (workshops.isFull(workshopId)) {
 			return ResponseEntity.status(HttpStatus.OK).body("full");
