@@ -50,7 +50,7 @@ angular.module('main', [ 'ngRoute' ])
 
 .factory('ChangeContentService', ['$http', '$q', function($http, $q){
  
-    var REST_SERVICE_URI = 'http://139.59.135.131:8090/admin';
+    var REST_SERVICE_URI = 'https://welchezukunft.org/admin';
  
     var factory = {
     	changeWorkshop : changeWorkshop,
