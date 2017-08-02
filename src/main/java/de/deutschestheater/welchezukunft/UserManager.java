@@ -67,7 +67,7 @@ public class UserManager {
 		if (user.getStatus() == Status.ZUZUTEILEN && user.getWorkshopId() != 0) {
 			user.setStatus(Status.ZUGELASSEN);
 			
-			//send(user.getMail());
+			send(user.getMail());
 		}
 		
 		userRepository.save(user);
@@ -187,7 +187,7 @@ public class UserManager {
 			helper.setTo(mail);
 			helper.setFrom("info@welchezukunft.org");
 			helper.setSubject("Lorem ipsum");
-			helper.setText("Lorem ipsum dolor sit amet [...]");
+			helper.setText("Lorem ipsum dolor sit amet [...]");*/
 			
 			
 			String htmlMsg = new String(Files.readAllBytes(Paths.get("/root/uploads/zugeteilt_mail.html")));
@@ -199,7 +199,7 @@ public class UserManager {
 			helper.setSubject("Zuteilung");
 			helper.setFrom("info@welchezukunft.org");
 			javaMailSender.send(mim);
-			*/
+			
 			
 			
 			//helper.addAttachment("Anhang.txt", file);
@@ -207,6 +207,7 @@ public class UserManager {
 			e.printStackTrace();
 		} finally {
 		}
+		//javaMailSender.send(mim);
 		// return helper;
 	}
 	
