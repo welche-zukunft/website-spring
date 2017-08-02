@@ -36,6 +36,8 @@ public class Workshop {
 	private Integer warteliste = 0;
 	
 	private Integer belegt = 0;
+	
+	private String anmerkungen = "";
 
 	
 	public String getTitel() {
@@ -141,7 +143,17 @@ public class Workshop {
 	public void setBelegt(Integer belegt) {
 		this.belegt = belegt;
 	}
+	
+	
 
+
+	public String getAnmerkungen() {
+		return anmerkungen;
+	}
+
+	public void setAnmerkungen(String anmerkungen) {
+		this.anmerkungen = anmerkungen;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

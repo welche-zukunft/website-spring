@@ -3,6 +3,25 @@ angular.module('main').controller('workshops', ['ChangeContentService', '$scope'
 	var self = this;
 	
 	self.workshops = [];
+	self.changeWorkshop = changeWorkshop;
+	
+	self.workshop={
+			id: 0,
+			leiterIn:'',
+			titel:'',
+			logline:'', 
+			kurzinfo:'', 
+			intro:'', 
+			cvWorkshopleiterIn:'', 
+			moderatorIn:'', 
+			cvModeratorIn:'',
+			max : 0,
+			blockiert : 0,
+			warteliste : 0,
+			belegt : 0,
+			anmerkungen : ''
+	};
+
 	
 	getWorkshops();
 	
@@ -32,7 +51,6 @@ angular.module('main').controller('workshops', ['ChangeContentService', '$scope'
 	
 	
 	function setActiveWorkshop(workshop){
-		
 		
 		self.workshop = workshop;
 		
@@ -86,5 +104,17 @@ angular.module('main').controller('workshops', ['ChangeContentService', '$scope'
         }
         );
 	}
+	
+	
+	
+	function changeWorkshop(workshop){
+    	console.log('Change contnent...');
+        ChangeContentService.changeWorkshop(workshop)
+            .then(
+            function(errResponse){
+                console.error('Error while changing content 2');
+            }
+        );
+    }
 	
 }]);
