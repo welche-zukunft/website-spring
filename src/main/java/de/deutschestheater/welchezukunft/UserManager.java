@@ -187,9 +187,9 @@ public class UserManager {
 			helper.setSubject("Lorem ipsum");
 			helper.setText("Lorem ipsum dolor sit amet [...]");
 			
-			FileSystemResource file = new FileSystemResource(new File("/root/uploads/Anhang.txt"));
+			//FileSystemResource file = new FileSystemResource(new File("/root/uploads/Anhang.txt"));
 			
-			helper.addAttachment("Anhang.txt", file);
+			//helper.addAttachment("Anhang.txt", file);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		} finally {
