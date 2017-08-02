@@ -190,7 +190,7 @@ public class UserManager {
 			helper.setText("Lorem ipsum dolor sit amet [...]");*/
 			
 			
-			//String htmlMsg = new String(Files.readAllBytes(Paths.get("/root/uploads/zugeteilt_mail.html")));
+			String htmlMsg = new String(Files.readAllBytes(Paths.get("/root/uploads/zugeteilt_mail.html")));
 
 			
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
@@ -201,14 +201,12 @@ public class UserManager {
 			javaMailSender.send(mim);
 			
 			
-			FileSystemResource file = new FileSystemResource(new File("/root/uploads/zugeteilt_mail.html"));
 			
 			//helper.addAttachment("Anhang.txt", file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 		}
-		javaMailSender.send(mim);
 		// return helper;
 	}
 	
