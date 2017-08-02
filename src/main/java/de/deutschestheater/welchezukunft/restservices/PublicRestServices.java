@@ -121,7 +121,7 @@ public class PublicRestServices {
 		
 		// get User ID from mail
 		
-		Long id = (long) mail.hashCode();
+		Long id = (long) mail.toLowerCase().hashCode();
 		
 		// clean remove 
 		
