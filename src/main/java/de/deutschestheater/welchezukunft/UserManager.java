@@ -190,11 +190,11 @@ public class UserManager {
 			helper.setText("Lorem ipsum dolor sit amet [...]");*/
 			
 			
-			String htmlMsg = new String(Files.readAllBytes(Paths.get("/root/uploads/zugeteilt_mail.html")));
+			//String htmlMsg = new String(Files.readAllBytes(Paths.get("/root/uploads/zugeteilt_mail.html")));
 
 			
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
-			mim.setContent(htmlMsg, "text/html");
+			mim.setContent("Hallo", "text/html");
 			helper.setTo(mail);
 			helper.setSubject("Zuteilung");
 			helper.setFrom("info@welchezukunft.org");
