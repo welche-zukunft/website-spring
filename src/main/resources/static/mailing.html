@@ -27,86 +27,72 @@
 		<tr>
 		
 		<td width="30vh">
-		<label for="zuname">alle</label>
+		<label>alle</label>
 		<br>
-		<select name="top5" size="1">
-				<option></option>
+		<select size="1">
 				<option>alle</option>
+		</select>
+		<button type="button" id="hinzufügen">zu Empfängern hinzufügen</button>
 		</td>
 		<td width="30vh">
-		<label for="zuname">Workshopteilnehmer</label>
+		<label>Workshops</label>
 		<br>
-			<select name="top5" size="1">
-				<option></option>
-				<option>Ökonomie I</option>
-				<option>Ökonomie II</option>
-				<option>Ökonomie III</option>
-				<option>Nachhaltige Ökonomie</option>
-				<option>Staatsbankrott </option>
-				<option>Risikomanagement</option>
-				<option>Energieversorgung</option>
-				<option>Extremwetter</option>
-				<option>Geopolitik</option>
-				<option>Arbeit I</option>
-				<option>Arbeit II</option>
+			<select size="1">
+				<option>Workshopname</option>
 			</select>
+			<button type="button" id="hinzufügen">zu Empfängern hinzufügen</button>
 		</td>
 		<td width="30vh">
-		<label for="zuname">Einzelperson</label>
+		<label>Person</label>
 		<br>
 			<select ng-model='ctrl.mail.ziel' name="top5" size="1">
-				<option></option>
-				<option ng-value='"test@alexh.name"'">Annika Meier</option>
-				<option>Dagobert Mann</option>
-				<option>Hennriette Kübler</option>
-				<option>Maurice Holster</option>
-				<option>Olaf Hauser</option>
-				<option>Marianne Schuster</option>
-				<option>Maike Jolander</option>
-				<option>Siegmund Jähn</option>
-				<option>David Fehlmann</option>
+				<option>Name, Vorname</option>
 			</select>
+			<button type="button" id="hinzufügen">zu Empfängern hinzufügen</button>
 		</td>
 		</tr>
 		</table>
 		<br>
-		<label for="zuname">Titel</label>  	
-		<input ng-model='ctrl.mail.titel' type="text" name="zuname" id="zuname" maxlength="80" size="80"> 
-		<label for="zuname">Inhalt</label>
+		<div>
+		<label>An:</label>  
+		<br>		
+		<textarea ng-model='ctrl.mail.ziel' rows="3" cols="90"></textarea>
+		</div>
+		<br>
+		<div>
+		<label>Betreff</label>  
+		<br>		
+		<input ng-model='ctrl.mail.titel' type="text" maxlength="80" size="80"> 
+		</div>
+		<br>
+		<div>
+		<label>Inhalt</label>
+		<br>
 		<textarea ng-model='ctrl.mail.inhalt' rows="30" cols="90"></textarea>
+		</div>
+		<br>
+		<label>Anhang</label>
+		<br>
 		<table width="95%" border="1" class="thintable">
-		<tr class="headline">
-		<td width="70vh">
-		<a href="infos.pdf">infos.pdf (239.7 kb)</a>
-		</td>
-		<td width="30vh">
-		
-		<button ng-click="ctrl.sendMail(ctrl.mail)">Senden</button>
-		
-		<form method="POST" enctype="multipart/form-data" id="anhang">
-			<table>
-				<input name="file" ng-value="ctrl.fileToUpload" value="{{ctrl.fileToUpload}}" file-model="ctrl.fileToUpload" set-file-data="ctrl.fileToUpload = value;" type="file" id="my_file" />
-			</table>
-						
-		</form>
-		
-		
-		<button ng-click="ctrl.uploadAttachment()">
-		
-		
-		
-		<select ng-model="filterCondition.operator">
-       		<option 
-           ng-repeat="file in self.files" 
-           value="{{file.name}}">
-           {{file.name}}
-       		</option>
-		
-		</td>
-
-	  </tr>
-
-	</table>
+			<tr class="headline">
+				<td width="70vh">
+				<a href="#"></a>
+				</td>
+			
+				<td width="30vh">						
+					<button ng-click="ctrl.uploadAttachment()" style="width:90%;">		
+					<select ng-model="filterCondition.operator" style="width:90%;" >
+						<option 
+					   ng-repeat="file in self.files" 
+					   value="{{file.name}}">
+					   {{file.name}}
+						</option>	
+				</td>
+			</tr>
+		</table>
+	<br>
+	<button type="submit" ng-click="ctrl.sendMail(ctrl.mail)">Senden</button>
+	<br>
 	</div>
   </body>
   
