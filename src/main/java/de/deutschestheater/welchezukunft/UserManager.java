@@ -179,7 +179,7 @@ public class UserManager {
 	}
 	
 	
-	private void send(String mail) {
+	private synchronized void send(String mail) {
 		MimeMessage mim = javaMailSender.createMimeMessage();
 		
 		try {
@@ -208,7 +208,7 @@ public class UserManager {
 			e.printStackTrace();
 		} finally {
 		}
-		javaMailSender.send(mim);
+		
 		// return helper;
 	}
 	

@@ -48,10 +48,16 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService', '$scop
             function(result){
             	console.log(result);
                 self.users = result;
+                if(!$scope.$$phase) {
+            		$scope.$apply();
+        		}
                 return result;
                 
             },
             function(errResponse){
+            	if(!$scope.$$phase) {
+            		$scope.$apply();
+        		}
                 console.error('Error while getting users');
             }
         );
@@ -69,10 +75,12 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService', '$scop
 		ChangeContentService.changeUser(user)
         .then(
         function(result){
+        	getUsers();
             console.log(result);
         },
         function(errResponse){
             console.error('Error while changing user');
+            getUsers();
         }
         );
 	}
@@ -100,6 +108,9 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService', '$scop
         			modus: '-',
         			sprache: '-'
         	};
+            if(!$scope.$$phase) {
+        		$scope.$apply();
+    		}
         },
         function(errResponse){
             console.error('Error while deleting user');
@@ -119,6 +130,9 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService', '$scop
         			modus: '-',
         			sprache: '-'
         	};
+            if(!$scope.$$phase) {
+        		$scope.$apply();
+    		}
         }
         );
 	}
