@@ -67,7 +67,7 @@ public class UserManager {
 		if (user.getStatus() == Status.ZUZUTEILEN && user.getWorkshopId() != 0) {
 			user.setStatus(Status.ZUGELASSEN);
 			
-			send(user.getMail());
+			//send(user.getMail());
 		}
 		
 		userRepository.save(user);
