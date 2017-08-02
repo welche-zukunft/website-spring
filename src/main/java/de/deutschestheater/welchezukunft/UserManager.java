@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import enumutils.Status;
 
@@ -181,16 +183,28 @@ public class UserManager {
 		MimeMessage mim = javaMailSender.createMimeMessage();
 		
 		try {
-			MimeMessageHelper helper = new MimeMessageHelper(mim, true);
+			/*MimeMessageHelper helper = new MimeMessageHelper(mim, true);
 			helper.setTo(mail);
 			helper.setFrom("info@welchezukunft.org");
 			helper.setSubject("Lorem ipsum");
-			helper.setText("Lorem ipsum dolor sit amet [...]");
+			helper.setText("Lorem ipsum dolor sit amet [...]");*/
 			
-			//FileSystemResource file = new FileSystemResource(new File("/root/uploads/Anhang.txt"));
+			
+			String htmlMsg = new String(Files.readAllBytes(Paths.get("/root/uploads/zugeteilt_mail.html")));
+
+			
+			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
+			mim.setContent(htmlMsg, "text/html");
+			helper.setTo(mail);
+			helper.setSubject("Zuteilung");
+			helper.setFrom("info@welchezukunft.org");
+			javaMailSender.send(mim);
+			
+			
+			FileSystemResource file = new FileSystemResource(new File("/root/uploads/zugeteilt_mail.html"));
 			
 			//helper.addAttachment("Anhang.txt", file);
-		} catch (MessagingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 		}
