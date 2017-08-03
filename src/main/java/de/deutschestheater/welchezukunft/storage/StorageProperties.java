@@ -8,7 +8,7 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
-    private String location = "/uploads/zukunft";
+    private String location = "/uploads/zukunft/files";
 
     public String getLocation() {
         return location;

@@ -67,7 +67,7 @@ public class UserManager {
 		if (user.getStatus() == Status.ZUZUTEILEN && user.getWorkshopId() != 0) {
 			user.setStatus(Status.ZUGELASSEN);
 			
-			//send(user.getMail());
+			send(user.getMail());
 		}
 		
 		userRepository.save(user);
@@ -190,12 +190,12 @@ public class UserManager {
 			helper.setText("Lorem ipsum dolor sit amet [...]");*/
 			
 			
-			String htmlMsg = new String(Files.readAllBytes(Paths.get("/home/lars/zugeteilt_mail.html")));
+			String htmlMsg = new String(Files.readAllBytes(Paths.get("/uploads/zukunft/mails/zugeteilt_mail.html")));
 
 			
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
 			mim.setContent("Hallo", "text/html");
-			helper.setTo(mail);
+			helper.setTo("test@alexh.name");
 			helper.setSubject("Zuteilung");
 			helper.setFrom("info@welchezukunft.org");
 			javaMailSender.send(mim);
