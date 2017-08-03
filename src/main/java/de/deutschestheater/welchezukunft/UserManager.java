@@ -1,6 +1,5 @@
 package de.deutschestheater.welchezukunft;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,12 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import java.nio.file.Files;
@@ -29,7 +26,7 @@ public class UserManager {
 
 	@Autowired
 	private WorkshopsManager workshops;
-	
+
 	@Autowired
 	private JavaMailSender javaMailSender;
 
@@ -37,9 +34,9 @@ public class UserManager {
 
 		User oldUser = userRepository.findOne(id);
 		Workshop oldWorkshop;
-		
+
 		userRepository.delete(oldUser);
-		
+
 		updateWorkshops();
 
 	}
@@ -49,9 +46,8 @@ public class UserManager {
 	}
 
 	public synchronized void addUser(User user) {
-		
-		System.out.println("Add user...");
 
+		System.out.println("Add user...");
 
 		// Set Date
 
@@ -59,70 +55,55 @@ public class UserManager {
 		user.setDatum(java.sql.Timestamp.valueOf(now));
 
 		userRepository.save(user);
-		
+
 		updateWorkshops();
 	}
 
 	public synchronized void updateUser(User user) {
-		
-		boolean sendZugeteiltMail = false;
-		
+
 		System.out.println("Update user");
-		
-		if (user.getStatus() == Status.ZUZUTEILEN && user.getWorkshopId() != 0) {
-			user.setStatus(Status.ZUGELASSEN);
-			
-			sendZugeteiltMail = true;
-		}
-		
-		userRepository.save(user);
 
-		updateWorkshops();
-		
 		Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
-			
-		if ( (workshop.getBelegt() + workshop.getBlockiert()) > workshop.getMax()) {
-				user.setStatus(Status.WARTELISTE);
-				
-				sendZugeteiltMail = false;
-				
-				userRepository.save(user);
 
-				updateWorkshops();
-				
+		if (user.getStatus() == Status.ZUZUTEILEN && user.getWorkshopId() != 0) {
+
+			updateWorkshops();
+
+			if (workshops.isFull(user.getWorkshopId())) {
+				user.setStatus(Status.WARTELISTE);
+			} else {
+				user.setStatus(Status.ZUGELASSEN);
+
+				// send Notification that the user is ZUGELASSEN
+
 				try {
 					String workshopname = workshop.getTitel();
-					Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/warteliste.html")); 
-				        
-				    String inhalt = lines.collect(Collectors.joining()).replaceAll("REPLACEWORKSHOP", workshopname);    
+					Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/zugeteilt.html"));
+					String inhalt = lines.collect(Collectors.joining()).replaceAll("REPLACEWORKSHOP", workshopname);
 					String adresse = user.getMail();
 					String betreff = "Warteliste";
 					send(adresse, betreff, inhalt);
-					
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-		}
-		
-		
-		if (sendZugeteiltMail) {
-			
-			try {
-				String workshopname = workshop.getTitel();
-				Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/zugeteilt.html"));
-			        
-			    String inhalt = lines.collect(Collectors.joining());    
-				String adresse = user.getMail();
-				String betreff = "Warteliste";
-				send(adresse, betreff, inhalt);
-				
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
-			
+
 		}
-				
+
+		userRepository.save(user);
+
+		updateWorkshops();
+
+		if ((workshop.getBelegt() + workshop.getBlockiert()) > workshop.getMax()) {
+			user.setStatus(Status.WARTELISTE);
+
+			userRepository.save(user);
+
+			updateWorkshops();
+
+		}
+
 	}
 
 	public synchronized User getUser(long id) {
@@ -173,15 +154,15 @@ public class UserManager {
 	}
 
 	public synchronized void updateWorkshops() {
-		
+
 		System.out.println("update Workshops...");
-		
+
 		System.out.println("Set Belegung Null");
 		for (Workshop workshop : workshops.getWorkshops()) {
 			workshop.setBelegt(0);
 			workshop.setWarteliste(0);
 		}
-		
+
 		for (User user : userRepository.findAll()) {
 
 			Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
@@ -208,47 +189,36 @@ public class UserManager {
 			default:
 				break;
 			}
-			
+
 			System.out.print("BELEGT :::::::: :::::::::   " + workshop.getBelegt());
 			workshops.setWorkshop(workshop);
 
 		}
-		
 
 	}
-	
-	
-	private void send(String adresse, 
-				String betreff,
-				String inhalt) {
+
+	public void send(String adresse, String betreff, String inhalt) {
 		MimeMessage mim = javaMailSender.createMimeMessage();
-		
+
 		try {
-			
-			
-			
+
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
-			
+
 			mim.setContent(inhalt, "text/html; charset=utf-8");
-			
+
 			helper.setTo("postmaster@mail.welchezukunft.org");
-			
+
 			helper.setSubject(betreff);
-			
+
 			helper.setFrom("info@welchezukunft.org");
-			
+
 			javaMailSender.send(mim);
-		
-			
-			//helper.addAttachment("Anhang.txt", file);
+
+			// helper.addAttachment("Anhang.txt", file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 		}
-		//javaMailSender.send(mim);
-		// return helper;
 	}
-	
-	
 
 }

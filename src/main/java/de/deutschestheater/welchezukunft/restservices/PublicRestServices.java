@@ -1,8 +1,13 @@
 package de.deutschestheater.welchezukunft.restservices;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,10 +108,27 @@ public class PublicRestServices {
 		if (user.getModus().equals(Modus.OLYMPISCH)) {
 			user.setStatus(Status.ZUZUTEILEN);
 		} else if (user.getModus().equals(Modus.NORMAL)) {
+						
+			users.updateWorkshops();
 			
-			user.setStatus(Status.ZUGELASSEN);
+			if (workshops.isFull(user.getWorkshopId())) {
+				user.setStatus(Status.WARTELISTE);
+				
+				try {
+					Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/warteliste.html")); 
+				        
+				    String inhalt = lines.collect(Collectors.joining());    
+					String adresse = user.getMail();
+					String betreff = "Warteliste";
+					users.send(adresse, betreff, inhalt);
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				user.setStatus(Status.ZUGELASSEN);
+			}
 		}
-
 		
 
 		users.updateUser(user);
