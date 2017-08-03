@@ -62,12 +62,14 @@ public class UserManager {
 
 	public synchronized void updateUser(User user) {
 		
+		boolean sendmail = false;
+		
 		System.out.println("Update user");
 		
 		if (user.getStatus() == Status.ZUZUTEILEN && user.getWorkshopId() != 0) {
 			user.setStatus(Status.ZUGELASSEN);
 			
-			send(user.getMail());
+			sendmail = true;
 		}
 		
 		userRepository.save(user);
@@ -79,9 +81,16 @@ public class UserManager {
 		if ( (workshop.getBelegt() + workshop.getBlockiert()) > workshop.getMax()) {
 				user.setStatus(Status.WARTELISTE);
 				
+				sendmail = false;
+				
 				userRepository.save(user);
 
 				updateWorkshops();
+		}
+		
+		
+		if (sendmail) {
+			send(user.getMail());
 		}
 				
 	}
@@ -194,7 +203,7 @@ public class UserManager {
 
 			
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
-			mim.setContent(htmlMsg, "text/html");
+			mim.setContent(htmlMsg, "text/html; charset=utf-8");
 			helper.setTo("postmaster@mail.welchezukunft.org");
 			helper.setSubject("Zuteilung");
 			helper.setFrom("info@welchezukunft.org");
