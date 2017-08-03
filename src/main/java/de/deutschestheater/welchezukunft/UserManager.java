@@ -65,6 +65,8 @@ public class UserManager {
 		
 		System.out.println("##################  Status vor updateUser " + userRepository.findOne(user.getId()).getStatus());
 
+		Status oldStatus = userRepository.findOne(user.getId()).getStatus();		
+		
 		System.out.println("Update user");
 
 		Workshop workshop = workshops.getWorkshop(user.getWorkshopId());
@@ -78,7 +80,7 @@ public class UserManager {
 			} else {
 				user.setStatus(Status.ZUGELASSEN);
 
-				// send Notification that the user is ZUGELASSEN
+				// From ZUZUTEILEN to ZUGELASSEN
 
 				try {
 					String workshopname = workshop.getTitel();
@@ -107,6 +109,26 @@ public class UserManager {
 			updateWorkshops();
 
 		}
+		
+		Status newStatus = user.getStatus();
+		
+		
+		// From WARTELISTE to ZUGELASSEN
+		
+		if (newStatus.equals(Status.ZUGELASSEN) && oldStatus.equals(Status.WARTELISTE)) {
+			try {
+				String workshopname = workshop.getTitel();
+				Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/zugeteilt.html"));
+				String inhalt = lines.collect(Collectors.joining()).replaceAll("REPLACEWORKSHOP", workshopname);
+				String adresse = user.getMail();
+				String betreff = "Warteliste";
+				send(adresse, betreff, inhalt);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 
 	}
 
