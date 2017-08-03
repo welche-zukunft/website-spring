@@ -91,7 +91,7 @@ public class UserManager {
 				String inhalt;
 				try {
 					String workshopname = workshop.getTitel();
-					inhalt = new String(Files.readAllBytes(Paths.get("/uploads/zukunft/mails/warteliste.html")))
+					inhalt = new String(Files.readAllBytes(Paths.get("/uploads/zukunft/mails/warteliste.html")));
 					String adresse = user.getMail();
 					String betreff = "Warteliste";
 					send(adresse, betreff, inhalt);
