@@ -62,6 +62,8 @@ public class UserManager {
 	}
 
 	public synchronized void updateUser(User user) {
+		
+		System.out.println("##################  Status vor updateUser " + userRepository.findOne(user.getId()).getStatus());
 
 		System.out.println("Update user");
 
