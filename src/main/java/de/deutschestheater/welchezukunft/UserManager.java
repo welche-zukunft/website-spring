@@ -94,7 +94,7 @@ public class UserManager {
 					String workshopname = workshop.getTitel();
 					Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/warteliste.html")); 
 				        
-				    String inhalt = lines.collect(Collectors.joining());    
+				    String inhalt = lines.collect(Collectors.joining()).replaceAll("REPLACEWORKSHOP", workshopname);    
 					String adresse = user.getMail();
 					String betreff = "Warteliste";
 					send(adresse, betreff, inhalt);
