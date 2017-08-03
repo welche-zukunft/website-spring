@@ -1,6 +1,7 @@
 package de.deutschestheater.welchezukunft;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,14 +63,14 @@ public class UserManager {
 
 	public synchronized void updateUser(User user) {
 		
-		boolean sendmail = false;
+		boolean sendZugeteiltMail = false;
 		
 		System.out.println("Update user");
 		
 		if (user.getStatus() == Status.ZUZUTEILEN && user.getWorkshopId() != 0) {
 			user.setStatus(Status.ZUGELASSEN);
 			
-			sendmail = true;
+			sendZugeteiltMail = true;
 		}
 		
 		userRepository.save(user);
@@ -81,16 +82,42 @@ public class UserManager {
 		if ( (workshop.getBelegt() + workshop.getBlockiert()) > workshop.getMax()) {
 				user.setStatus(Status.WARTELISTE);
 				
-				sendmail = false;
+				sendZugeteiltMail = false;
 				
 				userRepository.save(user);
 
 				updateWorkshops();
+				
+				String inhalt;
+				try {
+					String workshopname = workshop.getTitel();
+					inhalt = new String(Files.readAllBytes(Paths.get("/uploads/zukunft/mails/warteliste.html")))
+					String adresse = user.getMail();
+					String betreff = "Warteliste";
+					send(adresse, betreff, inhalt);
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
 		}
 		
 		
-		if (sendmail) {
-			send(user.getMail());
+		if (sendZugeteiltMail) {
+			
+			String inhalt;
+			try {
+				String workshopname = workshop.getTitel();
+				inhalt = new String(Files.readAllBytes(Paths.get("/uploads/zukunft/mails/zugeteilt.html")))
+						.replace("REPLACEWORKSHOP", workshopname);
+				String adresse = user.getMail();
+				String betreff = "Zugeteilt";
+				send(adresse, betreff, inhalt);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
 				
 	}
@@ -188,28 +215,27 @@ public class UserManager {
 	}
 	
 	
-	private void send(String mail) {
+	private void send(String adresse, 
+				String betreff,
+				String inhalt) {
 		MimeMessage mim = javaMailSender.createMimeMessage();
 		
 		try {
-			/*MimeMessageHelper helper = new MimeMessageHelper(mim, true);
-			helper.setTo(mail);
-			helper.setFrom("info@welchezukunft.org");
-			helper.setSubject("Lorem ipsum");
-			helper.setText("Lorem ipsum dolor sit amet [...]");*/
 			
 			
-			String htmlMsg = new String(Files.readAllBytes(Paths.get("/uploads/zukunft/mails/zugeteilt_mail.html")));
-
 			
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
-			mim.setContent(htmlMsg, "text/html; charset=utf-8");
-			helper.setTo("postmaster@mail.welchezukunft.org");
-			helper.setSubject("Zuteilung");
+			
+			mim.setContent(inhalt, "text/html; charset=utf-8");
+			
+			helper.setTo(adresse);
+			
+			helper.setSubject(betreff);
+			
 			helper.setFrom("info@welchezukunft.org");
+			
 			javaMailSender.send(mim);
-			
-			
+		
 			
 			//helper.addAttachment("Anhang.txt", file);
 		} catch (Exception e) {
