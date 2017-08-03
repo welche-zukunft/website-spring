@@ -210,7 +210,7 @@ public class UserManager {
 
 			mim.setContent(inhalt, "text/html; charset=utf-8");
 
-			helper.setTo("adresse");
+			helper.setTo(adresse);
 
 			helper.setSubject(betreff);
 
