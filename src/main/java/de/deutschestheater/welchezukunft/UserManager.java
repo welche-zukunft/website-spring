@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -197,6 +199,8 @@ public class UserManager {
 
 	}
 
+	
+	@Async
 	public void send(String adresse, String betreff, String inhalt) {
 		MimeMessage mim = javaMailSender.createMimeMessage();
 
