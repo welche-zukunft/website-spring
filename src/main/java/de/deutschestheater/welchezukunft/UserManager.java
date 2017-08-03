@@ -87,7 +87,7 @@ public class UserManager {
 					Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/zugeteilt.html"));
 					String inhalt = lines.collect(Collectors.joining()).replaceAll("REPLACEWORKSHOP", workshopname);
 					String adresse = user.getMail();
-					String betreff = "Warteliste";
+					String betreff = "Welche Zukunft?! // Which Future?!: Sie wurden einem Workshop zugewiesen // You've been assigned to a workshop";
 					send(adresse, betreff, inhalt);
 
 				} catch (IOException e) {
@@ -121,7 +121,7 @@ public class UserManager {
 				Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/zugeteilt.html"));
 				String inhalt = lines.collect(Collectors.joining()).replaceAll("REPLACEWORKSHOP", workshopname);
 				String adresse = user.getMail();
-				String betreff = "Warteliste";
+				String betreff = "Welche Zukunft?! // Which Future?!: Sie haben einen Platz bekommen // You have gotten a place";
 				send(adresse, betreff, inhalt);
 
 			} catch (IOException e) {
