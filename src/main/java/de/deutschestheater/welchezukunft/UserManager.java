@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -88,10 +90,11 @@ public class UserManager {
 
 				updateWorkshops();
 				
-				String inhalt;
 				try {
 					String workshopname = workshop.getTitel();
-					inhalt = new String(Files.readAllBytes(Paths.get("/uploads/zukunft/mails/warteliste.html")));
+					Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/warteliste.html")); 
+				        
+				    String inhalt = lines.collect(Collectors.joining());    
 					String adresse = user.getMail();
 					String betreff = "Warteliste";
 					send(adresse, betreff, inhalt);
@@ -105,13 +108,13 @@ public class UserManager {
 		
 		if (sendZugeteiltMail) {
 			
-			String inhalt;
 			try {
 				String workshopname = workshop.getTitel();
-				inhalt = new String(Files.readAllBytes(Paths.get("/uploads/zukunft/mails/zugeteilt.html")))
-						.replace("REPLACEWORKSHOP", workshopname);
+				Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/zugeteilt.html"));
+			        
+			    String inhalt = lines.collect(Collectors.joining());    
 				String adresse = user.getMail();
-				String betreff = "Zugeteilt";
+				String betreff = "Warteliste";
 				send(adresse, betreff, inhalt);
 				
 			} catch (IOException e) {
