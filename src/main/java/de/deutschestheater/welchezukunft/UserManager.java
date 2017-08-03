@@ -194,7 +194,7 @@ public class UserManager {
 
 			
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
-			mim.setContent("Hallo", "text/html");
+			mim.setContent(htmlMsg, "text/html");
 			helper.setTo("postmaster@mail.welchezukunft.org");
 			helper.setSubject("Zuteilung");
 			helper.setFrom("info@welchezukunft.org");
