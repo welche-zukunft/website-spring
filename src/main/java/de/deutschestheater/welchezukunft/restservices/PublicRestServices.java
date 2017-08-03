@@ -119,7 +119,7 @@ public class PublicRestServices {
 				        
 				    String inhalt = lines.collect(Collectors.joining());    
 					String adresse = user.getMail();
-					String betreff = "Warteliste";
+					String betreff = "Welche Zukunft?! // Which Future?!: Sie wurden der Warteliste hinzugefügt // You've been added to the waiting list";
 					users.send(adresse, betreff, inhalt);
 					
 				} catch (IOException e) {
