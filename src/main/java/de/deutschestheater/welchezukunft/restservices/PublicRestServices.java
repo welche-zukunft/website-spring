@@ -1,11 +1,8 @@
 package de.deutschestheater.welchezukunft.restservices;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -120,13 +117,25 @@ public class PublicRestServices {
 				    String inhalt = lines.collect(Collectors.joining());    
 					String adresse = user.getMail();
 					String betreff = "Welche Zukunft?! // Which Future?!: Sie wurden der Warteliste hinzugefügt // You've been added to the waiting list";
-					users.send(adresse, betreff, inhalt);
+					users.send(adresse, betreff, inhalt, 60000);
 					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			} else {
 				user.setStatus(Status.ZUGELASSEN);
+				
+				try {
+					String workshopname = workshops.getWorkshop(user.getWorkshopId()).getTitel();
+					Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/zugeteilt.html"));
+					String inhalt = lines.collect(Collectors.joining()).replaceAll("REPLACEWORKSHOP", workshopname);
+					String adresse = user.getMail();
+					String betreff = "Welche Zukunft?! // Which Future?!: Sie haben einen Platz bekommen // You have gotten a place";
+					users.send(adresse, betreff, inhalt, 60000);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
@@ -167,6 +176,30 @@ public class PublicRestServices {
 		}
 		
 	}
+	
+	
+	@RequestMapping("/reportback/")
+	public ResponseEntity<String> reportback(@RequestBody String mail) {
+		System.out.println("report back from user...");
+		
+		// get User ID from mail
+		
+		Long id = (long) mail.toLowerCase().hashCode();
+		
+		User user = users.getUser(id);
+		
+		user.setStatus(Status.ZURÜCKGEMELDET);
+		
+		// clean remove 
+		
+		users.updateUser(user);    // ToDo  User not there Exception
+
+		return ResponseEntity.status(HttpStatus.OK).body("success");
+
+	} 
+	
+	
+	
 	
 	
 	

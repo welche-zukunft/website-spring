@@ -88,7 +88,7 @@ public class UserManager {
 					String inhalt = lines.collect(Collectors.joining()).replaceAll("REPLACEWORKSHOP", workshopname);
 					String adresse = user.getMail();
 					String betreff = "Welche Zukunft?! // Which Future?!: Sie wurden einem Workshop zugewiesen // You've been assigned to a workshop";
-					send(adresse, betreff, inhalt);
+					send(adresse, betreff, inhalt, 0);
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -121,8 +121,8 @@ public class UserManager {
 				Stream<String> lines = Files.lines(Paths.get("/uploads/zukunft/mails/zugeteilt.html"));
 				String inhalt = lines.collect(Collectors.joining()).replaceAll("REPLACEWORKSHOP", workshopname);
 				String adresse = user.getMail();
-				String betreff = "Welche Zukunft?! // Which Future?!: Sie haben einen Platz bekommen // You have gotten a place";
-				send(adresse, betreff, inhalt);
+				String betreff = "Welche Zukunft?! // Which Future?!: Sie sind nachgerückt // You have gotten a place";
+				send(adresse, betreff, inhalt, 0);
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -225,10 +225,12 @@ public class UserManager {
 
 	
 	@Async
-	public void send(String adresse, String betreff, String inhalt) {
+	public void send(String adresse, String betreff, String inhalt, int delay) {
 		MimeMessage mim = javaMailSender.createMimeMessage();
-
+		
 		try {
+			
+			Thread.sleep(delay);
 
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
 
