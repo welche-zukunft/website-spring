@@ -227,10 +227,16 @@ public class UserManager {
 	@Async
 	public void send(String adresse, String betreff, String inhalt, int delay) {
 		MimeMessage mim = javaMailSender.createMimeMessage();
+		System.out.println("Enter asynchronous mail send method...");
 		
 		try {
-						
 			
+			System.out.println("sleep...");
+
+			Thread.sleep(10);
+			
+			System.out.println("woke up");
+
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
 
 			mim.setContent(inhalt, "text/html; charset=utf-8");
@@ -247,6 +253,8 @@ public class UserManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			System.out.println("... Exit asynchronous mail send method");
+
 		}
 	}
 
