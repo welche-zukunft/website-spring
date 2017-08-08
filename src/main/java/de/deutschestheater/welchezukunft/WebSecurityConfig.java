@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 	      .httpBasic().and()
 	      .authorizeRequests()
-		    .antMatchers("/confirmregistration/").hasIpAddress("127.0.0.1/32")
+		    .antMatchers("/confirmregistration/",  "/removeuser/").hasIpAddress("127.0.0.1/32")
 	        .antMatchers("/index.html", "/login.html", "/", "/adduser/", "/confirmregistration/", "/removeuser/", "/isfull/", "/reportback/").permitAll()
 	        .antMatchers("/js/**").permitAll()
 	        .antMatchers("/css/**").permitAll()
