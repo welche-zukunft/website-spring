@@ -233,7 +233,7 @@ public class UserManager {
 			
 			System.out.println("sleep...");
 
-			Thread.sleep(10);
+			Thread.sleep(delay);
 			
 			System.out.println("woke up");
 
