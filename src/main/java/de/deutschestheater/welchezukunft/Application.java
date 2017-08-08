@@ -22,8 +22,9 @@ import de.deutschestheater.welchezukunft.storage.StorageProperties;
 import de.deutschestheater.welchezukunft.storage.StorageService;
 
 @SpringBootApplication
+@EnableAsync
 @EnableConfigurationProperties(StorageProperties.class)
-public class Application {
+public class Application extends AsyncConfigurerSupport{
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -45,6 +46,17 @@ public class Application {
             storageService.deleteAll();
             storageService.init();
         };
+    }
+    
+    @Override
+    public Executor getAsyncExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);
+        executor.setMaxPoolSize(2);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("GithubLookup-");
+        executor.initialize();
+        return executor;
     }
 
     

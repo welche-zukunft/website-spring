@@ -229,9 +229,8 @@ public class UserManager {
 		MimeMessage mim = javaMailSender.createMimeMessage();
 		
 		try {
+						
 			
-			Thread.sleep(delay);
-
 			MimeMessageHelper helper = new MimeMessageHelper(mim, false, "utf-8");
 
 			mim.setContent(inhalt, "text/html; charset=utf-8");
