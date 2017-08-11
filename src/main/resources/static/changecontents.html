@@ -1,6 +1,21 @@
 <!doctype html>
 <html lang="de">
 <head>
+
+<style>
+	td {
+		vertical-align:top;
+	}
+	
+	td form {
+		margin-top:2ch;
+	}
+	
+	td form:first-child {
+		margin-top:0;
+	}
+</style>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>backend welche zukunft ?!</title>
@@ -97,8 +112,8 @@
 
 								<button ng-click="ctrl.removeEvent(tupel.event)">Event Löschen</button>
 								
-								<button class="button" ngf-select ng-model="tupel.file" name="file" >Select</button>  {{tupel.file.name}}
-  								
+								<button class="button" ngf-select ng-model="tupel.file" name="file" >Bild wählen</button>  {{tupel.file.name}}
+  								<hr>
   								<button type="submit" ng-click="ctrl.submitEvent(tupel)">Speichern</button>
   								
 
@@ -128,8 +143,8 @@
 								<textarea ng-model='ctrl.newTupel.event.embedcode' rows="2" cols="50"></textarea>
 								
 								
-								<button class="button" ngf-select ng-model="ctrl.newTupel.file" name="file" >Select</button>  {{ctrl.newTupel.file.name}}
-  								
+								<button class="button" ngf-select ng-model="ctrl.newTupel.file" name="file" >Bild wählen</button>  {{ctrl.newTupel.file.name}}
+  								<hr>
   								<button type="submit" ng-click="ctrl.submitEvent(ctrl.newTupel)">Hinzufügen</button>
 
 
