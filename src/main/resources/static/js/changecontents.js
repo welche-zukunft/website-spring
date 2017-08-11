@@ -49,15 +49,24 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
     }
 
     
-    function submitEvent() {
-    	console.log("Hallo i bims 1 Event");
-    }
-    function removeEvent() {
-    	console.log("Hallo i bims k1 Event");
-    }
-    function addEvent() {
-    	console.log("Hallo i bims add Event");
-    }
+
+	function removeEvent(event){
+		console.log('delete event...');
+		ChangeContentService.removeEvent(event)
+        .then(
+        function(result){
+            console.log(result);
+            getEvents(self.workshop.id);
+
+        },
+        function(errResponse){
+            console.error('Error while deleting user');
+            getEvents(self.workshop.id);
+
+        }
+        );
+	}
+
     
     
     function changeWorkshop(workshop){
@@ -123,7 +132,8 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
     };
     
     
-    self.submitEvent = function(tupel) {
+    
+    function submitEvent(tupel) {
     	
     	tupel.event.workshopId = self.workshop.id;
     	
@@ -154,6 +164,10 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
             	
             	result.forEach(function (eventToAdd, index){
             		console.log('EventToAdd ' + eventToAdd.ueberschrift);
+            		
+            		if (eventToAdd.filename == ""){
+            			eventToAdd.filename = "https://ksiazka.net.pl/img/placeholder.png"
+            		}
             		
             		tupelToAdd = {
             				event : eventToAdd,

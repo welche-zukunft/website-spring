@@ -95,7 +95,7 @@
 								<img ng-src="{{tupel.event.filename}}" width="300" border="0">
 								<hr>
 
-								<button ng-click="ctrl.removeEvent()">Event Löschen</button>
+								<button ng-click="ctrl.removeEvent(tupel.event)">Event Löschen</button>
 								
 								<button class="button" ngf-select ng-model="tupel.file" name="file" >Select</button>  {{tupel.file.name}}
   								
@@ -127,9 +127,6 @@
 								<label>Embed Code</label>
 								<textarea ng-model='ctrl.newTupel.event.embedcode' rows="2" cols="50"></textarea>
 								
-
-
-								<button ng-click="ctrl.removeEvent()">Event Löschen</button>
 								
 								<button class="button" ngf-select ng-model="ctrl.newTupel.file" name="file" >Select</button>  {{ctrl.newTupel.file.name}}
   								

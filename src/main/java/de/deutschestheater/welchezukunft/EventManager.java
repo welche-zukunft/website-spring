@@ -35,14 +35,13 @@ public class EventManager {
 	public synchronized void deleteEventHandler(int id) {
 
 		Event oldEvent = eventRepository.findOne(id);
-		Workshop oldWorkshop;
 
 		eventRepository.delete(oldEvent);
 
 
 	}
 
-	public synchronized void deleteUserHandler(Event event) {
+	public synchronized void deleteEventHandler(Event event) {
 		deleteEventHandler(event.getId());
 	}
 

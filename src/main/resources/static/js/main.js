@@ -62,7 +62,8 @@ angular.module('main', [ 'ngRoute', 'ngFileUpload' ])
     	sendMail : sendMail,
     	getNewUsers : getNewUsers,
     	getFiles : getFiles,
-    	getEvents : getEvents
+    	getEvents : getEvents,
+    	removeEvent : removeEvent
     };
  
     return factory;
@@ -259,6 +260,25 @@ angular.module('main', [ 'ngRoute', 'ngFileUpload' ])
         );
         return deferred.promise;
     }
+	
+	
+	function removeEvent(event) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + "/deleteevent/", event)
+            .then(
+            function (response) {
+                console.log('Success on deleting events');
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while deleting events ');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+	
+
 
  
 }])

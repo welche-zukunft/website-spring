@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import de.deutschestheater.welchezukunft.AttachmentRepository;
 import de.deutschestheater.welchezukunft.Event;
 import de.deutschestheater.welchezukunft.EventManager;
+import de.deutschestheater.welchezukunft.User;
 import de.deutschestheater.welchezukunft.UserManager;
 import de.deutschestheater.welchezukunft.Workshop;
 import de.deutschestheater.welchezukunft.storage.StorageFileNotFoundException;
@@ -136,6 +138,19 @@ public class EventRestServices {
        
         return result;
     }
+    
+    
+    
+	@RequestMapping("/admin/deleteevent/")
+	public ResponseEntity<String> deleteUser(@RequestBody Event event) {
+		System.out.println("change user...");
+
+		// ToDo: Add data validation
+
+		events.deleteEventHandler(event);
+
+		return ResponseEntity.status(HttpStatus.OK).body("success");
+	}
     
 
 }
