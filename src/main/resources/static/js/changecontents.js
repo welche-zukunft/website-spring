@@ -38,7 +38,6 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
  
     self.submit = submit;
     self.submitEvent = submitEvent;
-    self.addEvent = addEvent;
     self.removeEvent = removeEvent;
 
 
