@@ -1,31 +1,28 @@
 package de.deutschestheater.welchezukunft.restservices;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import de.deutschestheater.welchezukunft.AttachmentRepository;
+import de.deutschestheater.welchezukunft.Event;
+import de.deutschestheater.welchezukunft.EventManager;
+import de.deutschestheater.welchezukunft.UserManager;
 import de.deutschestheater.welchezukunft.Workshop;
 import de.deutschestheater.welchezukunft.storage.StorageFileNotFoundException;
 import de.deutschestheater.welchezukunft.storage.StorageService;
@@ -36,14 +33,19 @@ import de.deutschestheater.welchezukunft.Attachment;
 
 
 @RestController
-public class FileUploadController {
+public class EventRestServices {
+	
+	
+	@Autowired 
+	EventManager events;
+
 	
 	private AttachmentRepository fileRepository;
 
     private final StorageService storageService;
 
     @Autowired
-    public FileUploadController(StorageService storageService) {
+    public EventRestServices(StorageService storageService) {
         this.storageService = storageService;
     }
 
@@ -57,7 +59,7 @@ public class FileUploadController {
                 .collect(Collectors.toList()));
 
         return "success";
-    }*/
+    }
 
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
@@ -66,36 +68,56 @@ public class FileUploadController {
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    }
+    }*/
+    
+    
+    
 
-    @PostMapping("/admin/mailattachment")
-    public @ResponseBody String handleFileUpload(@RequestPart("file") MultipartFile file, @RequestPart("workshop") Workshop workshop, RedirectAttributes redirectAttributes) {
+    @PostMapping("/admin/changeEvent")
+    public @ResponseBody String handleFileUpload(@RequestPart("file") Optional<MultipartFile> optFile, @RequestPart("event") Event event, RedirectAttributes redirectAttributes) {
     	
-    	/*System.out.println("Filename : " + file.getName());
-    	System.out.println("Original Filename : " + file.getOriginalFilename());
-
-    	System.out.println(workshop.getTitel());
+    	if(!optFile.isPresent()) {
+    		System.out.println("No file present");
+            events.updateEvent(event);
+            return "success";
+    	}
+    	
+    	MultipartFile file = optFile.get();
+    	    	
+    	System.out.println(file.getOriginalFilename());
+    	System.out.println(event.getUeberschrift());
     	
     	Attachment attachment = new Attachment();
     	attachment.setName(file.getOriginalFilename());
-
-
-        storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");*/
-        
-        
-        new File("/var/www/html/uploads/" + workshop.getTitel()).mkdirs();
-        
-        storageService.store(file, Paths.get("/var/www/html/uploads/" + workshop.getTitel()));
+    	
+    	String location = "/var/www/html/uploads/" + event.getUeberschrift();
+    	
+    	new File(location).mkdirs();
+    
+        storageService.store(file, Paths.get("/var/www/html/uploads/" + event.getUeberschrift()));
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         
-        
-        
+        events.updateEvent(event);
+
         return "success";
     }
+    
+    
+    
+    @RequestMapping("/admin/getevents/{id}")
+	public List<Event> getWorkshop(@PathVariable long id) {
 
+		System.out.println("Send back workshop " + id);
+
+		List<Event> result = events.getAll(id);
+
+		return result;
+	}
+    
+    
+
+    
     @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
@@ -103,8 +125,7 @@ public class FileUploadController {
     
     
     
-    
-    @PostMapping("/admin/getfiles/")
+    @PostMapping("/admin/getfiles2/")
     public List<Attachment> getFiles() {
     	
     	List<Attachment> result = new ArrayList<Attachment>();

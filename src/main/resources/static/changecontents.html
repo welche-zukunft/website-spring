@@ -11,11 +11,13 @@
 
 
 <body>
-
+	
 
 		<div class="main">
 			<table align="center" class="backendTable" border="1">
-
+				
+				<tr>
+					<td>
 
 						<h4>Inhalte verändern</h4>
 
@@ -60,12 +62,131 @@
 							<input type="submit" id="submit" value="Submit">Speichern</input>
 
 							<button type="reset">Eingaben zurücksetzen</button>
+							
+							
 
 							<br> <br>
 						</form>
 
+					</td>
+					
+					<td class="rechtespalte">
 
 
+
+						<div ng-repeat="tupel in ctrl.eventTupels">
+
+							<form>
+
+
+								<h4 class="batchtitle">Event 1</h4>
+								<label>Überschrift</label> 
+								<input ng-model='tupel.event.ueberschrift' type="text" maxlength="80" size="50"> 
+								
+								<label>Jahr</label> 
+								<input ng-model='tupel.event.jahr' type="text" maxlength="4" size="10"> 
+									 
+								<label>Text</label>
+								<textarea ng-model='tupel.event.text' rows="7" cols="50"></textarea>
+								
+								<label>Embed Code</label>
+								<textarea ng-model='tupel.event.embedcode' rows="2" cols="50"></textarea>
+								
+								<img src="http://www.chip.de/ii/5/6/7/6/2/8/4/8/43dff6dc96b32060.jpeg" width="42" height="42" border="0">
+								
+
+								<button ng-click="ctrl.removeEvent()">Event Löschen</button>
+								
+								<button class="button" ngf-select ng-model="tupel.file" name="file" >Select</button>  {{tupel.file.name}}
+  								
+  								<button type="submit" ng-click="ctrl.submitEvent(tupel)">Speichern</button>
+  								
+
+							</form>
+
+						</div>
+
+						<hr>
+						
+						
+
+
+						<form>
+
+
+								<h4 class="batchtitle">Neues Event</h4>
+								<label>Überschrift</label> 
+								<input ng-model='ctrl.newTupel.event.ueberschrift' type="text" maxlength="80" size="50"> 
+								
+								<label>Jahr</label> 
+								<input ng-model='ctrl.newTupel.event.jahr' type="text" maxlength="4" size="10"> 
+									 
+								<label>Text</label>
+								<textarea ng-model='ctrl.newTupel.event.text' rows="7" cols="50"></textarea>
+								
+								<label>Embed Code</label>
+								<textarea ng-model='ctrl.newTupel.event.embedcode' rows="2" cols="50"></textarea>
+								
+								<img src="http://www.chip.de/ii/5/6/7/6/2/8/4/8/43dff6dc96b32060.jpeg" width="42" height="42" border="0">
+								
+
+								<button ng-click="ctrl.removeEvent()">Event Löschen</button>
+								
+								<button class="button" ngf-select ng-model="ctrl.newTupel.file" name="file" >Select</button>  {{ctrl.newTupel.file.name}}
+  								
+  								<button type="submit" ng-click="ctrl.submitEvent(ctrl.newTupel)">Hinzufügen</button>
+
+
+						</form>
+
+				
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<form name="form">
+  						<button class="button" ngf-select ng-model="ctrl.file" name="file" >Select</button>  {{ctrl.file.name}}
+  						<button type="submit" ng-click="ctrl.submitEvent()">submit</button>
+					</form>
+
+					
+					</td>
+					
+									
+
+			
+				</tr>
 			</table>
 		</div>
 </body>

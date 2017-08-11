@@ -1,9 +1,16 @@
-angular.module('main').controller('changecontents', ['ChangeContentService', '$routeParams', function(ChangeContentService, $routeParams) {
+angular.module('main').controller('changecontents', ['ChangeContentService', '$routeParams', '$scope', 'Upload', '$http', function(ChangeContentService, $routeParams, $scope, Upload, $http) {
 	var self = this;
 	
 	console.log("change contents " + $routeParams.param1);
 	
 	getWorkshop($routeParams.param1);
+	
+	self.newTupel = {
+		event : { ueberschrift : '', jahr : '', text : '', embedcode : '', workshopId : 0},
+		file : null
+	}
+
+	self.eventTupels = [];
 		
 	self.workshop={
 			id: 0,
@@ -21,7 +28,13 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
 			belegt : 0
 	};
 	
-    self.events=[1,2,3,4,5];
+	self.newEvent={
+		id : 0,
+		ueberschrift : 'sdfds',
+		jahr : '1999',
+		text : 'blubbfischifischi',
+		embedcode : 'nix'
+	};
  
     self.submit = submit;
     self.submitEvent = submitEvent;
@@ -64,6 +77,7 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
             function(result){
             	self.workshop = result;
                 console.log(result.leiterIn);
+                getEvents(self.workshop.id);
             },
             function(errResponse){
                 console.error('Error while getting Workshop');
@@ -84,5 +98,94 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
             }
         );
     }
+    
+    
+    
+    self.upload = function (file, event) {
+        Upload.upload({
+            url: '/admin/changeEvent',
+            data: {file: file, event : Upload.jsonBlob(event), 'username': $scope.username}
+        }).then(function (resp) {
+            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            
+            getEvents(self.workshop.id);            
+            
+        }, function (resp) {
+            console.log('ToDo : Error status: ' + resp.status);
+            
+            getEvents(self.workshop.id);
+            
+            
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+        });
+    };
+    
+    
+    self.submitEvent = function(tupel) {
+    	
+    	tupel.event.workshopId = self.workshop.id;
+    	
+    	if (tupel.file != null){
+        	tupel.event.filename = tupel.file.name;
+    	}
+    	
+    	console.log(tupel.event);	
+    	self.upload(tupel.file, tupel.event);
+    };
 
+    
+    
+    function getEvents(workshopId){
+    	console.log('get events for workshop ' + workshopId);
+        ChangeContentService.getEvents(workshopId)
+            .then(
+            function(result){
+            	
+            	if (result.length == 0){
+            		return;
+            	} 
+            	
+                console.log('Result : ' + result[0].ueberschrift);
+            	
+            	self.eventTupels = [];
+            	
+            	
+            	result.forEach(function (eventToAdd, index){
+            		console.log('EventToAdd ' + eventToAdd.ueberschrift);
+            		
+            		tupelToAdd = {
+            				event : eventToAdd,
+            				file : null
+            		}
+            		
+            		self.eventTupels.push(tupelToAdd);
+            		
+            		console.log('EventToAdd ' + eventToAdd);
+            	});
+            		
+            	self.newTupel = {
+            			event : {
+            				ueberschrift : '',
+            				jahr : '',
+            				filename : '',
+            				embedcode : ''
+            			},
+            			file : null
+            	}
+            	            	
+                console.log('Event Tupels  '+ self.eventTupels);
+            },
+            function(errResponse){
+                console.error('Error while getting Workshops');
+            }
+        );
+    	
+    	
+    }
+
+    
+    
+    
 }]);

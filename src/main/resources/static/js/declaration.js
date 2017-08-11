@@ -1,1 +1,1 @@
-angular.module('main', [ 'ngRoute' ]);
+angular.module('main', [ 'ngRoute', 'ngFileUpload' ]);

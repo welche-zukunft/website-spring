@@ -19,7 +19,7 @@ angular.module('main').controller('anmeldungen', ['ChangeContentService', '$scop
 	self.setActiveUser = setActiveUser;
 	self.changeUser = changeUser;
 	self.deleteUser = deleteUser;
-
+	
 	
 	self.user={
 			id: '-',

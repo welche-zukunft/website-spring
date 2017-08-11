@@ -1,6 +1,7 @@
 package de.deutschestheater.welchezukunft;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -8,11 +9,11 @@ import javax.persistence.ManyToOne;
 public class Event {
 	
 	@Id
+	@GeneratedValue
 	private Integer id;
 	
-	@ManyToOne
-	private Workshop workshop;
-	
+	private Long workshopId;
+		
 	private String ueberschrift;
 	
 	// Todo: Validation 
@@ -22,20 +23,14 @@ public class Event {
 	
 	private String embedcode;
 	
+	private String filename;
+	
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Workshop getWorkshop() {
-		return workshop;
-	}
-
-	public void setWorkshop(Workshop workshop) {
-		this.workshop = workshop;
 	}
 
 	public String getUeberschrift() {
@@ -69,6 +64,24 @@ public class Event {
 	public void setEmbedcode(String embedcode) {
 		this.embedcode = embedcode;
 	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public Long getWorkshopId() {
+		return workshopId;
+	}
+
+	public void setWorkshopId(Long workshopId) {
+		this.workshopId = workshopId;
+	}
+	
+	
 
 
 }

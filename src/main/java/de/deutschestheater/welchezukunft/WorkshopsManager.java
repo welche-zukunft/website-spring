@@ -58,16 +58,23 @@ public class WorkshopsManager {
 		workshopRepository.save(workshop);
 	}
 
-	public synchronized List<Event> getEvents(Workshop workshop) {
+	public synchronized List<Event> getEvents(long workshopId) {
 		List<Event> events = new ArrayList<Event>();
 
 		for (Event event : eventRepository.findAll()) {
-			if (event.getWorkshop().equals(workshop)) {
+			if (event.getWorkshopId().equals(workshopId)) {
 				events.add(event);
 			}
 		}
 
 		return events;
+
+	}
+	
+	
+	public synchronized List<Event> getEvents(Workshop workshop) {
+
+		return getEvents(workshop.getId());
 
 	}
 

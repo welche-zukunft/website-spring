@@ -1,4 +1,4 @@
-angular.module('main', [ 'ngRoute' ])
+angular.module('main', [ 'ngRoute', 'ngFileUpload' ])
 
 
 // ROUTING CONFIGURATION
@@ -61,7 +61,8 @@ angular.module('main', [ 'ngRoute' ])
     	deleteUser : deleteUser,
     	sendMail : sendMail,
     	getNewUsers : getNewUsers,
-    	getFiles : getFiles
+    	getFiles : getFiles,
+    	getEvents : getEvents
     };
  
     return factory;
@@ -227,22 +228,37 @@ angular.module('main', [ 'ngRoute' ])
 
 	function getFiles() {
 	
-	
-    var deferred = $q.defer();
-    $http.post(REST_SERVICE_URI + "/getfiles/" )
+		var deferred = $q.defer();
+		$http.post(REST_SERVICE_URI + "/getfiles/" )
         .then(
-        function (response) {
-            console.log('Success on getting files');
-            deferred.resolve(response.data);
-            console.log('response data : ' + response.data);
-        },
-        function(errResponse){
-            console.error('Error while getting files ');
-            deferred.reject(errResponse);
-        }
-    );
-    return deferred.promise;
-}
+        	function (response) {
+        		console.log('Success on getting files');
+        		deferred.resolve(response.data);
+        		console.log('response data : ' + response.data);
+        	},
+        	function(errResponse){
+        		console.error('Error while getting files ');
+            	deferred.reject(errResponse);
+        	}
+        );
+    	return deferred.promise;
+	}
+	
+	function getEvents(id) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + "/getevents/" + id + "/")
+            .then(
+            function (response) {
+                console.log('Success on getting events');
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while getting events ');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
 
  
 }])
