@@ -92,8 +92,8 @@
 								<label>Embed Code</label>
 								<textarea ng-model='tupel.event.embedcode' rows="2" cols="50"></textarea>
 								
-								<img src="http://www.chip.de/ii/5/6/7/6/2/8/4/8/43dff6dc96b32060.jpeg" width="42" height="42" border="0">
-								
+								<img ng-src="{{tupel.event.filename}}" width="42" height="42" border="0">
+								<hr>
 
 								<button ng-click="ctrl.removeEvent()">Event Löschen</button>
 								
@@ -127,8 +127,7 @@
 								<label>Embed Code</label>
 								<textarea ng-model='ctrl.newTupel.event.embedcode' rows="2" cols="50"></textarea>
 								
-								<img src="http://www.chip.de/ii/5/6/7/6/2/8/4/8/43dff6dc96b32060.jpeg" width="42" height="42" border="0">
-								
+
 
 								<button ng-click="ctrl.removeEvent()">Event Löschen</button>
 								
@@ -171,14 +170,6 @@
 					
 					
 					
-					
-					
-					
-					
-					<form name="form">
-  						<button class="button" ngf-select ng-model="ctrl.file" name="file" >Select</button>  {{ctrl.file.name}}
-  						<button type="submit" ng-click="ctrl.submitEvent()">submit</button>
-					</form>
 
 					
 					</td>

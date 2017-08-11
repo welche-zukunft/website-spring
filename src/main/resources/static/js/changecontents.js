@@ -128,7 +128,7 @@ angular.module('main').controller('changecontents', ['ChangeContentService', '$r
     	tupel.event.workshopId = self.workshop.id;
     	
     	if (tupel.file != null){
-        	tupel.event.filename = tupel.file.name;
+        	//tupel.event.filename = tupel.file.name;
     	}
     	
     	console.log(tupel.event);	

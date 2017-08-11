@@ -87,12 +87,12 @@ public class EventRestServices {
     	System.out.println(file.getOriginalFilename());
     	System.out.println(event.getUeberschrift());
     	
-    	Attachment attachment = new Attachment();
-    	attachment.setName(file.getOriginalFilename());
     	
     	String location = "/var/www/html/uploads/" + event.getUeberschrift();
     	
     	new File(location).mkdirs();
+    	
+    	event.setFilename("welchezukunft.org/uploads/" + event.getUeberschrift() + "/" + file.getOriginalFilename());
     
         storageService.store(file, Paths.get("/var/www/html/uploads/" + event.getUeberschrift()));
         redirectAttributes.addFlashAttribute("message",
