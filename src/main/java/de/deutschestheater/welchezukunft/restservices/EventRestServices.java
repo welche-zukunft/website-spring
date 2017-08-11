@@ -92,7 +92,7 @@ public class EventRestServices {
     	
     	new File(location).mkdirs();
     	
-    	event.setFilename("welchezukunft.org/uploads/" + event.getUeberschrift() + "/" + file.getOriginalFilename());
+    	event.setFilename("https://welchezukunft.org/uploads/" + event.getUeberschrift() + "/" + file.getOriginalFilename());
     
         storageService.store(file, Paths.get("/var/www/html/uploads/" + event.getUeberschrift()));
         redirectAttributes.addFlashAttribute("message",
