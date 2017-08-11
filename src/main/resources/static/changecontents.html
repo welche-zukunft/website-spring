@@ -88,13 +88,13 @@
 					<td class="rechtespalte">
 
 
-
+						<h4 class="batchtitle">Events</h4>
+						
 						<div ng-repeat="tupel in ctrl.eventTupels">
 
 							<form>
 
-
-								<h4 class="batchtitle">Event 1</h4>
+								<h4 class="batchtitle">Event {{tupel.event.id}}</h4>
 								<label>Überschrift</label> 
 								<input ng-model='tupel.event.ueberschrift' type="text" maxlength="80" size="50"> 
 								
