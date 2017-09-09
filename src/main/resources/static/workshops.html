@@ -63,7 +63,9 @@
 								<td><a href="#">show</a></td>
 								<td>{{user.vorname}} {{user.nachname}}</td>
 								<td>{{user.datum}}</td>
-								<td></td>
+								<td>
+									<div ng-if="user.status == 'ZURÜCKGEMELDET'">&#10004;</div>
+								</td>
 							</tr>
 
 
